@@ -20,9 +20,12 @@ connection.once('open', () => {
 const productsRouter = require('./routes/products')
 const categoriesRouter = require('./routes/categories')
 const ordersRouter = require('./routes/orders')
+const customerRouter = require('./routes/customers')
 
 app.use('/products', productsRouter)
 app.use('/categories', categoriesRouter)
+app.use('/orders', ordersRouter)
+app.use('/customers', customerRouter)
 // app.use('/orders', ordersRouter)
 
 app.listen(port, () => {

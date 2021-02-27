@@ -1,24 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from './logo.svg'
+import { BrowserRouter as Router, Route } from "react-router-dom"
+import "bootstrap/dist/css/bootstrap.min.css"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+import Navbar from "./components/navbar.component"
+import ProductsList from "./components/product/products-list.component"
+import OrdersList from "./components/order/orders-list.component"
+import EditProduct from "./components/product/edit-product.component"
+import EditOrder from "./components/order/edit-order.component"
+
+import CreateProduct from "./components/product/create-product.component"
+import CreateCategory from "./components/category/create-category.component"
+import CreateOrder from "./components/order/create-order.component"
+import Sidebar from "./components/layouts/sidebar.component"
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Navbar />
+        <Sidebar />
+      <Route path="/products" component={ProductsList} />
+      <Route path="/orders" component={OrdersList} />
+      <Route path="/edit/product/:id" component={EditProduct} />
+      <Route path="/edit/order/:id" component={EditOrder} />
+
+      <Route path="/create-product" component={CreateProduct} />
+      <Route path="/create-category" component={CreateCategory} />
+      <Route path="/create-order" component={CreateOrder} />
+      <ToastContainer />
+    </Router>
   );
 }
 
