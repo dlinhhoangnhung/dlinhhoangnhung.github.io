@@ -14,7 +14,7 @@ export default class ProductsList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/products')
+        axios.get('http://localhost:5001/products')
             .then(response => {
                 this.setState({
                     isLoading: 0
@@ -34,7 +34,7 @@ export default class ProductsList extends Component {
     }
 
     deleteProduct(id) {
-        axios.delete('http://localhost:5000/products/' + id)
+        axios.delete('http://localhost:5001/products/' + id)
             .then(res => console.log(res.data))
         this.setState({
             products: this.state.products.filter(p => p._id !== id)
@@ -61,7 +61,6 @@ export default class ProductsList extends Component {
                         <thead className="thead-light">
                             <tr>
                                 <th>ID</th>
-                                <th>Date</th>
                                 <th>Name</th>
 
                                 <th>Action</th>

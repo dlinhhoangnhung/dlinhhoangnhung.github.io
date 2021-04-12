@@ -29,7 +29,7 @@ export default class EditProduct extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/products/' + this.props.match.params.id)
+        axios.get('http://localhost:5001/products/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     name: response.data.name,
@@ -44,7 +44,7 @@ export default class EditProduct extends Component {
                 console.log(err);
             })
 
-        axios.get('http://localhost:5000/categories')
+        axios.get('http://localhost:5001/categories')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -108,7 +108,7 @@ export default class EditProduct extends Component {
 
         console.log(product)
 
-        axios.post('http://localhost:5000/products/update/' + this.props.match.params.id, product)
+        axios.post('http://localhost:5001/products/update/' + this.props.match.params.id, product)
             .then(res => {
                 console.log(res.data)
                 toast("Update successfully :)", {

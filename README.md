@@ -1,7 +1,4 @@
-nodejs + reactjs
+error: k signin dc
 
-product: create
-
-
-
-create category
+user login success, react redirect home page
+admin  login  success, react redirect admin page

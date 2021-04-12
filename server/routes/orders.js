@@ -1,11 +1,26 @@
 const router = require('express').Router()
 const { Mongoose } = require('mongoose')
 let Order = require('../models/order.model')
+let Customer = require('../models/customer.model')
 
-router.route('/').get((req, res) => {
-    Order.find()
-        .then(orders => res.json(orders))
-        .catch(err => res.status(400).json('Error' + err))
+router.route('/').get(async (req, res) => {
+    Order.aggregate([
+        {
+            $lookup: //you can see at document
+            {
+                from: "customers", // collection name in mongodb, not model
+                localField: "cusid", // field in current colection
+                foreignField: "_id", // field at lookup colection
+                as: "customer" //you can set whatever name you want 
+            },
+        }, 
+        {
+            "$unwind": { // get single value if array have one
+                "path": "$customer",
+            }
+        }, 
+    ]).then(orders => res.json(orders))
+        .catch(err => console.log(err+"\n========END ERROR=========="))
 })
 
 router.route('/add').post((req, res) => {
@@ -13,8 +28,8 @@ router.route('/add').post((req, res) => {
     const amount = req.body.amount
     const ship_address = req.body.ship_address
     const status = req.body.status
-    const isDeleted =  req.body.isDeleted
-    
+    const isDeleted = req.body.isDeleted
+
     console.log(req);
     const newOrder = new Order({
         cusid,
@@ -32,13 +47,13 @@ router.route('/add').post((req, res) => {
 router.route('/:id').get((req, res) => {
     Order.findById(req.params.id)
         .then(order => res.json(order))
-        .catch(err => res.status(400).json('Error: ' +err))
+        .catch(err => res.status(400).json('Error: ' + err))
 })
 
 router.route('/:id').delete((req, res) => {
     Order.findByIdAndDelete(req.params.id)
         .then(() => res.json('Order is deleted'))
-        .catch(err => res.status(400).json('Error: ' +err))
+        .catch(err => res.status(400).json('Error: ' + err))
 })
 
 router.route('/update/:id').post((req, res) => {
@@ -54,6 +69,6 @@ router.route('/update/:id').post((req, res) => {
                 .then(() => res.json('Updated successfully!'))
                 .catch(err => res.status(400).json('Error: ' + err))
         })
-        .catch(err => res.status(400).json('Error: ' +err))
+        .catch(err => res.status(400).json('Error: ' + err))
 })
 module.exports = router 

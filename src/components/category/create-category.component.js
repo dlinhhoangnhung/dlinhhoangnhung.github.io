@@ -41,7 +41,7 @@ export default class CreateCategory extends Component {
 
         console.log(category)
 
-        axios.post('http://localhost:5000/categories/add', category)
+        axios.post('http://localhost:5001/categories/add', category)
             .then(res => {
                 console.log(res.data)
                 toast("Add successfully!", {

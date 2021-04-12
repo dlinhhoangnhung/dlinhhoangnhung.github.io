@@ -27,7 +27,7 @@ export default class CreateOrder extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/customers')
+        axios.get('http://localhost:5001/customers')
             .then(response => {
                 if(response.data.length > 0 ) {
                     this.setState({
@@ -77,7 +77,7 @@ export default class CreateOrder extends Component {
             isDeleted: this.state.isDeleted
         }
         console.log(order)
-        axios.post('http://localhost:5000/orders/add', order)
+        axios.post('http://localhost:5001/orders/add', order)
             .then(res => {
                 console.log(res.data)
                 toast("Add successfully !", {

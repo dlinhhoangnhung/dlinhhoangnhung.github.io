@@ -28,13 +28,14 @@ export default class EditOrder extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5000/orders/' + this.props.match.params.id)
+        axios.get('http://localhost:5001/orders/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     cusid: response.data.cusid,
                     amount: response.data.amount,
                     ship_address: response.data.ship_address,
                     status: response.data.status,
+                    
                     isDeleted: response.data.isDeleted
                 })
             })
@@ -42,7 +43,7 @@ export default class EditOrder extends Component {
                 console.log(err);
             })
 
-        axios.get('http://localhost:5000/customers')
+        axios.get('http://localhost:5001/customers')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -99,7 +100,7 @@ export default class EditOrder extends Component {
 
         console.log(order)
 
-        axios.post('http://localhost:5000/orders/update/' + this.props.match.params.id, order)
+        axios.post('http://localhost:5001/orders/update/' + this.props.match.params.id, order)
             .then(res => {
                 console.log(res.data)
                 toast("Update successfully :)", {

@@ -28,7 +28,7 @@ export default class CreateProduct extends Component {
     }
 
     componentDidMount(){
-        axios.get('http://localhost:5000/categories')
+        axios.get('http://localhost:5001/categories')
             .then(response => {
                 if(response.data.length > 0) {
                     this.setState({
@@ -85,7 +85,7 @@ export default class CreateProduct extends Component {
             isDeleted: this.state.isDeleted
         }
         console.log(product)
-        axios.post('http://localhost:5000/products/add', product)
+        axios.post('http://localhost:5001/products/add', product)
             .then(res => {
                 console.log(res.data)
                 toast("Add successfully !", {

@@ -3,6 +3,8 @@ import HomeIcon from '@material-ui/icons/Home';
 import ReceiptIcon from '@material-ui/icons/Receipt';
 import StoreIcon from '@material-ui/icons/Store';
 import LineWeightIcon from '@material-ui/icons/LineWeight';
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
+import BorderColorIcon from '@material-ui/icons/BorderColor';
 
 export const SidebarItem = [
     {
@@ -25,7 +27,15 @@ export const SidebarItem = [
         icon: <LineWeightIcon/>,
         link: "/categories"
     },
-    
-    
+    {
+        title: "Customers",
+        icon: <SupervisorAccountIcon/>,
+        link: "/customers"
+    },
+    {
+        title: "Orders Detail",
+        icon: <BorderColorIcon/>,
+        link: "/orders-detail"
+    },
 ]
 

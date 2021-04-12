@@ -8,10 +8,10 @@ export default class OrdersList extends Component {
     constructor(props) {
         super(props)
         this.deleteOrder = this.deleteOrder.bind(this)
-        this.state = { orders: [], isLoading: 1, customers: [] }
+        this.state = { orders: [], isLoading: 1 }
     }
     componentDidMount() {
-        axios.get('http://localhost:5000/orders')
+        axios.get('http://localhost:5001/orders')
             .then(response => {
                 this.setState({
                     isLoading: 0
@@ -33,7 +33,7 @@ export default class OrdersList extends Component {
     }
 
     deleteOrder(id) {
-        axios.delete('http://localhost:5000/orders/' + id)
+        axios.delete('http://localhost:5001/orders/' + id)
             .then(res => console.log(res.data))
         this.setState({
             orders: this.state.orders.filter(o => o._id !== id)
