@@ -7,6 +7,10 @@ const {
     userAuth,
     serializeUser } = require("../utils/Auth")
 
+// router.get('/api/all', async (req, res) => {
+//     await res.status(200).send("Public Content.");
+// })
+
 //Register for all role
 router.post('/sign-up', async (req, res) => {
     await userRegister(req.body, "user", res)
@@ -19,19 +23,24 @@ router.post('/sign-in', async (req, res) => {
 
 /* ---------------------------------- ADMIN --------------------------------- */
 //2 is admin redirect admin dashboard
-router.get("/admin", userAuth, checkRole(["admin"]), async (req, res) => {
+router.get("/api/admin", userAuth, checkRole(["admin"]), async (req, res) => {
     return res.json("hello admin")
 })
 
 //3 request token to use admin grant
-router.route('/').get(userAuth, checkRole(["admin"]), (req, res) => {
-    User.find()
-        .then(users => res.json(users))
-        .catch(err => res.status(400).json('Error' + err))
-})
+// router.route('/').get(userAuth, checkRole(["admin"]), (req, res) => {
+//     User.find()
+//         .then(users => res.json(users))
+//         .catch(err => res.status(400).json('Error' + err))
+// })
 /* ---------------------------------- USER ---------------------------------- */
-//get own user profile
-router.get("/profile", userAuth, async (req, res) => {
+//get own user profile, any  role
+router.get("/api/profile", userAuth, async (req, res) => {
+
+    return res.json(serializeUser(req.user))
+})
+
+router.get("/api/grant", userAuth, async (req, res) => {
 
     return res.json(serializeUser(req.user))
 })

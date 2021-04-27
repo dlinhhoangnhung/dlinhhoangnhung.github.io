@@ -25,6 +25,7 @@ export default class Register extends Component {
             isRedirect: 0,
 
         };
+        
     }
 
     onChangeFirstName(u) {
@@ -75,9 +76,8 @@ export default class Register extends Component {
             this.setState({
                 isRedirect: 1,
             });
-        });
+        })
     }
-
     render() {
         const isLoading = this.state.isLoading
 

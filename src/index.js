@@ -1,17 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import './client.css'
 import App from './App';
 import Client from './Client';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from "react-router-dom";
 
 ReactDOM.render(
-  <React.StrictMode>
-    {/* <App /> */}
-    
-      <Client />
-
-  </React.StrictMode>,
-  document.getElementById('root')
+  <BrowserRouter>
+    <Client />
+  </BrowserRouter>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function

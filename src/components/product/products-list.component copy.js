@@ -2,72 +2,78 @@ import React, { Component } from "react"
 import axios from "axios"
 import { Link } from "react-router-dom"
 import Loading from "../loading.component"
-import OrderRow from "./order-row.component"
+import ProductRow from "./product-row.component"
+import AuthService from "../services/auth.service"
 
-export default class OrdersList extends Component {
+export default class ProductsList extends Component {
     constructor(props) {
-        super(props)
-        this.deleteOrder = this.deleteOrder.bind(this)
-        this.state = { orders: [], isLoading: 1 }
+        super(props);
+
+        this.deleteProduct = this.deleteProduct.bind(this)
+
+        this.state = {
+            currentUser: AuthService.getCurrentUser(), 
+            isLoading: 1
+        };
     }
+
     componentDidMount() {
-        axios.get('http://localhost:5001/users/api/orders')
+        axios.get('http://localhost:5001/users/api/products')
             .then(response => {
                 this.setState({
                     isLoading: 0
                 })
                 if (response.data.length > 0) {
                     this.setState({
-                        orders: response.data,
+                        products: response.data
                     })
                 }
             })
-            .catch(err => {
-                console.log(err)
+            .catch(error => {
+                console.log(error);
                 this.setState({
                     isLoading: 0
                 })
             })
-
-
     }
 
-    deleteOrder(id) {
-        axios.delete('http://localhost:5001/orders/' + id)
+    deleteProduct(id) {
+        axios.delete('http://localhost:5001/products/' + id)
             .then(res => console.log(res.data))
         this.setState({
-            orders: this.state.orders.filter(o => o._id !== id)
-        })
-    }
-    ordersList() {
-        return this.state.orders.map(currentorder => {
-            return <OrderRow order={currentorder} deleteOrder={this.deleteOrder} key={currentorder._id} />
+            products: this.state.products.filter(p => p._id !== id)
         })
     }
 
+
+    productsList() {
+        return this.state.products.map(currentproduct => {
+            return <ProductRow product={currentproduct} deleteProduct={this.deleteProduct} key={currentproduct._id} />
+        })
+    }
 
     render() {
-        const isLoading = this.state.isLoading
+        const { currentUser } = this.state;
+        const isLoading = this.state.isLoading;
         return (
             <div>
-                <h2>Orders List</h2>
-                <Link className="nav-item nav-link" to="/create-order">Create Order</Link>
+                <h3>Product List</h3>
+                <Link className="nav-item nav-link" to="/create-product">Create Product</Link>
 
                 { isLoading == 0 ?
-                    this.state.orders.length > 0 ?
+                    this.state.products.length > 0 ?
                         <table className="table">
                             <thead className="thead-light">
                                 <tr>
                                     <th>ID</th>
-                                    <th>Customer Name</th>
-                                    <th>Status</th>
-                                    <th>Ship Address</th>
-                                    <th>Actions</th>
+                                    <th>Name</th>
+
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    this.ordersList()
+                                    this.productsList()
                                 }
                             </tbody>
                         </table> : <p>Data empty</p>

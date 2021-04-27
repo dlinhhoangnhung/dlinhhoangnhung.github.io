@@ -82,10 +82,10 @@ const { connect } = require('./routes/users')
 
 //User router middleware
 app.use('/users', usersRouter)
-app.use('/products', productsRouter)
-app.use('/categories', categoriesRouter)
-app.use('/orders', ordersRouter)
-app.use('/customers', customerRouter)
-app.use('/orders-detail', ordersdetailRouter)
+app.use('/users/api/products', productsRouter)
+app.use('/users/api/categories', categoriesRouter)
+app.use('/users/api/orders', ordersRouter)
+app.use('/users/api/customers', customerRouter)
+app.use('/users/api/orders-detail', ordersdetailRouter)
 
 // startApp()

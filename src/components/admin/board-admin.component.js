@@ -1,11 +1,11 @@
 // import logo from './logo.svg'
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import { BrowserRouter as Router, Route } from "react-router-dom"
 import "bootstrap/dist/css/bootstrap.min.css"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-
+import AuthService from "../services/auth.service"
 import Navbar from "../navbar.component"
 import Sidebar from "../layouts/sidebar.component"
 
@@ -27,18 +27,64 @@ import CreateOrder from "../order/create-order.component"
 import CreateCustomer from "../customer/create-customer.component"
 import CreateOrderDetail from "../orderdetail/create-orderdetail.component"
 
-export default class Admin extends Component {
+import UserService from "../services/user.service"
+
+export default class BoardAdmin extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showAdminBoard: false,
+      currentUser: undefined,
+    };
+  }
+
+  componentDidMount() {
+    const user = AuthService.getCurrentUser();
+
+    if (user) {
+      this.setState({
+        currentUser: user,
+        showAdminBoard: user.role.includes("admin"),
+      });
+    }
+  }
+
+  // Board Admin simply just  have a sidebar, so only want to access the resources - view items we must need authen token 
+
+  // componentDidMount() {
+  //   UserService.getAdminBoard().then(
+  //     response => {
+  //       this.setState({
+  //         content: response.data
+  //       });
+  //     },
+  //     error => {
+  //       this.setState({
+  //         content:
+  //           (error.response &&
+  //             error.response.data &&
+  //             error.response.data.message) ||
+  //           error.message ||
+  //           error.toString()
+  //       });
+  //     }
+  //   );
+  // }
+
   render() {
+    const { currentUser, showAdminBoard } = this.state;
     return (
       <Router>
-        {/* <Navbar /> */}
+        <Navbar />
         <div className="row">
           <div className="col-sm-2">
             <Sidebar />
+            
           </div>
 
           <div className="col-sm-10">
-            <Route path="/products" component={ProductsList} />
+            {/* <Route path="/products" component={ProductsList} />
             <Route path="/orders" component={OrdersList} />
             <Route path="/categories" component={CategoriesList} />
             <Route path="/customers" component={CustomersList} />
@@ -54,8 +100,10 @@ export default class Admin extends Component {
             <Route path="/create-category" component={CreateCategory} />
             <Route path="/create-order" component={CreateOrder} />
             <Route path="/create-customer" component={CreateCustomer} />
-            <Route path="/create-orderdetail" component={CreateOrderDetail} />
+            <Route path="/create-orderdetail" component={CreateOrderDetail} /> */}
             <ToastContainer />
+
+            
           </div>
         </div>
       </Router>

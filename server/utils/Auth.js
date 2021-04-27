@@ -66,13 +66,13 @@ const userLogin = async (userInput, res) => {
 
     //Check role
 
-    if (user.role != "user") {
-        // return res.status(404).json({
-        //     message: `Please make sure your request match with your role`,
-        //     success: false
-        // })
-        res.redirect('/admin')
-    }
+    // if (user.role != "user") {
+    //     // return res.status(404).json({
+    //     //     message: `Please make sure your request match with your role`,
+    //     //     success: false
+    //     // })
+    //     res.redirect('/admin')
+    // }
     // user exists and go right role
     //check password
     let isMatch = await bcryptjs.compare(password, user.password)
@@ -128,10 +128,12 @@ const checkRole = roles => (req, res, next) => {
     if (req.user.role == "user") {
         return res.json("You are not allowed to access here.")
     }
-    return res.status(401).json({
-        message: "Unauthorized",
-        success: false
-    })
+    else{
+        return res.status(401).json({
+            message: "Unauthorized",
+            success: false
+        })
+    }
 }
 
 const validateEmail = async email => {
