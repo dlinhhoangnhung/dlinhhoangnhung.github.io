@@ -1,13 +1,15 @@
-// import logo from './logo.svg'
 import React, { Component, useState } from 'react'
 import { BrowserRouter as Router, Route } from "react-router-dom"
-import "bootstrap/dist/css/bootstrap.min.css"
+// import "bootstrap/dist/css/bootstrap.min.css"
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import axios from "axios"
 
 import AuthService from "../services/auth.service"
 import Navbar from "../navbar.component"
 import Sidebar from "../layouts/sidebar.component"
+import Loading from "../loading.component"
+import Warning from "../warning.component"
 
 import ProductsList from "../product/products-list.component"
 import OrdersList from "../order/orders-list.component"
@@ -28,83 +30,133 @@ import CreateCustomer from "../customer/create-customer.component"
 import CreateOrderDetail from "../orderdetail/create-orderdetail.component"
 
 import UserService from "../services/user.service"
+import { Redirect } from 'react-router';
+import jwt from 'jwt-decode'
 
 export default class BoardAdmin extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      showAdminBoard: false,
-      currentUser: undefined,
+      message: undefined,
+
+      isRedirect: 0
     };
   }
 
   componentDidMount() {
-    const user = AuthService.getCurrentUser();
+    // Cach kiem tra role trong LocalStorage de quan ly
+    const user = AuthService.getCurrentUser()
 
-    if (user) {
+    if (!user) {
       this.setState({
-        currentUser: user,
-        showAdminBoard: user.role.includes("admin"),
-      });
+        isRedirect: 1
+      })
+    } else {
+      let decoded = jwt(user.token); // decode your token here
+      const show = JSON.stringify(decoded)
+      console.log("decode :" + show)
+      if (!user.token) { // fake token
+        this.setState({
+          isRedirect: 1
+        })
+      }
+      else {
+        if (decoded.role == "admin") {
+          this.setState({
+            isRedirect: 0
+          })
+          console.log("you are:  " + decoded.role)
+
+        } else {
+          this.setState({
+            isRedirect: 1
+          })
+          console.log("you are:  " + decoded.role)
+        }
+      }
     }
+    // Cach AuthService.getAdminBoard match voi status cua server de quan ly nhung khong hoat dong
+    // .then(response => {
+    //   if (response.status === 200) { // ADMIN
+    //     // this.setState({
+    //     //   message: response.data.message,
+    //     //   isRedirect: 0
+    //     // }, function () { console.log(this.state.isRedirect) 
+    //     // }
+    //     // );
+    //     const [isRedirect, setValue] = useState("");
+    //     setValue(0);
+    //     setValue((state) => {
+    //       console.log(state); // "React is awesome!"
+
+    //       return state;
+    //     });
+
+    //     console.log('ddaay la 200')
+    //   }
+    //   else if (response.status === 400 && response.status == 403) { // USER OR VISITOR
+    //     // this.setState({
+    //     //   message: response.data.message,
+    //     //   isRedirect: 1
+    //     // }, function () {
+    //     //   console.log(this.state.isRedirect)
+    //     // });
+    //     const [isRedirect, setValue] = useState("");
+    //     setValue(1);
+    //     setValue((state) => {
+    //       console.log(state); // "React is awesome!"
+
+    //       return state;
+    //     });
+
+    //     console.log('ddaay la 400 va 403')
+
+    //   }
+    // }
+    //   // ,
+    //   // error => { // CANOT GET DATA
+    //   //   this.setState({
+    //   //     content:
+    //   //       (error.response &&
+    //   //         error.response.data &&
+    //   //         error.response.data.message) ||
+    //   //       error.message ||
+    //   //       error.toString()
+    //   //   });
+    //   // }
+    // ).catch(error => { // CANOT GET DATA
+    //   this.setState({
+    //     content:
+    //       (error.response &&
+    //         error.response.data &&
+    //         error.response.data.message) ||
+    //       error.message ||
+    //       error.toString()
+    //   });
+    // })
   }
 
-  // Board Admin simply just  have a sidebar, so only want to access the resources - view items we must need authen token 
-
-  // componentDidMount() {
-  //   UserService.getAdminBoard().then(
-  //     response => {
-  //       this.setState({
-  //         content: response.data
-  //       });
-  //     },
-  //     error => {
-  //       this.setState({
-  //         content:
-  //           (error.response &&
-  //             error.response.data &&
-  //             error.response.data.message) ||
-  //           error.message ||
-  //           error.toString()
-  //       });
-  //     }
-  //   );
+  // componentWillUnmount() {
+  //   // fix Warning: Can't perform a React state update on an unmounted component
+  //   this.setState = (state, callback) => {
+  //     return;
+  //   };
   // }
 
   render() {
-    const { currentUser, showAdminBoard } = this.state;
+    const { isRedirect } = this.state
+    console.log('--')
+    console.log(this.state.isRedirect)
+
+    if (isRedirect) return <Redirect to='/' />
     return (
       <Router>
-        <Navbar />
         <div className="row">
           <div className="col-sm-2">
             <Sidebar />
-            
           </div>
-
-          <div className="col-sm-10">
-            {/* <Route path="/products" component={ProductsList} />
-            <Route path="/orders" component={OrdersList} />
-            <Route path="/categories" component={CategoriesList} />
-            <Route path="/customers" component={CustomersList} />
-            <Route path="/orders-detail" component={OrdersDetailList} />
-
-            <Route path="/edit/product/:id" component={EditProduct} />
-            <Route path="/edit/order/:id" component={EditOrder} />
-            <Route path="/edit/category/:id" component={EditCategory} />
-            <Route path="/edit/customer/:id" component={EditCustomer} />
-            <Route path="/edit/order-detail/:id" component={EditOrderDetail} />
-
-            <Route path="/create-product" component={CreateProduct} />
-            <Route path="/create-category" component={CreateCategory} />
-            <Route path="/create-order" component={CreateOrder} />
-            <Route path="/create-customer" component={CreateCustomer} />
-            <Route path="/create-orderdetail" component={CreateOrderDetail} /> */}
-            <ToastContainer />
-
-            
-          </div>
+          <ToastContainer />
         </div>
       </Router>
     );

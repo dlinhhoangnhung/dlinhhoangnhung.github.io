@@ -2,104 +2,138 @@ import React, { Component } from "react";
 import axios from "axios";
 import { toast } from 'react-toastify';
 import { Redirect } from 'react-router'
+import UserService from "../services/user.service";
 
 export default class CreateProduct extends Component {
-    constructor(props){
+    constructor(props) {
         super(props)
 
         this.onChangeName = this.onChangeName.bind(this)
         this.onChangeDesc = this.onChangeDesc.bind(this)
         this.onChangeCateId = this.onChangeCateId.bind(this)
         this.onChangePrice = this.onChangePrice.bind(this)
-        this.onChangeImage = this.onChangeImage.bind(this)
+        this.onChangethumbnail = this.onChangethumbnail.bind(this)
+        this.onChangeImages = this.onChangeImages.bind(this)
         this.onChangeIsDeleted = this.onChangeIsDeleted.bind(this)
-        this.onSubmit = this.onSubmit.bind(this )
+        this.onSubmit = this.onSubmit.bind(this)
 
         this.state = {
             name: '',
             desc: 'a',
             cateid: '',
             price: 'A1',
-            image: 'ads',
+            thumbnail: 'is required',
+            images: '',
             isDeleted: 0,
             categories: [],
+
+    
             isRedirect: 0
-        } 
+        }
     }
 
-    componentDidMount(){
-        axios.get('http://localhost:5001/categories')
-            .then(response => {
-                if(response.data.length > 0) {
+    componentDidMount() {
+        UserService.getCategory().then(
+            response => {
+                this.setState({
+                    isLoading: 0
+                })
+                if (response.data.length > 0) {
                     this.setState({
                         categories: response.data,
                         cateid: response.data[0]._id
                     })
                 }
-            })
+            },
+            error => {
+                console.log(error);
+                this.setState({
+                    products:
+                        (error.response &&
+                            error.response.data &&
+                            error.response.data.message) ||
+                        error.message ||
+                        error.toString(),
+                    isLoading: 1
+                });
+            }
+        );
     }
-    onChangeName(p){
+
+    onChangeName(p) {
         this.setState({
             name: p.target.value
         })
     }
 
-    onChangeDesc(p){
+    onChangeDesc(p) {
         this.setState({
             desc: p.target.value
         })
     }
 
-    onChangeCateId(p){
+    onChangeCateId(p) {
         this.setState({
             cateid: p.target.value
         })
     }
 
-    onChangePrice(p){
+    onChangePrice(p) {
         this.setState({
             price: p.target.value
         })
     }
 
-    onChangeImage(p){
+    onChangeImages(p) {
         this.setState({
-            image: p.target.value
+            images: p.target.value
         })
     }
 
-    onChangeIsDeleted(p){
+    onChangethumbnail(p) {
+        this.setState({
+            thumbnail: p.target.value
+        })
+    }
+
+    onChangeIsDeleted(p) {
         this.setState({
             isDeleted: p.target.value
         })
     }
 
-    onSubmit(p){
+    onSubmit(p) {
         p.preventDefault()
         const product = {
             name: this.state.name,
             desc: this.state.desc,
             cateid: this.state.cateid,
             price: this.state.price,
-            image: this.state.image,
+            thumbnail: this.state.thumbnail,
+            images: this.state.images,
             isDeleted: this.state.isDeleted
         }
+
         console.log(product)
-        axios.post('http://localhost:5001/products/add', product)
-            .then(res => {
+        UserService.addProduct(product).then(
+            res => {
                 console.log(res.data)
                 toast("Add successfully !", {
-                    type:"warning"
+                    type: "warning"
                 })
                 this.setState({
                     isRedirect: 1
                 })
-            })
+            },
+            error => {
+                console.log(error);
+            }
+        );
     }
-    
-    render(){
-        if(this.state.isRedirect) return <Redirect to='/products'/>
-        return(
+
+    render() {
+        if (this.state.isRedirect) return <Redirect to='/products' />
+        return (
             <div>
                 <h3>Create Product</h3>
                 <form onSubmit={this.onSubmit}>
@@ -112,7 +146,7 @@ export default class CreateProduct extends Component {
                             onChange={this.onChangeName}
                         />
                     </div>
-                    
+
                     <div className="form-group">
                         <label>Desciption: </label>
                         <input type="text"
@@ -125,18 +159,18 @@ export default class CreateProduct extends Component {
 
                     <div className="form-group">
                         <label>Category ID: </label>
-                        <select 
+                        <select
                             required
                             className="form-control"
                             value={this.state.cateid}
                             onChange={this.onChangeCateId}>
                             {
-                                this.state.categories.map(function(category) {
+                                this.state.categories.map(function (category) {
                                     return <option key={category._id} value={category._id}>
-                                                {category.name}
-                                            </option>
+                                        {category.name}
+                                    </option>
                                 })
-                            }    
+                            }
                         </select>
                     </div>
 
@@ -155,8 +189,18 @@ export default class CreateProduct extends Component {
                         <input type="text"
                             required
                             className="form-control"
-                            value={this.state.image}
-                            onChange={this.onChangeImage}
+                            value={this.state.images}
+                            onChange={this.onChangeImages}
+                        />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Thumbnail: </label>
+                        <input type="text"
+                            required
+                            className="form-control"
+                            value={this.state.thumbnail}
+                            onChange={this.onChangethumbnail}
                         />
                     </div>
 

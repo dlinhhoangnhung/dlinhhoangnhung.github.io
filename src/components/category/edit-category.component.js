@@ -3,6 +3,7 @@ import axios from "axios";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Redirect } from 'react-router'
+import authHeader from '../services/auth-header';
 
 export default class EditCategory extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ export default class EditCategory extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5001/categories/' + this.props.match.params.id)
+        axios.get('http://localhost:5001/users/api/categories/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     name: response.data.name,
@@ -61,7 +62,7 @@ export default class EditCategory extends Component {
 
         console.log(category)
 
-        axios.post('http://localhost:5001/categories/update/' + this.props.match.params.id, category)
+        axios.patch('http://localhost:5001/users/api/categories/' + this.props.match.params.id, category, { headers: authHeader() })
             .then(res => {
                 console.log(res.data)
                 toast("Update successfully :)", {

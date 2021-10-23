@@ -1,10 +1,10 @@
 // We also have methods for retrieving data from server.
-// In the case we access protected resources, the HTTP request needs Authorization header.
+// In the case we access protected resources, the HTTP request needs  header.
 export default function authHeader() {
-    const user = JSON.parse(localStorage.getItem('user'));
+    const user = JSON.parse(localStorage.getItem('userInfo'));
   
     if (user && user.token) {
-        return { 'x-access-token': user.token };    } else {
+        return { 'Authorization': user.token };    } else {
       return {};
     }
   }

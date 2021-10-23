@@ -1,0 +1,12 @@
+.checkout-steps > div {
+    border-top: 0.3rem #343030 solid;
+    color: #262020;
+    flex: 1;
+    padding: 1rem;
+    margin-top: 10px;
+}
+
+.checkout-steps > div.active {
+    border-top-color: #f08000;
+    color: #f08000
+}

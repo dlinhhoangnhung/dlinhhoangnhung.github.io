@@ -3,6 +3,8 @@ import axios from "axios"
 import { Link } from "react-router-dom"
 import Loading from "../loading.component"
 import CategoryRow from "./category-row.component"
+import AuthService from "../services/auth.service"
+import UserService from "../services/user.service";
 
 export default class CategoriesList extends Component {
     constructor(props) {
@@ -14,7 +16,7 @@ export default class CategoriesList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5001/categories')
+        UserService.getCategory()
             .then(response => {
                 this.setState({
                     isLoading: 0

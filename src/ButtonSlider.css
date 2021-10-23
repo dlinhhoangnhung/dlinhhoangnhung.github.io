@@ -1,0 +1,22 @@
+.prev {
+  top: 50%;
+  left: 20px;
+  transform: translateY(-60%);
+}
+.next {
+  top: 50%;
+  right: 20px;
+  transform: translateY(-60%);
+}
+.btn-slide {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: none;
+    /* border: 1px solid none; */
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* cursor: pointer; */
+  }

@@ -37,5 +37,10 @@ export const SidebarItem = [
         icon: <BorderColorIcon/>,
         link: "/orders-detail"
     },
+    {
+        title: "Users",
+        icon: <BorderColorIcon/>,
+        link: "/users"
+    },
 ]
 
