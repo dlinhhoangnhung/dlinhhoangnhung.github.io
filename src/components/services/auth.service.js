@@ -1,5 +1,7 @@
 import axios from "axios";
 import { Redirect } from 'react-router';
+import { toast } from "react-toastify";
+import history from '../../history';
 
 const API_URL = "http://localhost:5001/users/";
 
@@ -10,18 +12,21 @@ class AuthService {
         username,
         password
       })
-      .then(response => {
-        if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
-          
+      .then(response => { //response check
+        if (response.data.token) { // if have token
+        console.log("ok")
+
+          localStorage.setItem("userInfo", JSON.stringify(response.data)); //set data from API decode it and name it 'user'
         }
         
-        return response.data;
+        return response.data; // if not return any other data
       });
   }
 
   logout() {
-    localStorage.removeItem("user");
+    localStorage.removeItem("userInfo");
+    history.push("/items");
+
   }
 
   register(username, email, password) {
@@ -32,9 +37,15 @@ class AuthService {
     });
   }
 
-  getCurrentUser() {
-    return JSON.parse(localStorage.getItem('user'));;
+  getCurrentUserId() {
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    const userId = userInfo.id
+     return userId
   }
+  getCurrentUser() {
+     return JSON.parse(localStorage.getItem('userInfo'))
+  }
+
 }
 
 export default new AuthService();

@@ -1,0 +1,5 @@
+export const GET_SIZES_REQUEST = "GET_SIZES_REQUEST"
+export const GET_SIZES_SUCCESS = "GET_SIZES_SUCCESS"
+export const GET_SIZES_FAIL = "GET_SIZES_FAIL"
+
+

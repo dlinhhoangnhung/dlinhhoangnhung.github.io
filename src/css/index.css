@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .rightside {
+        @apply flex flex-col w-4/5 h-full px-8 pt-4
+    }
+    .navbar {
+        @apply w-full h-10
+    }
+    .inrow {
+        @apply flex flex-row;
+    }
+    .sidebar {
+      @apply w-1/5 h-full bg-simple pl-8 pt-4 pr-5 ring-2 ring-gray-200;
+    }
+    
+    .organ {
+        @apply text-xs ml-4 mt-8 mb-2 text-gray-400 uppercase
+    }
+    
+    .side-menu-text {
+        @apply text-lg ml-2 mb-10 
+    }
+    
+    .side-menu-stack {
+        @apply flex flex-row h-11 pt-2 pl-2 pb-2 rounded-xl mt-3 
+        hover:bg-see hover:text-gray-50 hover:shadow-coldblue 
+        active:bg-blue-800;
+    }
+    
+    .img-stack {
+        @apply w-6 h-6 ml-1
+    }
+    
+    .content {
+        @apply w-4/5 bg-black
+    }
+}
