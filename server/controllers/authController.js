@@ -27,7 +27,7 @@ const validateUsername = async username => {
 const validateEmail = async email => {
     let e = await User.findOne({ email })
     return e ? false : true
-    
+
 }
 
 /**
@@ -65,7 +65,7 @@ const register = catchAsync(
                 role
             })
             await newUser.save()
-            return res.status(201).json( {
+            return res.status(201).json({
                 message: "Register is success.",
                 success: true
             })
@@ -103,7 +103,7 @@ const login = async (req, res, next) => {
             //         success: false
             //     })
             // )
-            return next(new AppError('Username not be found. Invalid login credentials.', 400))
+            return next(new AppError('Password does not match. Invalid login credentials.', 400))
 
 
         //Signin the token and issue it  to  the user
@@ -115,10 +115,11 @@ const login = async (req, res, next) => {
         }, SECRET, { expiresIn: "1 day" })
 
         let result = { //  res to client
-            // id: user._id,
+            id: user._id,
             username: user.username,
             role: user.role,
             email: user.email,
+            avatar: user.avatar,
             token: `Bearer ${token}`,
             expiresIn: 168
         }
@@ -135,6 +136,33 @@ const login = async (req, res, next) => {
     }
 }
 
+//error
+
+const changePassword = async (req, res) => {
+    console.log('aloS  ')
+    console.log(req.body)
+
+    try {
+        const current = req.body.currentPassword
+        const newPassword = req.body.newPassword
+        const user =  User.findOne({ "_id" : req.params.userId})
+        //check password
+        if (user) {
+            let validPassword = await validatePassword(current, user.password)
+            if (!validPassword)
+                res.json('Password is wrong. Try again', 400)
+            else {
+                const password = await bcryptjs.hash(newPassword, 12)
+                user.updateOne({ $set: { password: password } })
+                    .then(() => res.json("Password has been changed. " + user))
+                    .catch(new AppError(err => res.status(400).json('Error: ' + err)))
+            }
+        }
+    } catch (err) {
+        console.log(err)
+    }
+
+}
 
 
 /**
@@ -147,42 +175,28 @@ const userAuth = passport.authenticate("jwt", { session: "false" })
  */
 
 
-const checkRole = roles => (req, res, next) => {
-    // Check if the requesting user is marked as admin in database
-
-    // const decoded = jwt_decode(req.header('Authorization'))
-    // const idFromToken = (decoded.user_id)
-    // const userCheck = findByRole(idFromToken)
-    // console.log(userCheck)
-    // if (!userCheck) {
-    //     console.log(userCheck)
-    // }
-    // else {
-    //     if (userCheck.role == "admin") {
-    //         return next()
-    //     }
-    //     if (userCheck.role == "user") {
-    //         return res.json("You are not allowed to access here.")
-    //         // return res.writeHead(400, { 'Location': 'http://google.com' }, "")
-    //     }
-    //     else {
-    //         console.log(userCheck)
-
-    //         return res.status(401).json({
-    //             message: "Can't check role.",
-    //             success: false
-    //         },
-    //         )
-    //     }
-    // }
-
-    if (req.user.role == "admin") {
-        return next()
+const checkRole = roles => async (req, res, next) => {
+    console.log('alo ' + req.user.role)
+    console.log('alo token id  ' + req.user._id)
+    const idToken = req.user._id // from token
+    const user = await User.findById(idToken);
+    if (user) {
+        if (user.role === "admin") {
+            return next()
+        }
+        if (user.role === "user") {
+            return res.json("Permission Request: You are not allowed to access here.")
+            // return res.writeHead(400, { 'Location': 'http://google.com' }, "")
+        }
     }
-    if (req.user.role == "user") {
-        return res.json("You are not allowed to access here.")
-        // return res.writeHead(400, { 'Location': 'http://google.com' }, "")
-    }
+
+    // if (req.user.role ===  "admin") {
+    //     return next()
+    // }
+    // if (req.user.role === "user") {
+    //     return res.json("You are not allowed to access here.")
+    //     // return res.writeHead(400, { 'Location': 'http://google.com' }, "")
+    // }
     else {
         return res.status(401).json({
             message: "Can't check role.",
@@ -209,5 +223,6 @@ module.exports = {
     userAuth,
     login,
     register,
-    serializeUser
+    serializeUser,
+    changePassword
 }

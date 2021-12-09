@@ -1,3 +1,5 @@
+-error: edit product images chua hoat dong, design lai edit product
+
 Mac : 1440 x 609
 Screen : 1920 x 640
 

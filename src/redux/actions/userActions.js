@@ -6,6 +6,7 @@ import authHeader from '../../components/services/auth-header';
 export const signin = (username, password) => async (dispatch) => {
     dispatch({ type: actionsType.USER_SIGNIN_REQUEST, payload: { username, password } })
     try {
+        console.log('alo')
         const { data } = await Axios.post('http://localhost:5001/users/sign-in', { username, password })
         dispatch({
             type: actionsType.USER_SIGNIN_SUCCESS,

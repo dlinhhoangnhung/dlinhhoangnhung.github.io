@@ -30,6 +30,7 @@ router.post('/', authControllers.userAuth, userController.updateUser);
 router.post('/forgot-password', userController.forgotPassword)
 router.post('/reset-password', userController.resetPassword)
 
+router.post('/change-password/:userId', authControllers.userAuth, authControllers.changePassword)
 /* ---------------------------------- ADMIN --------------------------------- */
 //2 is admin redirect admin dashboard
 // router.get("/api/admin", userAuth, checkRole(["admin"]), async (req, res) => {
@@ -39,9 +40,26 @@ router.post('/reset-password', userController.resetPassword)
 
 //3 request token to use admin grant
 /* ---------------------------------- USER ---------------------------------- */
-router.get('/user/:userId', authControllers.userAuth, userController.getUser);
 router.get('/users', authControllers.userAuth, authControllers.checkRole(["admin"]), userController.getUsers);
-router.put('/user/:userId', authControllers.userAuth, userController.updateUser)
+router.get('/users/orders', authControllers.userAuth, userController.getUserContainOrder);
+
+// Get One
+router.get('/user/:userId', authControllers.userAuth, userController.getUser)
+router.get('/user/admin/:userId', authControllers.userAuth, authControllers.checkRole(["admin"]), userController.getUser)
+
+// user order
+router.put('/user/create-order/:userId', authControllers.userAuth, userController.updateUserOrder)
+
+//update info ok
+router.patch('/user/update-info/:userId', authControllers.userAuth, userController.uploadAvatar, userController.resizeAvatar, userController.updateUser)
+
+// changeEmail ok
+router.route('/user/change-email/:userId')
+    .post(
+        authControllers.userAuth,
+        userController.changeEmail,
+    )
+
 router.delete('/user/:userId', authControllers.userAuth, authControllers.checkRole(["admin"]), userController.deleteUser);
 router.get('/user/orders/:userId', authControllers.userAuth, userController.findOrdersbyUser)
 

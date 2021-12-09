@@ -13,88 +13,12 @@
 
   <link rel="manifest" href="/manifest.json" />
 
-  <!-- ---------------------------- Template CSS≈ ---------------------------- -->
-  <!-- Font Icon -->
-  <!-- <link rel="stylesheet" href="src/assets/temp/fonts/material-icon/css/material-design-iconic-font.min.css"> -->
-
-  <!-- Main css -->
-  <!-- <link rel="stylesheet" href="src/assets/temp/css/style.css"> -->
-
-  <!-- ------------------------------- Payment ------------------------------- -->
-
-
-  <!-- ----------------------------- Placeorder ------------------------------ -->
-  <!-- <link href="./assets/assets-placeorder/plugins/global/plugins.bundle.css?v=7.0.5" rel="stylesheet" type="text/css" />
-  <link href="./assets/assets-placeorder/plugins/custom/prismjs/prismjs.bundle.css?v=7.0.5" rel="stylesheet" type="text/css" />
-  <link href="./assets/assets-placeorder/css/style.bundle.css?v=7.0.5" rel="stylesheet" type="text/css" />
-  <!--end::Global Theme Styles-->
-  <!--begin::Layout Themes(used by all pages)-->
-  <link href="./assets/assets-placeorder/css/themes/layout/header/base/light.css?v=7.0.5" rel="stylesheet"
-    type="text/css" />
-  <link href="./assets/assets-placeorder/css/themes/layout/header/menu/light.css?v=7.0.5" rel="stylesheet"
-    type="text/css" />
-  <link href="./assets/assets-placeorder/css/themes/layout/brand/dark.css?v=7.0.5" rel="stylesheet" type="text/css" />
-  <link href="./assets/assets-placeorder/css/themes/layout/aside/dark.css?v=7.0.5" rel="stylesheet" type="text/css" />
-  <!--end::Layout Themes-->
-  <link rel="shortcut icon" href="./assets/assets-placeorder/media/logos/favicon.ico" /> 
-  <!--------------------------------------------------------------------------->
-  <link href="/src/client.css" rel="stylesheet">
-
   <title>Guccdesis</title>
 </head>
 
-<body id="override">
-  <div>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+<body>
     <div id="root"></div>
-  </div>
-  <script crossorigin src="..."></script>
-
-  <script src="../../assets/vendor/hs-megamenu/src/hs.megamenu.js"></script>
-  <script src="../../assets/vendor/svg-injector/dist/svg-injector.min.js"></script>
-
-  <!-- JS Front -->
-  <script src="../../assets/js/components/hs.header.js"></script>
-  <script src="../../assets/js/components/hs.unfold.js"></script>
-  <script src="../../assets/js/components/hs.svg-injector.js"></script>
-  <!-- ------------------------------ Template ------------------------------- -->
-  <script src="./assets/vendor/jquery/jquery.min.js"></script>
-  <script src="./assets/js/main.js"></script>
-
-  <!-- -------------------------------- Cart --------------------------------- -->
-  <link rel="stylesheet" href="../../assets/vendor/font-awesome/css/fontawesome-all.min.css">
-  <link rel="stylesheet" href="../../assets/vendor/animate.css/animate.min.css">
-  <link rel="stylesheet" href="../../assets/vendor/hs-megamenu/src/hs.megamenu.css">
-  <!-- JS Implementing Plugins -->
-
-  <!-- ------------------------------- Payment ------------------------------- -->
-
-  <!-- ----------------------------------------------------------------------- -->
-  <!-- JS Plugins Init. -->
-  <script>
-    $(window).on('load', function () {
-      // initialization of HSMegaMenu component
-      $('.js-mega-menu').HSMegaMenu({
-        event: 'hover',
-        pageContainer: $('.container'),
-        breakpoint: 767.98,
-        hideTimeOut: 0
-      });
-
-      // initialization of svg injector module
-      $.HSCore.components.HSSVGIngector.init('.js-svg-injector');
-    });
-
-    $(document).on('ready', function () {
-      // initialization of header
-      $.HSCore.components.HSHeader.init($('#header'));
-
-      // initialization of unfold component
-      $.HSCore.components.HSUnfold.init($('[data-unfold-target]'));
-    });
-  </script>
-
-  
 </body>
+<script src='https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.7.3/dist/alpine.min.js'></script>
 
 </html>

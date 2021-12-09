@@ -1,4 +1,3 @@
-const { SwapHorizRounded } = require('@material-ui/icons')
 const Size = require('../models/sizes.model')
 const AppError = require('../utils/appError')
 const catchAsync = require('../utils/catchAsync')
@@ -9,17 +8,32 @@ exports.getAllSizes = async (req, res) => {
         .catch(err => res.status(400).json('Alo Error' + err))
 }
 
+exports.getSizeContainProduct = (req, res) => {
+    Size.aggregate([
+        {
+            $lookup: //you can see at document
+            {
+                from: "products", // collection name in mongodb, not model
+                localField: "_id", // field in current colection
+                foreignField: "sizeslist", // field at lookup colection
+                as: "product" //you can set whatever name you want 
+            },
+        },
+        {
+            $unwind: "$product",
+        },
+    ])
+        .then(product => res.json(product))
+        .catch(err => res.status(400).json('Error: ' + err))
+}
 exports.addSize = (req, res) => {
     const name = req.body.name
-    const desc = req.body.desc  
-    const productid = req.body.productid
-
+    const sizecode = req.body.sizecode
 
     console.log(req);
     const newSize = new Size({
         name,
-        desc,
-        productid
+        sizecode
     })
 
     newSize.save()
@@ -38,9 +52,8 @@ exports.updatesize = (req, res) => {
         .then(size => {
 
             size.name = req.body.name
-            size.desc = req.body.desc
-            size.productid = req.body.productid
-
+            size.sizecode = req.body.sizecode
+            
             if(req.params.name){
                 res.json("Name existed")
             }

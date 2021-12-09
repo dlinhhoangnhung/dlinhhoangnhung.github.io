@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector } from "react-redux";
 
-import "../../src/client.css"
+import "../../src/css/client.css"
 import BoardUser from './screens/board-user.component'
 import BoardAdmin from './admin/board-admin.component';
 import ProfileScreen from './screens/profileScreen';

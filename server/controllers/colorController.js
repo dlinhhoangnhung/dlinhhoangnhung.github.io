@@ -1,4 +1,4 @@
-const Color = require('../models/colors.model')
+const Color = require('../models/color.model')
 const multer = require('multer')
 const sharp = require('sharp')
 const AppError = require('../utils/appError')
@@ -6,6 +6,24 @@ const multerStorage = multer.memoryStorage();
 const catchAsync = require('../utils/catchAsync')
 
 
+exports.getColorByProduct = (req, res) => {
+    Color.aggregate([
+        {
+            $lookup: //you can see at document
+            {
+                from: "products", // collection name in mongodb, not model
+                localField: "product", // field in current colection
+                foreignField: "_id", // field at lookup colection
+                as: "productInfo" //you can set whatever name you want 
+            },
+        },
+        {
+            $unwind: "$productInfo",
+        },
+    ])
+        .then(colors => res.json(colors))
+        .catch(err => res.status(400).json('Error: ' + err))
+}
 const multerFilter = (req, file, cb) => { // filter if !image
     if (file.mimetype.startsWith("image")) {
         cb(null, true);
@@ -46,7 +64,7 @@ exports.resizeColorImages = catchAsync(async (req, res, next) => {
 
     //check if there are no images uploaded, move straight to the next middleware
 
- 
+
     if (!req.files.images) return next()
     // 2 Images
     req.body.images = []
@@ -74,15 +92,16 @@ exports.getAllColors = async (req, res) => {
 
 exports.addColor = (req, res) => {
     const name = req.body.name
-    const desc = req.body.desc
-    const images = req.body.images
-    const productid = req.body.productid
+    const colorcode = req.body.colorcode
+    const product = req.body.product
+    const radiocode = req.body.radiocode
 
-    console.log(req);
+    console.log(req.body);
     const newColor = new Color({
         name,
-        desc,
-        images
+        colorcode,
+        product,
+        radiocode
     })
 
     newColor.save()
@@ -101,11 +120,11 @@ exports.updateColor = (req, res) => {
         .then(color => {
 
             color.name = req.body.name
-            color.desc = req.body.desc
-            color.images = req.body.images
-            color.productid = req.body.productid
-
-            if(req.params.name){
+            color.colorcode = req.body.colorcode
+            color.product = req.body.product
+            color.radiocode = req.body.radiocode
+            
+            if (req.params.name) {
                 res.json("Name existed")
             }
             color.save()

@@ -25,7 +25,7 @@ class AuthService {
 
   logout() {
     localStorage.removeItem("userInfo");
-    history.push("/login");
+    history.push("/items");
 
   }
 
@@ -43,7 +43,6 @@ class AuthService {
      return userId
   }
   getCurrentUser() {
-    
      return JSON.parse(localStorage.getItem('userInfo'))
   }
 

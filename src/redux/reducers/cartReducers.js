@@ -11,16 +11,18 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
     switch (action.type) {
         case actionTypes.ADD_TO_CART:
             const item = action.payload
-            const existItem = state.cartItems.find((p) => p.product === item.product)
+            const existItem = state.cartItems.find((p) => p.mix === item.mix)
 
             if (existItem) {
                 return {
                     ...state,
-                    cartItems: state.cartItems.map((x) => x.product === existItem.product ? (
+                    cartItems: state.cartItems.map((x) => x.mix === existItem.mix ? (
                         {
                             ...x,
-                            qty: Number(x.qty) + Number(item.qty)
-
+                            qty: Number(x.qty) + Number(item.qty),
+                            color: x.textColor,
+                            size: x.textSize,
+                            mix: x.mix
                             // ...item,
                             // qty: x.qty += Number(existItem.qty)
                             // qty: item.qty,
@@ -49,68 +51,8 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
         case actionTypes.REMOVE_FROM_CART:
             return {
                 ...state,
-                cartItems: state.cartItems.filter((x) => x.product !== action.payload)
+                cartItems: state.cartItems.filter((x) => x.mix !== action.payload)
             }
-        case actionTypes.INCREASE_QTY2:
-            return {
-                ...state,
-                cartItems: state.cartItems
-            };
-        case actionTypes.DECREASE_QTY2:
-            return {
-                ...state,
-                cartItems: state.cartItems
-            };
-
-
-        case actionTypes.INCREASE_QTY:
-            return {
-                ...state,
-                cartItems: state.cartItems.map(i =>
-                    i.product === action.payload.product ?
-                        {
-                            ...i,
-                            qty: i.qty + 1
-                        }
-                        : i
-                )
-            }
-
-        // return {
-        //     ...state,
-        //     cartItems: incResults
-
-        // }
-        case actionTypes.DECREASE_QTY:
-            return {
-                ...state,
-                cartItems: state.cartItems.map(i =>
-                    i.product === action.payload.product ?
-                        {
-                            ...i,
-                            qty: i.qty === 1 ? i.qty = 1 : i.qty - 1
-                        }
-                        : i
-                )
-            }
-        // case actionTypes.INCREASE_QUANTITY:
-        //     state.numberCart++
-        //     state.Carts[action.payload].quantity++;
-
-        //     return {
-        //         ...state
-        //     }
-        // case actionTypes.DECREASE_QUANTITY:
-        //     let quantity = state.Carts[action.payload].quantity;
-        //     if (quantity > 1) {
-        //         state.numberCart--;
-        //         state.Carts[action.payload].quantity--;
-        //     }
-
-        //     return {
-        //         ...state
-        //     }
-
 
         case actionTypes.INCREASE:
             // let addedItem = state.cartItems.find(item => item.product === action.payload.product)
@@ -118,7 +60,7 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
             // let newTotal = state.total + addedItem.price
             return {
                 ...state,
-                cartItems: state.cartItems.map(i => i.product === action.payload.product ? {
+                cartItems: state.cartItems.map(i => i.mix === action.payload.mix ? {
                     ...i,
                     qty: action.payload.qty + 1
                 } : i)
@@ -128,60 +70,10 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
         case actionTypes.DECREASE:
             return {
                 ...state,
-                cartItems: state.cartItems.map(i => i.product === action.payload.product ? {
+                cartItems: state.cartItems.map(i => i.mix === action.payload.mix ? {
                     ...i,
                     qty: action.payload.qty - 1
                 } : i)
-                // let a = state.items.find(item => item.id === action.id)
-                //if the qt == 0 then it should be removed
-                // if (addedItem.quantity === 1) {
-                //     let new_items = state.addedItems.filter(item => item.id !== action.id)
-                //     let newTotal = state.total - addedItem.price
-                //     return {
-                //         ...state,
-                //         addedItems: new_items,
-                //         total: newTotal
-                //     }
-                // }
-                // else {
-                //     addedItem.quantity -= 1
-                //     let newTotal = state.total - addedItem.price
-                //     return {
-                //         ...state,
-                //         total: newTotal
-                //     }
-                // }
-
-
-                // let decResults = state.cartItems.map(i => {
-                //     if (i.product === action.payload.product) {
-                //         i = { ...i, qty: i.qty === 1 ? i.qty = 1 : i.qty - 1 }
-                //     }
-                //     return i;
-                // })
-
-                // return {
-                //     ...state,
-                //     cartItems: decResults
-
-                // }
-
-
-
-                // case actionTypes.INCREASE_QTY:
-                //     let updatedCart = state.cartItems.map((x)=>{ x.id === item.id ? 
-                //     })
-                //     if (item.id === action.id) {
-                //         item.qty += action.up;
-                //     }
-                //     return item;
-
-                // case actionTypes.DECREASE_QTY:
-
-                //     if (item.id === action.id) {
-                //         item.quantity -= action.down;
-                //     }
-                //     return item;
             }
         case actionTypes.CART_SAVE_SHIPPING_INFO:
             return {
@@ -191,7 +83,7 @@ export const cartReducer = (state = CART_INITIAL_STATE, action) => {
         case actionTypes.CART_SAVE_PAYMENT_METHOD:
             return {
                 ...state,
-                paymentMethod: action.payload 
+                paymentMethod: action.payload
             }
         case actionTypes.CART_EMPTY:
             return {

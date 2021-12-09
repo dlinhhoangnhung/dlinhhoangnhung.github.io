@@ -14,10 +14,13 @@ export const adjustQty = (id, qty) => async (dispatch, getState) => {
     localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
 }
 
-export const addToCart = (id, qty) => async (dispatch, getState) => {
+export const addToCart = (id, qty, textSize, textColor) => async (dispatch, getState) => {
     const { data } = await axios.get(`http://localhost:5001/users/api/products/${id}`);
     // khi user co action:them vao gio, get id cua san pham do
-
+    console.log(' color ' + data)
+    console.log('  ' + qty,)
+    console.log('  ' + textColor)
+    console.log('  ' + textSize)
     dispatch({ // phan nay chuyen di cho cartReducer
         type: actionTypes.ADD_TO_CART,
         payload: {
@@ -26,6 +29,9 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
             thumbnail: data.thumbnail,
             price: data.price,
             qty,
+            textColor,
+            textSize,
+            mix: data._id + textSize + textColor
         },
     });
 
@@ -33,10 +39,13 @@ export const addToCart = (id, qty) => async (dispatch, getState) => {
     localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
 }
 
-export const removeFromCart = (id) => (dispatch, getState) => {
+export const removeFromCart = (id, textSize, textColor) => (dispatch, getState) => {
+    console.log(textSize)
+    console.log(textColor)
+    console.log(id + textSize + textColor)
     dispatch({
         type: actionTypes.REMOVE_FROM_CART,
-        payload: id
+        payload: id + textSize + textColor
     })
 
     localStorage.setItem("cart", JSON.stringify(getState().cart.cartItems))
@@ -77,14 +86,15 @@ export function decreaseItem(payload) {
 // }
 
 
-export const increaseQty = (id, qty) => (dispatch, getState) => {
+export const increaseQty = (id, qty, textSize, textColor) => (dispatch, getState) => {
     console.log("ID: " + id + "qty: " + qty)
 
     dispatch({ // phan nay chuyen di cho cartReducer
         type: actionTypes.INCREASE,
         payload: {
             product: id,
-            qty: qty
+            qty: qty,
+            mix: id + textSize + textColor
         },
     });
     // console.log(product)
@@ -102,12 +112,13 @@ export const increaseQty = (id, qty) => (dispatch, getState) => {
     localStorage.setItem('cart', JSON.stringify(getState().cart.cartItems))
 }
 
-export const decreaseQty = (id, qty) => (dispatch, getState) => {
+export const decreaseQty = (id, qty, textSize, textColor) => (dispatch, getState) => {
     dispatch({ // phan nay chuyen di cho cartReducer
         type: actionTypes.DECREASE,
         payload: {
             product: id,
-            qty: qty
+            qty: qty,
+            mix: id + textSize + textColor
         },
     });
     // const cartItems = getState().cart.cartItems.slice()

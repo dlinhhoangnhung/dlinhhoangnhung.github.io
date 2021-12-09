@@ -7,6 +7,11 @@ exports.getAllCategories = async (req, res) => {
         .catch(err => res.status(400).json('You are not loggin or dont have been allowed to access' + err))
 }
 
+exports.deleteCate = async (req, res) => {
+    Category.findByIdAndDelete(req.params.id)
+        .then(() => res.json('Category is deleted'))
+        .catch(err => res.status(400).json('Error: ' + err))
+}
 
 exports.addCate = (req, res) => {
     const name = req.body.name

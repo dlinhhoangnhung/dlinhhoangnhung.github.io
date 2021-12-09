@@ -5,12 +5,9 @@ import Navbar from "./navbar.component"
 export default class Warning extends Component {
     render() {
         return (
-            <Router>
-                <Navbar />
                 <h1>
                     Hmmm, you do not have permission to access this route :P :P
                 </h1>
-            </Router>
         )
 
     }

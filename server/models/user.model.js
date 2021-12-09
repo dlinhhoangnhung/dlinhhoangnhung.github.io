@@ -7,13 +7,22 @@ const userSchema = new Schema({
     email: { type: String, required: true },
     username: { type: String, required: true },
     password: { type: String, required: true },
-    orderslist:[
-        {type: Schema.Types.ObjectId, required: true, ref: 'Category'}],
-
+    
+    orderslist: [
+        { type: String }],
+    orderid: [{
+        type: Schema.Types.ObjectId, ref: 'Order'
+    }],
     resetToken: String,
     expireToken: Date,
     resetLink: { data: String, default: '' },
-    role: { type: String, default: "user", enum: ["admin", "user"] }
+    role: { type: String, default: "user", enum: ["admin", "user"] },
+
+
+    address: { type: String },
+    phone: { type: String },
+    avatar: [String],
+
 },
     {
         timestamps: true

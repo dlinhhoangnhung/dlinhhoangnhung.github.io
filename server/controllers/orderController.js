@@ -5,23 +5,27 @@ const User = require('../models/user.model')
 const AppError = require('../utils/appError')
 const catchAsync = require('../utils/catchAsync')
 
-exports.getOrderByUser = (req, res) => {
+exports.getOrderContainUser = (req, res) => {
     Order.aggregate([
-        {    
+        {
             $lookup: //you can see at document
-            { 
+            {
                 from: "users", // collection name in mongodb, not model
                 localField: "_id", // field in current colection
                 foreignField: "orderslist", // field at lookup colection
-                as: "orders" //you can set whatever name you want 
+                as: "user" //you can set whatever name you want 
             },
-        } 
+        },
+        {
+            $unwind: "$user",
+        },
     ])
         .then(orders => res.json(orders))
         .catch(err => res.status(400).json('Error: ' + err))
 }
 /* ---------------------------------- ADMIN --------------------------------- */
 exports.getOrder = (req, res) => {
+    console.log(req.params.id)
     Order.findById(req.params.id)
         .then(o => res.json(o))
         .catch(err => res.status(400).json('Error: ' + err))
@@ -46,7 +50,7 @@ exports.createOrder = (req, res) => {
             user: req.user._id  // get from token
         })
         order.save()
-            .then(() => res.status(201).send({ message: 'New Order Created', order: order }))
+            .then(() => res.json(order))
             .catch(err => res.status(400).json('Error' + err))
         // order.save();
         //     .then(() => res.status(201).send({ message: 'New Order Created', order: order }))
@@ -85,9 +89,39 @@ exports.createOrder = (req, res) => {
 
 }
 
-exports.getOrderCreateByUser = (req, res) => {
-    Order.findById(req.params.cusid)
-        .then(product => res.json(product))
+//not work
+exports.getOrdersbyUserId = async (req, res) => {
+    let userId = req.params.userId
+    console.log(userId)
+    const order = await Order.find({ "user": userId })
+    if (!order) {
+        res.json('Order with this user id do not exist.')
+    }
+    else {
+        console.log(order)
+        res.json(order)
+    }
+
+}
+
+exports.getNewOrder = async (req, res) => {
+    console.log('alo')
+
+    const orders = await Order.find({ "isChecked": false })
+        .then(orders => res.json(orders))
+        .catch(err => res.status(400).json('Alo Error' + err))
+}
+
+exports.checkedOrder = async (req, res) => {
+    await Order.findById(req.params.id)
+        .then(order => {
+            order.isChecked = true
+            order.process.processing = true
+            order.save()
+                .then(() => res.json("Order be checked. " + order))
+                .catch(new AppError(err => res.status(400).json('Error: ' + err)))
+
+        })
         .catch(err => res.status(400).json('Error: ' + err))
 }
 

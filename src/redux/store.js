@@ -5,8 +5,14 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 // Reducers
 import { cartReducer } from "./reducers/cartReducers"
 import { getProductDetailsReducer, getProductsReducer } from './reducers/productReducers'
+import { getCategoriesReducer } from './reducers/categoryReducers'
 import { getUserSigninReducer } from './reducers/userReducers'
 import { getOrderCreateReducer } from './reducers/orderReducers'
+import { getColorsReducer } from './reducers/colorReducers'
+import { getSizesReducer } from './reducers/sizeReducers'
+import { getOrdersReducer } from './reducers/orderReducers'
+import { getOrderReducer } from './reducers/orderReducers'
+import { getSlideReducer } from './reducers/slideReducers'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 
@@ -38,9 +44,15 @@ import throttle from 'lodash/throttle';
 const reducer = combineReducers({
     cart: cartReducer,
     getProducts: getProductsReducer,
+    getCategories: getCategoriesReducer,
+    getColors: getColorsReducer,
+    getSizes: getSizesReducer,
     getProductDetails: getProductDetailsReducer,
     getUserSignin: getUserSigninReducer,
-    getOrderCreate: getOrderCreateReducer
+    getOrderCreate: getOrderCreateReducer,
+    getOrders: getOrdersReducer,
+    getOrder: getOrderReducer,
+    getIndex: getSlideReducer
 })
 
 const middleware = [thunk]
@@ -67,8 +79,9 @@ const INITIAL_STATE = {
         shippingInfo: shippingInfoInLocalStorage
     },
     userSignin: {
-        userInfo: userInLocalStorage,
+        userInfoo: userInLocalStorage,
     },
+
     // paymentMethod: 'Momo'
 }
 

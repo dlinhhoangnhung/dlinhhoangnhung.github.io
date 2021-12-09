@@ -2,10 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const sizeSchema = new Schema({
-    name: { type: String, required: true, unique: true, trim: true, minlength: true},
-    desc: { type: String, required: true},
-    productid: [
-        {type: Schema.Types.ObjectId, required: true, ref: 'Product'}]
+    name: { type: String, required: true },    
+    sizecode: { type: String, required: true },  
+    productslist: [
+        { type: String }],
+        
+    product: { type: mongoose.Schema.Types.ObjectId, ref: 'Product'}
 },
 {
     timestamps: true

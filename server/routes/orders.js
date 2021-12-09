@@ -12,9 +12,26 @@ router.route('/')
         orderController.createOrder
     )
 
-    router.route('/:id')
+router.route('/:id')
     .get(
         authControllers.userAuth,
         orderController.getOrder
     )
+router.route('/user/:userId')
+    .get(
+        authControllers.userAuth,
+        orderController.getOrdersbyUserId
+    )
+
+router.route('/new-orders/:id')
+    .get( // admin
+        authControllers.userAuth,
+        authControllers.checkRole(["admin"]),
+        orderController.getNewOrder)
+
+router.route('/new-order-checked/:id')
+    .get( // admin
+        authControllers.userAuth,
+        authControllers.checkRole(["admin"]),
+        orderController.checkedOrder)
 module.exports = router

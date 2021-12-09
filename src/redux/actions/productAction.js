@@ -3,6 +3,7 @@ import axios from 'axios'
 
 export const getProducts = () => async (dispatch) => {
     try {
+        console.log('getPRoduct: ')
         dispatch({ type: actionsType.GET_PRODUCTS_REQUEST })
 
         const { data } = await axios.get(`http://localhost:5001/users/api/products`)
@@ -12,6 +13,7 @@ export const getProducts = () => async (dispatch) => {
             payload: data
         })
     } catch (error) {
+        console.log('error')
         dispatch({
             type: actionsType.GET_PRODUCTS_FAIL,
             payload: error.response && error.response.data.message 

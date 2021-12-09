@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { savePaymentMethod } from '../../redux/actions/cartActions'
 import CheckoutSteps from '../checkout/CheckoutSteps'
-import '../../payment.css'
 
 export default function PaymentMethodScreen(props) {
     const [paymentMethod, setPaymentMehthod] = useState('Momo')

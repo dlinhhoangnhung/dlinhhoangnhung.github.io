@@ -23,6 +23,7 @@ export default function PlaceOrderScreen({ item }, props) {
     const dispatch = useDispatch()
 
     const orderCreate = useSelector((state) => state.getOrderCreate)
+    console.log('orderCreate '+orderCreate)
     const { loading, success, error, order } = orderCreate
     const toPrice = (num) => Number(num.toFixed(2)); // 5.123 => "5.12" => 5.12
     cart.itemsPrice = toPrice(
@@ -35,28 +36,26 @@ export default function PlaceOrderScreen({ item }, props) {
             .reduce((price, item) => price + item.price * item.qty, 0)
     }
 
-    const orderId = localStorage.getItem('orderId')
+    // const orderId = localStorage.getItem('orderId')
 
-    let str = orderId;
-    let del_str=str.slice(1, str.length-1)
+    // let str = orderId;
+    // let del_str=str.slice(1, str.length-1)
 
-    const placeOrderHandler = () => {
+    const placeOrderHandler = async() => {
         console.log('hoat dong')
-        dispatch(createOrder({ ...cart, orderItems: cart.cartItems }))
+        await dispatch(createOrder({ ...cart, orderItems: cart.cartItems }))
             .then(
-                () => {
+                (res) => {
                     // window.location.reload();
-
                     // history.push(`/order/${order._id}`);
                     // dispacth update order item into usermodel
-                    dispatch(updateOrder({ orderslist: del_str}))
-
+                    // dispatch(updateOrder({ orderslist: del_str})) 27/11 k can vi order model co luu usêr id
                     dispatch(removeFromCart(cart.cartItems))
-                    console.log("order id : " +del_str)
-                    history.push(`/cart`);
+                    // console.log("order id : " +del_str)
                     toast("Order Successfully ! \n Chúng tôi sẽ liên hệ trong thời gian sớm nhất", {
                         type: "warning",
                     });
+                  
                 },
                 error => {
                     const resMessage =
@@ -81,136 +80,110 @@ export default function PlaceOrderScreen({ item }, props) {
     return (
         <div>
             <CheckoutSteps step1 step2 step3></CheckoutSteps>
-            <div>
-                <div className="content d-flex flex-column flex-column-fluid" id="kt_content">
-                    <div className="d-flex flex-column-fluid">
-                        <div className="container">
-                            <div className="card card-custom overflow-hidden">
-                                <div className="card-body p-0">
-                                    <div className="row justify-content-center py-8 px-8 py-md-27 px-md-0">
-                                        <div className="col-md-9">
-                                            <div className="d-flex justify-content-between pb-10 pb-md-20 flex-column flex-md-row">
-                                                <h1 className="display-4 font-weight-boldest mb-10">INVOICE</h1>
-                                                <div className="d-flex flex-column align-items-md-end px-0">
-                                                    <a href="#" className="mb-5">
-                                                        <img src="assets/img/logo-dark.png" alt="" />
-                                                    </a>
-                                                    <span className="d-flex flex-column align-items-md-end opacity-70">
-                                                        <span>{cart.shippingInfo.fullName}</span>
-                                                        <span>{cart.shippingInfo.address}</span>
-                                                        <span >{cart.shippingInfo.phone}</span>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            {/* <div className="border-bottom w-100"></div> */}
-                                            <div className="d-flex justify-content-between pt-6">
-                                                <div className="d-flex flex-column flex-root">
-                                                    <span className="font-weight-bolder mb-2">{cart.shippingInfo.fullName}</span>
-                                                    <span className="font-weight-bolder mb-2">{cart.shippingInfo.phone}</span>
-                                                </div>
-                                                <div className="d-flex flex-column flex-root">
-                                                    <span className="font-weight-bolder mb-2">Địa chỉ:</span>
-                                                    <span className="opacity-70">{cart.shippingInfo.address}</span>
-                                                </div>
-                                                <div className="d-flex flex-column flex-root">
-                                                    <span className="font-weight-bolder mb-2">Hình thức thanh toán</span>
-                                                    <span className="opacity-70">COD</span>
-                                                </div>
 
-                                            </div>
+
+
+            <div class="h-screen grid grid-cols-3">
+                <div class="lg:col-span-2 col-span-3 bg-indigo-50 space-y-8 px-12">
+                    <div class="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
+                        <div class="flex flex-row items-center border-b sm:border-b-0 w-full sm:w-auto pb-4 sm:pb-0">
+                            <div class="text-yellow-500">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 sm:w-5 h-6 sm:h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <div class="text-sm font-medium ml-3">Checkout</div>
+                        </div>
+                        <div class="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">Xem lại thông tin đã cung cấp và xác nhận đặt hàng.</div>
+                        <div class="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                        </div>
+                    </div>
+                    <div class="rounded-md">
+                        <form id="payment-form" method="POST" action="">
+                            <section>
+                                <h2 class="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Shipping & Billing Information</h2>
+                                <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
+                                    <label class="flex border-b border-gray-200 h-12 py-3 items-center">
+                                        <span class="text-right px-2">Name</span>
+                                        <span>{cart.shippingInfo.fullName}</span>
+                                    </label>
+                                    <label class="flex border-b border-gray-200 h-12 py-3 items-center">
+                                        <span class="text-right px-2">Phone</span>
+                                        <span>{cart.shippingInfo.phone}</span>
+                                    </label>
+                                    <label class="flex border-b border-gray-200 h-12 py-3 items-center">
+                                        <span class="text-right px-2">Address</span>
+                                        <span >{cart.shippingInfo.address}</span>
+                                    </label>
+                                </fieldset>
+                            </section>
+                        </form>
+                    </div>
+                    {/* <div class="rounded-md">
+                        <section>
+                            <h2 class="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Payment Information</h2>
+                            <fieldset class="mb-3 bg-white shadow-lg rounded text-gray-600">
+                                <label class="flex border-b border-gray-200 h-12 py-3 items-center">
+                                    <span class="text-right px-2">Card</span>
+                                    <input name="card" class="focus:outline-none px-3 w-full" placeholder="Card number MM/YY CVC" required="" />
+                                </label>
+                            </fieldset>
+                        </section>
+                    </div> */}
+                    <button
+                        type="button"
+                        onClick={placeOrderHandler}
+                        disabled={cart.cartItems.length === 0}
+                        class="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+                        Xác nhận đặt hàng
+                    </button>
+                    {loading && <Loading></Loading>}
+                    {error && <MessageBox variant="danger">{error}</MessageBox>}
+                </div>
+                <div class="col-span-1 bg-white lg:block hidden">
+                    <h1 class="py-6 border-b-2 text-xl text-gray-600 px-8">Order Summary</h1>
+                    <ul class="py-6 border-b space-y-6 px-8">
+                        {
+                            (cartItems.map((item) => (
+                                <li class="grid grid-cols-6 gap-2 border-b-1">
+                                    <div class="col-span-1 self-center">
+                                        <a href={`/items/${item.name}-${item.product}`}>
+                                            <img alt="Product" className="rounded w-full" src={`http://localhost:3000/assets/imgs/products/${item.thumbnail}`} />
+                                        </a>
+                                    </div>
+                                    <div class="flex flex-col col-span-3 pt-2">
+                                        <span class="text-gray-600 text-md font-semi-bold">{item.name}</span>
+                                        <span class="text-gray-400 text-sm inline-block pt-2">{item.textColor && item.textColor}</span>
+                                        <span class="text-gray-400 text-sm inline-block pt-2">{item.textSize && item.textSize}</span>
+                                    </div>
+                                    <div class="col-span-2 pt-3">
+                                        <div class="flex items-center space-x-2 text-sm justify-between">
+                                            <span class="text-gray-400">{item.qty} x {item.price}</span>
+                                            <span class="text-pink-400 font-semibold inline-block">{item.qty * item.price}đ</span>
                                         </div>
                                     </div>
-                                    <div className="row justify-content-center py-8 px-8 py-md-10 px-md-0">
-                                        <div className="col-md-9">
-                                            <div className="table-responsive">
-                                                <table className="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th className="pl-0 font-weight-bold text-muted text-uppercase"></th>
-                                                            <th className="pl-0 font-weight-bold text-muted text-uppercase">Items</th>
-                                                            <th className="text-right font-weight-bold text-muted text-uppercase">Price</th>
-                                                            <th className="text-right font-weight-bold text-muted text-uppercase">Quantity</th>
-                                                            <th className="text-right pr-0 font-weight-bold text-muted text-uppercase">Amount</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        {
-                                                            (cartItems.map((item) => (
-                                                                <tr className="font-weight-boldest">
-                                                                    <a href={`/items/${item.name}-${item.product}`}>
-                                                                        <img className="img" src={`http://localhost:3000/assets/imgs/products/${item.thumbnail}`} />
-                                                                    </a>
-                                                                    <td className="pl-0 pt-7">{item.name}</td>
-                                                                    <td className="text-right pt-7">{item.price}</td>
-                                                                    <td className="text-right pt-7">{item.qty}</td>
-                                                                    <td className="text-right pt-7">{item.qty * item.price}đ</td>
-                                                                </tr>
+                                </li>
 
-                                                            )))
-                                                        }
-                                                    </tbody>
-
-                                                </table>
-                                                <div className="border-bottom w-100"></div>
-                                                <div style={{ textAlign: 'right', alignSelf: 'stretch', fontSize: '23px', color: 'blue', fontWeight: 'bold', marginTop: 10 }}>{getCartSubTotal()}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* <div className="row justify-content-center bg-gray-100 py-8 px-8 py-md-10 px-md-0">
-                                        <div className="col-md-9">
-                                            <div className="table-responsive">
-                                                <table className="table">
-                                                    <thead>
-                                                        <tr>
-                                                            <th className="font-weight-bold text-muted text-uppercase">BANK</th>
-                                                            <th className="font-weight-bold text-muted text-uppercase">ACC.NO.</th>
-                                                            <th className="font-weight-bold text-muted text-uppercase">DUE DATE</th>
-                                                            <th className="font-weight-bold text-muted text-uppercase">TOTAL AMOUNT</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <tr className="font-weight-bolder">
-                                                            <td>BARCLAYS UK</td>
-                                                            <td>12345678909</td>
-                                                            <td>Jan 07, 2018</td>
-                                                            <td className="text-danger font-size-h3 font-weight-boldest">20,600.00</td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                        </div>
-                                    </div> */}
-                                    <div className="row justify-content-center py-8 px-8 py-md-10 px-md-0">
-                                        <div className="col-md-9">
-                                            <div className="d-flex justify-content-between">
-                                                {/* 
-                                                <button 
-                                                    type="button" 
-                                                    className="btn btn-primary font-weight-bold" 
-                                                    onclick={placeOrderHandler}></button> */}
-                                                <button
-                                                    type="button"
-                                                    onClick={placeOrderHandler}
-                                                    className=""
-                                                    disabled={cart.cartItems.length === 0}
-                                                >
-                                                    Place Order
-                                                </button>
-                                                {loading && <Loading></Loading>}
-                                                {error && <MessageBox variant="danger">{error}</MessageBox>}
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div >
-                        </div >
-                    </div >
-                </div >
-
-            </div >
-        </div >
+                            )))
+                        }
+                        <span class="text-sm text-red-600">Chưa bao gồm phí ship</span>
+                    </ul>
+                    <div class="px-8 border-b">
+                        <div class="flex justify-between py-4 text-gray-600">
+                            <span>Hình thức thanh toán</span>
+                            <span>COD</span>
+                            {/* <span>Shipping</span>
+                            <span class="font-semibold text-pink-500">Free</span> */}
+                        </div>
+                    </div>
+                    <div class="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
+                        <span>Total</span>
+                        <span>{getCartSubTotal()}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     )
 
     // return (

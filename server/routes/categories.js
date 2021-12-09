@@ -19,13 +19,10 @@ router.route('/:id')
         authControllers.checkRole(["admin"]),
         categoryController.updateCate
     )
-
-
-router.route('/:id').delete((req, res) => {
-    Category.findByIdAndDelete(req.params.id)
-        .then(() => res.json('Category is deleted'))
-        .catch(err => res.status(400).json('Error: ' + err))
-})
-
+    .delete(
+        authControllers.userAuth,
+        authControllers.checkRole(["admin"]),
+        categoryController.deleteCate
+    )
 
 module.exports = router

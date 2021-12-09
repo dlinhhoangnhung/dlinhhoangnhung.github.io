@@ -1,5 +1,5 @@
 import CartItem from './cart/CartItem';
-import '../client.css'
+import '../css/client.css'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from "react";
