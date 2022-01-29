@@ -12,7 +12,7 @@ const SecView = () => {
     return (
         <div className="relative">
             <div class="bg-next-2 w-full h-screen bg-cover bg-center">
-                <div class="w-full inrow px-10 py-8 justify-between">
+                {/* <div class="w-full inrow px-10 py-8 justify-between">
                     <div class="inrow flex space-x-8">
                         <div class="header-text">
                             Mobile Case
@@ -34,7 +34,7 @@ const SecView = () => {
                         </div>
                         <img src="img/burger-menu.png" class="h-5 w-9" />
                     </div>
-                </div>
+                </div> */}
 
                 <div class="h-screec w-screen pl-80 pt-60 space-y-3">
                     <div class="w-full flex justify-between inrow pr-2">
@@ -58,7 +58,10 @@ const SecView = () => {
                                 </div>
                             </div>
                         </div>
-                        <div class="grid place-items-center inrow px-8">
+
+                    </div>
+                    <div className='w-full'>
+                        <div class="grid place-items-center flex justify-end inrow px-8">
                             <ul class="">
                                 <li class="">
                                     <span

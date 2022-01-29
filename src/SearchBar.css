@@ -1,85 +1,74 @@
-input {
-  border: none;
+body {
+  background: url("https://images.pexels.com/photos/1037993/pexels-photo-1037993.jpeg?auto=compress&cs=tinysrgb&h=1080&w=1920")
+    no-repeat center center fixed;
+  background-size: cover;
+  text-align: center;
+  padding-top: 40px;
 }
 
-
-.search-bar {
-  /* max-width: 80px; */
-  /* max-width: 180px; */
-  margin-left: 130px;
-  /* width: 100%; */
-  /* height: 300px;
-    
-    position: fixed;
-    left: 0px;
-    bottom: 0px;
-    display: flex;
-    justify-content: center;
-    box-shadow: 2px -5px 30px rgba(0, 0, 0, 0.1);
-    z-index: 101; */
-}
-
-.search-label {
-  max-width: 24px;
-  max-height: 24px;
-}
-
-.search-sub {
+.my-modal {
+  will-change: opacity;
   display: none;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  background: rgba(#111, 0.35);
+  /* // animation part */
+  transition: all 500ms;
+  opacity: 0;
 }
 
-.search-bar:hover .search-sub {
-  display: block;
-  position: absolute;
-  width: 100px;
-  height: auto;
-  background-color: rgb(255, 255, 255);
+.my-modal__content {
+  max-height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  border-radius: 6px;
+  background: rgba(#fff, 0.8);
+  box-shadow: 2px 3px 20px rgba(#333, 0.4);
+
+  /* // animation part */
+  transition: all 500ms;
+  transform: translateY(-40%);
+  opacity: 0;
 }
 
-.search-bar:hover .search-sub input{
-  display: block;
-  position: absolute;
-  width: 200px;
-  height: auto;
-  border-color: black;
-  border-radius: 2rem;
-  background-color: rgb(255, 255, 255);
-  text-align: center;
+.my-modal--show {
+  opacity: 1;
 }
 
- .right-content .right_links p:hover .sub-menu-1 a {
-  display: block;
-  margin: 10px;
-  padding: 0.5px;
-  color: rgb(255, 255, 255);
+.my-modal__content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-form {
   text-align: left;
+  width: 80vw;
+  padding: 20px 25px;
+
+  /* // for bigger screen */
+  @media screen and (min-width: 720px) {
+    padding-right: 40px;
+    padding-left: 40px;
+    width: 60vw;
+  }
+
+  /* // fix label in bootstrap */
+}
+label {
+  width: 100%;
 }
 
-.right-content .right_links p:hover .sub-menu-1 a:hover {
-  color: rgb(186, 63, 7);
-}
-
-
-.search-input {
-  /* padding: 0;
-  text-align: center;
-  margin: 0 0 40px 0;
-  max-height: 22px; */
-
-
-  /* max-width: 98px; */
-  /* border-bottom: 0.98px solid #000;
-    display: flex;
-    height: 5px; */
-  /* justify-content: center;
-    align-items: center; */
-  /* text-align: center; */
-  /* margin-bottom: 100px; */
-  /* width: 10%;
-    border-bottom: 2px solid #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px;
-    margin-top: 20px; */
+.welcome-message {
+  padding: 20px 40px;
+  width: 80vw;
+  /* // for bigger screen */
+  @media screen and (min-width: 720px) {
+    width: 60vw;
+  }
 }

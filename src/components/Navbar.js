@@ -31,7 +31,7 @@ const Navbar = () => {
             </div>
 
             <div className="w-full">
-                <div onClick={e => window.location.href = '/'} className="flex justify-center">
+                <div onClick={e => window.location.href = '/items'} className="flex justify-center">
                     {/* Logo */}
                     <img className="mr-28 absolute w-6 h-8" src={G} />
                 </div>
@@ -45,7 +45,7 @@ const Navbar = () => {
                             </svg>
                             <span className="text-bold text-blue-500">{getCartCount()}</span>
                         </div>
-                        {showCart && (<Cart />)}
+                        {!showCart ? '' : (<Cart />)}
                     </div>
 
 

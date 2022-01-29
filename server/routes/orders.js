@@ -9,7 +9,21 @@ router.route('/')
         orderController.getAllOrders)
     .post(
         authControllers.userAuth,
-        orderController.createOrder
+        orderController.createOrder,
+
+    )
+
+router.route('/user/delete-order-:orderId')
+    .delete(
+        authControllers.userAuth,
+        orderController.deleteOrder
+    )
+
+router.route('/admin/delete-order-:orderId')
+    .delete(
+        authControllers.userAuth,
+        authControllers.checkRole(["admin"]),
+        orderController.deleteOrder
     )
 
 router.route('/:id')
@@ -17,6 +31,8 @@ router.route('/:id')
         authControllers.userAuth,
         orderController.getOrder
     )
+
+// get all orders of a user
 router.route('/user/:userId')
     .get(
         authControllers.userAuth,
@@ -29,9 +45,11 @@ router.route('/new-orders/:id')
         authControllers.checkRole(["admin"]),
         orderController.getNewOrder)
 
-router.route('/new-order-checked/:id')
-    .get( // admin
+router.route('/updated-order-processing-:id')
+    .patch( // admin
         authControllers.userAuth,
         authControllers.checkRole(["admin"]),
-        orderController.checkedOrder)
+        orderController.updateOrderProcess)
+
+
 module.exports = router

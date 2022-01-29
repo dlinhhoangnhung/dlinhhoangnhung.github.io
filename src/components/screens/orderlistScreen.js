@@ -6,6 +6,7 @@ import UserOrderRow from "./orderrowScreen"
 import UserPrivateSidebar from "../admin/users/sidebar-user-private.component"
 import userService from "../services/user.service"
 import authService from "../services/auth.service"
+import NavbarUser from "../admin/users/navbar-user.component"
 
 export default class UserOrdersList extends Component {
     constructor(props) {
@@ -64,40 +65,23 @@ export default class UserOrdersList extends Component {
                         <UserPrivateSidebar />
                         {/* <!-- Get data depend on select --> */}
                         <div className="flex flex-col w-4/5 h-full px-8 pt-4">
-                            <div className="w-full h-10 flex flex-row; justify-between">
-                                <div className="text-2xl pl-4">
-                                    Organization Overview
-                                </div>
-                                <div className="flex flex-row flex space-x-2">
-                                    <div className="h-9 w-20 rounded-md bg-white p-2 flex flex-row;">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 stroke-current text-icon" fill="none"
-                                            viewBox="0 0 24 24" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                                                d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
-                                        </svg>
-                                        <div className="text-black ml-1 text-sm">Filters</div>
-                                    </div>
-                                    <div className="h-9 w-20 rounded-md bg-white p-2 flex flex-row;">
-                                        <div><img src="img/Slider.png" className="h-5 w-5 stroke-current text-icon" /></div>
-                                        <div className="text-black ml-1 text-sm">Noti</div>
-                                    </div>
-                                    <div className="h-9 w-20 rounded-md bg-white p-2 flex flex-row;">
-                                        <div><img src="img/Outbox.png" className="h-5 w-5 stroke-current text-icon" /></div>
-                                        <div className="text-black ml-1 text-sm">Export</div>
-                                    </div>
-                                </div>
-                            </div>
+                        <NavbarUser />
+                          
 
 
-                            <div className="bg-table h-full w-full mt-7 rounded-2xl">
+                            <div className="bg-table h-full w-full mt-10 rounded-2xl">
                                 <div className="text-xl flex flex-row; justify-between ring-2 ring-btncreate">
                                     <div className=" mx-8 my-8">Orders Management</div>
-                                    <div className="h9 w-24 ring-1 ring-btncreate p-2 flex flex-row; rounded-md  mx-8 my-8">
-                                        <div><img src="img/Create.png" className="h-5 w-5 stroke-current text-icon" /></div>
+                                    {/* <div className="h-9 w-24 ring-1 ring-btncreate p-2 flex flex-row; space-x-2 rounded-md  mx-8 my-8">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 stroke-current text-icon" fill="none"
+                                                viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
+                                                    d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+                                            </svg>
                                         <a href="/create-product">
-                                            <div to="/create-product" className="text-sm">Add New</div>
+                                            <div to="/create-product" className="text-base">Lọc</div>
                                         </a>
-                                    </div>
+                                    </div> */}
                                 </div>
 
                                 <div className="w-full">

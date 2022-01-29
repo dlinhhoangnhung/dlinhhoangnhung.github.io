@@ -3,27 +3,33 @@ import CheckoutSteps from "../checkout/CheckoutSteps"
 import { useDispatch, useSelector } from "react-redux"
 import { saveShippingAddress } from "../../redux/actions/cartActions"
 import authService from "../services/auth.service"
+import Navbar from "../Navbar"
 
 export default function ShippingAddressScreen(props) {
     const user = useSelector((state) => state.getUserSignin.userInfo)
     console.log(user)
     const cart = useSelector((state) => state.cart)
     const { shippingInfo } = cart
-    // const [fullName, setFullName] = useState('')
-    // const [phone, setPhone] = useState('')
-    // const [address, setAddress] = useState('')
+    const [fullName, setFullName] = useState('')
+    const [phone, setPhone] = useState('')
+    const [address, setAddress] = useState('')
 
-    const [fullName, setFullName] = useState(shippingInfo.fullName)
-    const [phone, setPhone] = useState(shippingInfo.phone)
-    const [address, setAddress] = useState(shippingInfo.address)
+    // const [fullName, setFullName] = useState('shippingInfo.fullName')
+    // const [phone, setPhone] = useState(shippingInfo.phone)
+    // const [address, setAddress] = useState(shippingInfo.address)
     const dispatch = useDispatch()
     const submitHandler = async (e) => {
         const a = await /(03|05|07|08|09|01[2|6|8|9])+([0-9]{8})\b/.test(phone);
         if (a === true) {
-            e.preventDefault()
-            dispatch(saveShippingAddress({ fullName, phone, address })
-            )
-            props.history.push('/user-info/placeorder')
+            if (fullName === '' || address === '') {
+                setPhoneSyntax(1)
+            }
+            else {
+                e.preventDefault()
+                dispatch(saveShippingAddress({ fullName, phone, address })
+                )
+                props.history.push('/user-info/placeorder')
+            }
         }
         else {
             setPhoneSyntax(1)
@@ -62,10 +68,11 @@ export default function ShippingAddressScreen(props) {
             return false;
         }
     }
-console.log(user)
+    console.log(user)
 
     return (
-        <div>
+        <div className="h-screen incol space-y-10">
+            <Navbar />
             <CheckoutSteps step1 step2></CheckoutSteps>
             <div className="leading-loose flex justify-center">
                 <form x class="max-w-xl w-1/3  m-4 p-10 bg-white rounded shadow-xl">
@@ -97,7 +104,7 @@ console.log(user)
                         <input
                             id="phone"
                             placeholder="Enter phone"
-                            value={user.name}
+                            value={user.phone && user.phone}
                             onChange={(e) => setPhone(e.target.value)}
                             required
                             class="w-full px-2 py-2 text-gray-700 bg-gray-200 rounded" />
@@ -106,7 +113,7 @@ console.log(user)
 
                             // </div>
                             <div class="my-3 block  text-sm text-left text-red-600  bg-red-500 bg-opacity-10 border border-red-400 h-12 flex items-center p-4 rounded-md" role="alert">
-                                Số điện thoại không hợp lệ
+                                Số điện thoại không hợp lệ hoặc thông tin bị trống
                             </div>
                         }
                     </div>

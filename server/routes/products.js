@@ -13,9 +13,6 @@ router.route('/')
         productController.addProduct
     )
 
-router.route('/colors')
-    .get(productController.getColorByProduct)
-
 router.route('/:id')
     .get(productController.getProduct)
     .patch( //new solu
@@ -34,7 +31,7 @@ router.route('/:id')
     //     // productController.resizeImages,
     //     productController.updateProduct
     // )
- 
+
     // .post( 
     //     // authControllers.userAuth,
     //     // authControllers.checkRole(['admin']),

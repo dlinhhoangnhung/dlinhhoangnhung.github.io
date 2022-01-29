@@ -20,7 +20,7 @@ export default class RegisterScreen extends Component {
             email: "",
             username: "",
             password: "",
-            isRedirect: 0,
+            isRedirect: undefined,
 
         };
 
@@ -66,20 +66,30 @@ export default class RegisterScreen extends Component {
             password: this.state.password,
         };
         console.log(user);
-        axios.post("http://localhost:5001/users/sign-up", user).then((res) => {
-            console.log(res.data);
-            toast("Successfully Registed !", {
-                type: "warning",
-            });
-            this.setState({
-                isRedirect: 1,
-            });
-        })
+        axios.post("http://localhost:5001/users/sign-up", user)
+            .then((res) => {
+                console.log(res.data);
+                toast("Successfully Registed !", {
+                    type: "warning",
+                });
+                this.setState({
+                    isRedirect: 1,
+                });
+            },
+                error => {
+                    this.setState({
+                        isRedirect: 0
+                    })
+                    toast("Không thể đổi email, kiểm tra lại nếu có trùng :)", {
+                        type: "danger"
+                    })
+                })
     }
+
     render() {
         const isLoading = this.state.isLoading
 
-        // if (this.state.isRedirect) return <Redirect to="/" />;
+        if (this.state.isRedirect) return <Redirect to="/items" />;
         return (
             // <form onSubmit={this.onSubmit}>
             //     <div className="main" style={{ paddingTop: 10 }}>
@@ -215,7 +225,6 @@ export default class RegisterScreen extends Component {
             <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
                     <div>
-                        <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
                         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
                             Xin chào
                         </h2>
@@ -306,17 +315,25 @@ export default class RegisterScreen extends Component {
                             <div className="flex items-center">
                                 <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
                                 <label for="remember-me" className="ml-2 block text-sm text-gray-900">
-                                    Remember me
+                                    Ghi nhớ
                                 </label>
                             </div>
 
                             <div className="text-sm">
                                 <a href="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                    Đăng nhập
+                                    Đã có tài khoản ?
                                 </a>
                             </div>
                         </div>
 
+                        {
+                            this.state.isRedirect === 0 &&
+                            (
+                                <div class="my-3 block  text-sm text-left text-red-600  bg-red-500 bg-opacity-10 border border-red-400 h-12 flex items-center p-4 rounded-md">
+                                    Không thể đăng ký, email hoặc username đã tồn tại hoặc chưa đúng.
+                                </div>
+                            )
+                        }
                         <div>
                             <button
                                 type="submit"
@@ -327,7 +344,7 @@ export default class RegisterScreen extends Component {
                                         <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                                     </svg>
                                 </span>
-                                Sign in
+                                Đăng ký
                             </button>
                         </div>
                     </form>

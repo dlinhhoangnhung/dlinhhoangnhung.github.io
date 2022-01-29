@@ -62,7 +62,7 @@ export default class OrdersList extends Component {
                         <div className="flex flex-col w-4/5 h-full px-8 pt-4">
                             <div className="w-full h-10 flex flex-row; justify-between">
                                 <div className="text-2xl pl-4">
-                                    Organization Overview
+                                    Admin Overview
                                 </div>
                                 <div className="flex flex-row flex space-x-2">
                                     <div className="h-9 w-20 rounded-md bg-white p-2 flex flex-row;">

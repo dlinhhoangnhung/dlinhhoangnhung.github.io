@@ -100,6 +100,7 @@ const { connect } = require('./routes/users')
 const imagesRouter = require('./routes/product-images')
 const colorsRouter = require('./routes/product-colors')
 const sizesRouter = require('./routes/product-sizes')
+const notificationsRouter = require('./routes/notifications')
 
 
 //User router middleware
@@ -112,8 +113,11 @@ app.use('/users/api/orders-detail', ordersdetailRouter)
 app.use('/users/api/products-image', imagesRouter)
 app.use('/users/api/products-sizes', sizesRouter)
 app.use('/users/api/products-colors', colorsRouter)
+app.use('/users/api/notifications', notificationsRouter)
 
 
+
+  
 app.all('*', (req, res, next) => {
     return next(new AppError(`Cannot find ${req.originalUrl} on this server`, 404))
 })

@@ -32,6 +32,14 @@ class UserService {
     return axios.get(API_URL + '/products/');
   }
 
+  getProductColors(pId) {
+    return axios.get(API_URL + '/products/colors/' + pId);
+  }
+
+  getProductSizes(pId) {
+    return axios.get(API_URL + '/products/sizes' + pId);
+  }
+
   getSingleProduct(id) {
     return axios.get(API_URL + '/products/' + id);
   }
@@ -90,9 +98,6 @@ class UserService {
     return axios.get('http://localhost:5001/users/api/orders/new-orders/' + adminId, { headers: authHeader() })
   }
 
-  checkedOrder(id){
-    return axios.get('http://localhost:5001/users/api/orders/new-order-checked/' + id, { headers: authHeader() })
-  }
 
   getOrders() {
     return axios.get('http://localhost:5001/users/api/orders/', { headers: authHeader() })
@@ -101,12 +106,17 @@ class UserService {
     return axios.get(API_URL + '/orders/' + id, { headers: authHeader() })
   }
 
+  updateOrderProcess(id, data) {
+    return axios.patch(API_URL + '/orders/updated-order-processing-' + id, data, { headers: authHeader() })
+  }
+
+
   getOrdersbyUserId(id) {
     console.log(id)
     return axios.get(API_URL + '/orders/user/' + id, { headers: authHeader() })
   }
 
-  
+
   getOrderDetails(data) {
     try {
       let result = axios.get(API_URL + '/orders/:id', { headers: authHeader() })
@@ -123,6 +133,19 @@ class UserService {
 
   addOrder() {
     return axios.post(API_URL + '/orders/', { headers: authHeader() });
+  }
+
+  getNotiOfUser() {
+    return axios.get(API_URL + '/notifications/user-noti', { headers: authHeader() })
+  }
+
+  getNotiUnreadOfUser() {
+    return axios.get(API_URL + '/notifications/user-noti-unread', { headers: authHeader() })
+  }
+
+
+  notiIsRead(id) {
+    return axios.post(API_URL + '/notifications/noti-' + id, { headers: authHeader() })
   }
 }
 

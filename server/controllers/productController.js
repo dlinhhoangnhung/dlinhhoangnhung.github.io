@@ -4,6 +4,8 @@ const sharp = require('sharp')
 const AppError = require('../utils/appError')
 const multerStorage = multer.memoryStorage();
 const catchAsync = require('../utils/catchAsync')
+const mongoose = require('mongoose')
+const ObjectId = mongoose.Types.ObjectId;
 
 const multerFilter = (req, file, cb) => { // filter if !image
     if (
@@ -378,27 +380,33 @@ exports.updateProduct = async (req, res) => {
 }
 
 exports.getAllProducts = (req, res) => {
-    //  Product.aggregate([
-    //     {
-    //         $lookup: //you can see at document
-    //         {
-    //             from: "colors", // collection name in mongodb, not model
-    //             localField: "_id", // field in current colection
-    //             foreignField: "product", // field at lookup colection
-    //             as: "color" //you can set whatever name you want 
-    //         },
-    //     },
-    //     {
-    //         $unwind: "$color",
-    //     },
-    // ])
-    //     .then(products => (res.json(products),
-    //         console.log(products)
-    //     ))
-    //     .catch(err => res.status(400).json('Error: ' + err))
-    Product.find()
-        .then(products => res.json(products))
-        .catch(err => res.status(400).json('Alo Error' + err))
+     Product.aggregate([
+        {
+            $lookup: //you can see at document
+            {
+                from: "colors", // collection name in mongodb, not model
+                localField: "colorslist", // field in current colection
+                foreignField: "_id", // field at lookup colection
+                as: "color" //you can set whatever name you want 
+            },
+        },
+        {
+            $lookup: //you can see at document
+            {
+                from: "sizes", // collection name in mongodb, not model
+                localField: "sizeslist", // field in current colection
+                foreignField: "_id", // field at lookup colection
+                as: "size" //you can set whatever name you want 
+            },
+        },
+    ])
+        .then(products => (res.json(products),
+            console.log(products)
+        ))
+        .catch(err => res.status(400).json('Error: ' + err))
+    // Product.find()
+    //     .then(products => res.json(products))
+    //     .catch(err => res.status(400).json('Alo Error' + err))
 }
 
 exports.addProduct = async (req, res) => {

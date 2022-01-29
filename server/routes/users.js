@@ -50,8 +50,11 @@ router.get('/user/admin/:userId', authControllers.userAuth, authControllers.chec
 // user order
 router.put('/user/create-order/:userId', authControllers.userAuth, userController.updateUserOrder)
 
-//update info ok
-router.patch('/user/update-info/:userId', authControllers.userAuth, userController.uploadAvatar, userController.resizeAvatar, userController.updateUser)
+//update info 
+router.patch('/user/update-info/:userId', authControllers.userAuth, userController.updateUser)
+
+//update avatar
+router.patch('/user/update-info/avatar/:userId', authControllers.userAuth, userController.uploadAvatar, userController.resizeAvatar, userController.updateUserAvatar)
 
 // changeEmail ok
 router.route('/user/change-email/:userId')

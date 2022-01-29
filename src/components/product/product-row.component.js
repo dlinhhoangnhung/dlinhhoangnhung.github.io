@@ -60,8 +60,8 @@ export default class ProductRow extends Component {
                     </div>
                 </td>
                 <td className="px-6 py-4 ml-10 whitespace-nowrap">
-                    <div className="text-sm text-gray-900">Software engineer</div>
-                    <div className="text-sm text-gray-500">IT</div>
+                    <div className="text-sm text-gray-900">{this.props.product.createdAt}</div>
+                    {/* <div className="text-sm text-gray-500">IT</div> */}
                 </td>
                 <td className="px-6 py-4 space-x-4 ">
                     <Link to={"/edit/product/" + this.props.product._id}>

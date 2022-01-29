@@ -176,8 +176,8 @@ const userAuth = passport.authenticate("jwt", { session: "false" })
 
 
 const checkRole = roles => async (req, res, next) => {
-    console.log('alo ' + req.user.role)
-    console.log('alo token id  ' + req.user._id)
+    console.log('checkRole: ' + req.user.role)
+    console.log('token id  ' + req.user._id)
     const idToken = req.user._id // from token
     const user = await User.findById(idToken);
     if (user) {

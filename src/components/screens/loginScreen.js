@@ -8,6 +8,7 @@ import AuthService from "../services/auth.service";
 import Navbar from "../navbar.component";
 import Forgot from "./forgotScreen";
 import authService from "../services/auth.service";
+import G from '../../assets/G.png'
 
 export default class LoginScreen extends Component {
     constructor(props) {
@@ -20,11 +21,11 @@ export default class LoginScreen extends Component {
         this.state = {
             username: "",
             password: "12345467",
-            isRedirect: 0,
+            isRedirect: undefined,
 
         };
     }
-
+  
     onChangeUsername(u) {
         this.setState({
             username: u.target.value,
@@ -36,9 +37,7 @@ export default class LoginScreen extends Component {
             password: u.target.value,
         });
     }
-
-
-
+ 
     onSubmit(u) {
         u.preventDefault();
         const user = {
@@ -74,7 +73,8 @@ export default class LoginScreen extends Component {
 
                 this.setState({
                     loading: false,
-                    message: resMessage
+                    message: resMessage,
+                    isRedirect: 0
                 });
             }
         );
@@ -86,45 +86,44 @@ export default class LoginScreen extends Component {
         const { location } = this.props;
         const { state } = location;
         if (user) {
-            if (user.role === 'admin') {
-                return (
-                    <Redirect to='/admin' />
-                )
-            }
-            if (user.role === 'user') {
-                if (state && state.from) {
+            // if (user.role === 'admin') {
+            //     return (
+            //         <Redirect to='/admin' />
+            //     )
+            // }
+            // if (user.role === 'user') {
+            //     if (state && state.from) {
 
-                        <Redirect to = { state.from } />
-                    console.log('alo')
+            //         <Redirect to={state.from} />
+            //         console.log('alo')
 
-                }
+            //     }
                 return (
                     <Redirect to={from} />
                 )
-            }
+            // }
         }
 
         return (
-            <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+            <div className="min-h-full h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
                     <div>
-                        <img className="mx-auto h-12 w-auto" src="https://tailwindui.com/img/logos/workflow-mark-indigo-600.svg" alt="Workflow" />
+                        {/* <img className="mx-auto h-12 w-auto" src={G} alt="Workflow" /> */}
                         <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                            Sign in to your account
+                            Đăng nhập
                         </h2>
-                        <p className="mt-2 text-center text-sm text-gray-600">
+                        {/* <p className="mt-2 text-center text-sm text-gray-600">
                             Or
-                            <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                start your 14-day free trial
+                            <a href="/register" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                 chưa có tài khoản ?
                             </a>
-                        </p>
+                        </p> */}
                     </div>
                     <form onSubmit={this.onSubmit} className="mt-8 space-y-6" action="#" method="POST">
                         <input type="hidden" name="remember" value="true" />
                         <div className="rounded-md shadow-sm -space-y-px">
 
                             <div>
-                                <label for="username" className="sr-only">Password</label>
                                 <input
                                     id="username"
                                     name="username"
@@ -138,7 +137,6 @@ export default class LoginScreen extends Component {
                                 />
                             </div>
                             <div>
-                                <label for="password" className="sr-only">Password</label>
                                 <input
                                     id="password"
                                     name="password"
@@ -157,17 +155,24 @@ export default class LoginScreen extends Component {
                             <div className="flex items-center">
                                 <input id="remember-me" name="remember-me" type="checkbox" className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded" />
                                 <label for="remember-me" className="ml-2 block text-sm text-gray-900">
-                                    Remember me
+                                    Ghi nhớ
                                 </label>
                             </div>
 
                             <div className="text-sm">
-                                <a href="#" className="font-medium text-indigo-600 hover:text-indigo-500">
-                                    Forgot your password?
+                                <a href="/user-view/forgot-password" className="font-medium text-indigo-600 hover:text-indigo-500">
+                                    Quên mật khẩu?
                                 </a>
                             </div>
                         </div>
-
+                        {
+                            this.state.isRedirect === 0 &&
+                            (
+                                <div class="my-3 block  text-sm text-left text-red-600  bg-red-500 bg-opacity-10 border border-red-400 h-12 flex items-center p-4 rounded-md">
+                                    Tên đăng nhập hoặc mật khẩu chưa đúng
+                                </div>
+                            )
+                        }
                         <div>
                             <button
                                 type="submit"
@@ -178,7 +183,7 @@ export default class LoginScreen extends Component {
                                         <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
                                     </svg>
                                 </span>
-                                Sign in
+                                Đăng nhập
                             </button>
                         </div>
                     </form>

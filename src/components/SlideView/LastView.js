@@ -13,7 +13,7 @@ const LastView = () => {
     return (
         <div className="relative">
             <div class="bg-next-3 w-screen h-screen bg-cover">
-                <div class="w-full inrow px-10 py-8 justify-between">
+                {/* <div class="w-full inrow px-10 py-8 justify-between">
                     <div class="inrow flex space-x-8">
                         <div class="header-text">
                             Mobile Case
@@ -33,9 +33,9 @@ const LastView = () => {
                         </div>
                         <img src="img/burger-menu.png" class="h-5 w-9" />
                     </div>
-                </div>
+                </div> */}
                 <div class=" h-screen w-screen  inrow">
-                    <div class="pl-14 ml-24 mt-32 w-1/3 h-screen space-y-4">
+                    <div class="pl-14 ml-24 mt-70 w-1/3 h-screen space-y-4">
                         <div class="text-6xl">
                             Tee's
                         </div>

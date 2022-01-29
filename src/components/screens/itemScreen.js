@@ -10,6 +10,7 @@ import { getProducts as listProducts } from "../../redux/actions/productAction";
 
 import Loading from "../loading.component"
 import { func } from 'prop-types';
+import Footer from '../Footer';
 
 const ItemScreen = ({ match, history }) => {
     const [qty, setQty] = useState(1)
