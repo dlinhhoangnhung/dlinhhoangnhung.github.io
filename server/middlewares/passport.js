@@ -24,6 +24,7 @@ module.exports = (passport) => {
                 //compare 
                 if (user) {
                     console.log("ok")
+                    // return done(null, user) //response user 
                     return done(null, user) //response user 
                 }
                 return done(null, false)

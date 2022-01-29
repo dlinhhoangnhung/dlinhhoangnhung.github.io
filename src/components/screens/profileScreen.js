@@ -5,9 +5,11 @@ import axios from 'axios'
 import authHeader from '../services/auth-header'
 import UserPrivateSidebar from '../admin/users/sidebar-user-private.component'
 import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import authService from '../services/auth.service'
 import { Redirect } from 'react-router'
 import sample from '../../assets/img/clouds_from_my_neighbor_totoro_by_itsendy_deb7t16-fullview.jpg'
+import NavbarUser from '../admin/users/navbar-user.component'
 
 export default class ProductDetail extends Component {
     constructor(props) {
@@ -20,6 +22,7 @@ export default class ProductDetail extends Component {
         this.onChangeLastName = this.onChangeLastName.bind(this);
         this.onChangeAddress = this.onChangeAddress.bind(this);
         this.onChangePhone = this.onChangePhone.bind(this);
+        this.onSubmitAvatar = this.onSubmitAvatar.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
 
         this.state = {
@@ -32,7 +35,8 @@ export default class ProductDetail extends Component {
             role: '',
             address: '',
             phone: '',
-            avatar: [],
+            phoneSyntax: 0,
+            avatar: '',
             isLoading: 1,
 
 
@@ -59,8 +63,11 @@ export default class ProductDetail extends Component {
             complete: undefined,
 
             isCheck: undefined,
-
+            waring: 0,
             currentUser: authService.getCurrentUser(),
+
+            editOn: 0,
+
         }
     }
 
@@ -118,6 +125,11 @@ export default class ProductDetail extends Component {
             })
     }
     onChangeUserName(u) {
+        if (u.target.value === '') {
+            this.setState({
+                waring: 1
+            })
+        }
         this.setState({
             username: u.target.value,
         });
@@ -125,51 +137,109 @@ export default class ProductDetail extends Component {
     onChangeFirstName(u) {
         this.setState({
             firstName: u.target.value,
+            editOn: 1
         });
     }
 
     onChangeLastName(u) {
         this.setState({
             lastName: u.target.value,
+            editOn: 1
         });
     }
 
     onChangePhone(u) {
         this.setState({
             phone: u.target.value,
+            editOn: 1
         });
     }
 
     onChangeAddress(u) {
         this.setState({
             address: u.target.value,
+            editOn: 1
         });
     }
 
     onFileChange(e) {
+        console.log('new avatar');
         this.setState({
             avatar: e.target.files[0],
         });
+        console.log(this.state.avatar);
     }
     showOpenFileDlg = () => {
         this.inputOpenFileRef.current.click()
     }
-    onSubmit(u) {
+
+    isVietnamesePhoneNumber = async () => {
+        console.log('alo')
+        const a = await /([\+84|84|0]+(3|5|7|8|9|1[2|6|8|9]))+([0-9]{8})\b/.test(this.state.phone);
+
+        console.log(a)
+
+        if (a === true) {
+            console.log('object')
+            console.log(this.state.phoneSyntax)
+            this.setState({
+                phoneSyntax: 0
+            })
+            console.log(this.state.phoneSyntax)
+            return true
+        }
+        if (a === false) {
+            console.log('false')
+            this.setState({
+                phoneSyntax: 1
+            })
+            // alert("message");
+            return false;
+        }
+    }
+
+    onSubmit = async (u) => {
+        const check = await this.isVietnamesePhoneNumber()
         u.preventDefault();
 
+        if (check === true) {
+            console.log('true');
+            const user = {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                phone: this.state.phone,
+                address: this.state.address,
+            }
+            console.log(user);
+            axios.patch('http://localhost:5001/users/user/update-info/' + this.props.match.params.id, user, { headers: authHeader() })
+                .then(res => {
+                    console.log("res.data: " + res.data)
+                    toast("Profile be edited!", {
+                        type: "warning"
+                    })
+
+                    // window.location.reload();
+                   
+                },
+                    error => {
+                        console.log(error);
+                        
+                    })
+        }
+        else if (check === false) {
+            console.log('object');
+        }
+    }
+
+    onSubmitAvatar() {
+        console.log(this.state.lastName);
         const formData = new FormData()
 
-        formData.append('firstName', this.state.firstName)
-        formData.append('lastName', this.state.lastName)
-        formData.append('username', this.state.username)
-        formData.append('phone', this.state.phone)
-        formData.append('address', this.state.address)
         formData.append('avatar', this.state.avatar)
-
-        axios.patch('http://localhost:5001/users/user/update-info/' + this.props.match.params.id, formData, { headers: authHeader() })
+        axios.patch('http://localhost:5001/users/user/update-info/avatar/' + this.props.match.params.id, formData, { headers: authHeader() })
             .then(res => {
                 console.log("res.data: " + res.data)
-                toast("Profile be edited!", {
+                toast("Avatar be updated!", {
                     type: "warning"
                 })
                 window.location.reload();
@@ -178,16 +248,16 @@ export default class ProductDetail extends Component {
                     console.log(error);
                 })
     }
-
     render() {
-        const { firstName, lastName, username, orderslist, email, isLoading, productname, shippingInfo, address, phone, user, currentUser, avatar } = this.state
+        const { firstName, lastName, username, orderslist, email, isLoading, productname, shippingInfo, address, phone, phoneSyntax, user, currentUser, avatar, waring, alert } = this.state
         let orders = this.state.orderslist.map(function (order) {
             return { order };
         })
 
         if (!currentUser) return <Redirect to='/login' />
         return (
-            currentUser && <form onSubmit={this.onSubmit}>
+            currentUser &&
+            <form >
                 <div className="bg-like flex flex-row">
                     <UserPrivateSidebar user={user} />
 
@@ -209,53 +279,81 @@ export default class ProductDetail extends Component {
 
 
 
-
+                        {/* Nav */}
+                        <NavbarUser />
 
                         <div className="space-y-0.5">
                             <div class="justify-between w-36 px-12 bg-gray-100 mt-14 w-full font-mock px-5 py-8 text-black inrow">
                                 <div>
                                     Thông tin cá nhân
                                 </div>
-                                <div>
+                                {
+                                    this.state.editOn ? (
+                                        <a
+                                            onClick={this.onSubmit}
+                                            // type="submit"
+                                            class="px-6 py-2.5 bg-green-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-green-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-green-700 active:shadow-lg transition duration-150 ease-in-out">
+                                            Cập nhật thông tin
+                                        </a>
+                                    ) : (
+                                        <button type="button" class="px-6 py-2 border-2 border-gray-200 text-gray-550 font-medium text-xs leading-tight uppercase rounded hover:bg-black hover:bg-opacity-5 focus:outline-none focus:ring-0 transition duration-150 ease-in-out">
+                                            Cập nhật thông tin
+                                        </button>
+                                    )
+                                }
+
+
+                                {/* <div className='space-x-1 inrow h-9 w-20 px-2 pl-3 ring-1 ring-gray-300 rounded-md'>
+                                    <div><img src="/img/Create.png" className="h-5 w-5 stroke-current mt-2 text-icon" /></div>
                                     <input
                                         type="submit"
-                                        value="Edit"
-                                        class=" "
+                                        value="Lưu"
+                                        class="text-sm"
                                     />
-                                </div>
+                                </div> */}
                             </div>
 
                             {/* USer edit profile o day */}
                             <div>
                                 <div className="bg-gray-100">
-                                    <div class="pl-28 inrow w-full font-mock px-5 py-8 text-black">
-                                        <div onClick={this.showOpenFileDlg} class="" width="120" height="120">
-                                            {
-                                                this.state.avatar.length < 0 ? (
-                                                    <img src={sample} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
-                                                ) : (
-                                                    <img src={`http://localhost:3000/assets/imgs/users/${avatar[0]}`} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
-                                                )
-                                            }
-                                            <input ref={this.inputOpenFileRef} va style={{ display: "none" }} type="file" name="avatar" className="" onChange={this.onFileChange} />
+                                    <div class="pl-28 inrow w-full font-mock px-5 py-8 text-black space-x-10">
+                                        <div>
+                                            <div onClick={this.showOpenFileDlg} class="" width="120" height="120">
+                                                {
+                                                    !this.state.avatar ? (
+                                                        <img src={sample} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
+                                                    ) : (
+                                                        <img src={`http://localhost:3000/assets/imgs/users/${avatar}`} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
+                                                    )
+                                                }
+                                                <input ref={this.inputOpenFileRef} style={{ display: "none" }} type="file" name="avatar" className="" onChange={this.onFileChange} />
+                                            </div>
+                                            <div>
+                                                <span onClick={this.onSubmitAvatar} className="text-sm text-indigo-500">Đổi Avatar</span>
+                                            </div>
                                         </div>
                                         <div class="">
                                             <h1 class="inrow font-mock text-xl text-gray-700 mb-4">
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    value={this.state.lastName}
-                                                    onChange={this.onChangeLastName}
-                                                    class="flex w-32 bg-transparent"
-                                                    placeholder="Họ.." />
-                                                <input
-                                                    type="text"
-                                                    required
-                                                    value={this.state.firstName}
-                                                    onChange={this.onChangeFirstName}
-                                                    class="flex bg-transparent w-20"
-                                                    placeholder="Tên.." />
 
+
+                                                <div className='inrow space-x-2'>
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        value={this.state.lastName}
+                                                        onChange={this.onChangeLastName}
+                                                        class="flex w-28 mt-1 focus:ring-indigo-500 focus:border-indigo-500 block  shadow-sm sm:text-base border-gray-300 rounded-md"
+                                                        placeholder="Họ.." />
+                                                    <input
+                                                        type="text"
+                                                        required
+                                                        value={this.state.firstName}
+                                                        onChange={this.onChangeFirstName}
+                                                        class="flex mt-1 focus:ring-indigo-500 focus:border-indigo-500 block  shadow-sm sm:text-base border-gray-300 rounded-md w-30"
+                                                        placeholder="Tên.." />                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                                    </svg>
+                                                </div>
                                             </h1>
                                         </div>
                                     </div>
@@ -267,15 +365,29 @@ export default class ProductDetail extends Component {
                                                 type="text"
                                                 required
                                                 value={this.state.username}
-                                                onChange={this.onChangeUserName}
                                                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-base border-gray-300 rounded-md"
-                                                placeholder="Ex: 100000" />
+                                                placeholder="Tên đăng nhập" />
+                                            {waring === 1 &&
+                                                <div class="my-3 block  text-sm text-left text-red-600  bg-red-500 bg-opacity-10 border border-red-400 h-12 flex items-center p-4 rounded-md" role="alert">
+                                                    Username không thể trống
+                                                </div>
+                                            }
                                         </div>
-                                        <div class="col-span-6 ml-48 sm:col-span-3">
+                                        <div class="incol col-span-6 ml-48 sm:col-span-3">
                                             <div>
                                                 <label for="first-name" class="block text-sm font-medium text-gray-700">Số điện thoại</label>
-                                                <input placeholder="Thêm số điện thoại.." value={this.state.phone} onChange={this.onChangePhone} id="first-name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-base border-gray-300 rounded-md" />
+                                                <div className='inrow space-x-2'>
+                                                    <input placeholder="Thêm số điện thoại.." value={this.state.phone} onChange={this.onChangePhone} id="first-name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-base border-gray-300 rounded-md" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                                    </svg>
+                                                </div>
                                             </div>
+                                            {phoneSyntax === 1 &&
+                                                <div class="my-3 block  text-sm text-left text-red-600  bg-red-500 bg-opacity-10 border border-red-400 h-12 flex items-center p-4 rounded-md" role="alert">
+                                                    Số điện thoại không hợp lệ
+                                                </div>
+                                            }
                                         </div>
 
                                     </div>
@@ -296,14 +408,19 @@ export default class ProductDetail extends Component {
 
                                                 </div>
                                                 <a href={`/user-view/change-email/` + user._id} className="text-blue-900 mr-10 text-sm">
-                                                    Change Email
+                                                    Đổi Email
                                                 </a>
                                             </div>
                                         </div>
                                         <div class="col-span-6 ml-48 sm:col-span-3">
                                             <div>
                                                 <label for="first-name" class="block text-sm font-medium text-gray-700">Địa chỉ</label>
-                                                <input type="text" placeholder="Thêm địa chỉ..." value={this.state.address} onChange={this.onChangeAddress} id="first-name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-base border-gray-300 rounded-md" />
+                                                <div className='inrow space-x-2'>
+                                                    <input type="text" placeholder="Thêm địa chỉ..." value={this.state.address} onChange={this.onChangeAddress} id="first-name" autocomplete="given-name" class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-base border-gray-300 rounded-md" />
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                                        <path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zM11.379 5.793L3 14.172V17h2.828l8.38-8.379-2.83-2.828z" />
+                                                    </svg>
+                                                </div>
                                             </div>
                                         </div>
 

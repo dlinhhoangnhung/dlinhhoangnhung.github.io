@@ -3,9 +3,10 @@ import * as actionTypes from '../constant/orderConstants'
 import authService from '../../components/services/auth.service'
 import { CART_EMPTY } from '../constant/cartConstants'
 import authHeader from '../../components/services/auth-header'
-import history from '../../history';
+import history from '../../history'
 
 export const createOrder = (order) => async (dispatch, getState) => {
+
     dispatch({ type: actionTypes.ORDER_CREATE_REQUEST, payload: order })
     try {
         const { data } = await axios.post('http://localhost:5001/users/api/orders', order,
@@ -52,7 +53,7 @@ export const getOrderByUser = (id) => async (dispatch, getState) => {
 
 export const getOrder = (id) => async (dispatch, getState) => {
     try {
-        console.log('id '+id)
+        console.log('id ' + id)
         dispatch({ type: actionTypes.GET_ORDER_REQUEST })
         const { data } = await axios.get('http://localhost:5001/users/api/orders/' + id, { headers: authHeader() })
         console.log('data ' + data)

@@ -27,23 +27,23 @@ const Cart = () => {
         dispatch(decreaseItem(id))
     }
 
-    const increament2 = (id, qty) => {
-        dispatch(increaseQty(id, qty))
+    const increament2 = (id, qty, textSize, textColor) => {
+        dispatch(increaseQty(id, qty, textSize, textColor))
     }
 
-    const decreament2 = (id, qty) => {
-        qty === 1 ? removeHandler(id) :
-            dispatch(decreaseQty(id, qty))
+    const decreament2 = (id, qty, textSize, textColor) => {
+        console.log(qty)
+        qty === 1 ? dispatch(removeFromCart(id, textSize, textColor)) :
+            dispatch(decreaseQty(id, qty, textSize, textColor))
     }
 
     const qtyChangeHandler = (id, qty) => {
         dispatch(adjustQty(id, Number(qty)))
     }
 
-    const removeHandler = (id) => {
-        dispatch(removeFromCart(id))
+    const removeHandler = (id, textSize, textColor) => {
+        dispatch(removeFromCart(id, textSize, textColor))
     }
-
     const getCartCount = () => {
         return cartItems.reduce((qty, item) => Number(item.qty) + qty, 0)
     }
@@ -107,9 +107,9 @@ const Cart = () => {
                     <div class="h-screen mb-2 flex flex-col bg-white shadow-xl ">
                         <div class="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
                             <div class="flex items-start justify-between">
-                                <h2 class="text-lg font-medium text-gray-900" id="slide-over-title">
-                                    Shopping cart
-                                </h2>
+                                <h1 class="text-2xl font-semibold text-gray-900" id="slide-over-title">
+                                    Giỏ hàng
+                                </h1>
                                 <div class="ml-3 h-7 flex items-center">
                                     <button type="button" class="-m-2 p-2 text-gray-400 hover:text-gray-500">
                                         <span class="sr-only">Close panel</span>
@@ -120,13 +120,16 @@ const Cart = () => {
                                 </div>
                             </div>
 
-                            <div class="mt-8">
+                            <div class="mt-12">
                                 <div class="flow-root">
                                     <ul role="list" class="-my-6 divide-y divide-gray-200">
                                         {
                                             cartItems.length === 0 ? (
-                                                <div>
-                                                    Your cart is empty.
+                                                <div className='inrow'>
+                                                    <div className='italic font-light text-base text-indigo-500'>
+                                                        Giỏ hàng của bạn đang trống.
+                                                    </div>
+                                                    <span className='text-base text-indigo-550 font-light'>Trở lại</span>
                                                 </div>
                                             ) : (cartItems.map((item) => (
                                                 <CartItem
@@ -160,7 +163,7 @@ const Cart = () => {
                                     </div>
                                     <div class="mt-6 flex justify-center text-sm text-center text-gray-500">
                                         <p>
-                                            <button onClick={e => window.location.href = '/user-view/cart'}  type="button" class="text-indigo-600 font-medium hover:text-indigo-500"><span aria-hidden="true">Xem giỏ hàng &rarr;</span></button>
+                                            <button onClick={e => window.location.href = '/user-view/cart'} type="button" class="text-indigo-600 font-medium hover:text-indigo-500"><span aria-hidden="true">Xem giỏ hàng &rarr;</span></button>
                                         </p>
                                     </div>
                                 </div>

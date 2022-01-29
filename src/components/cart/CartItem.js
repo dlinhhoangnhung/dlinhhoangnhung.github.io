@@ -45,7 +45,7 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, increament2, decreame
                             </a>
                         </h3>
                         <p class="ml-4">
-                        {item.price * item.qty}
+                            {item.price * item.qty}
                         </p>
                     </div>
                     <p class="mt-1 text-sm text-gray-500">
@@ -55,26 +55,28 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, increament2, decreame
                 <div class="flex-1 flex items-end justify-between text-sm">
                     <div className="inrow space-x-5">
                         <button
+                            className='z-40'
                             size="small"
                             disableElevation
                             variant="contained"
-                            onClick={() => decreament2(item.product, item.qty)}
+                            onClick={() => decreament2(item.product, item.qty, item.textSize, item.textColor)}
                         >
                             -
                         </button>
                         <p min="1" type="number" className="text-gray-500" value={item.qty} onChange={(e) => qtyChangeHandler(item.product, e.target.value)}>{item.qty}</p>
                         <button
+                            className='z-40'
                             size="small"
                             disableElevation
                             variant="contained"
-                            onClick={() => increament2(item.product, item.qty)}
+                            onClick={() => increament2(item.product, item.qty, item.textSize, item.textColor)}
                         >
                             +
                         </button>
                     </div>
 
-                    <div class="flex">
-                        <button onClick={() => removeHandler(item.product)} type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
+                    <div class="flex z-40">
+                        <button onClick={() => removeHandler(item.product , item.textSize, item.textColor)} type="button" class="font-medium text-indigo-600 hover:text-indigo-500">Remove</button>
                     </div>
                 </div>
             </div>

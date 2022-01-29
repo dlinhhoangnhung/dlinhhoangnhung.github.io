@@ -1,5 +1,4 @@
 import React, { Component, useState, useEffect } from "react"
-import landing from "../../assets/img/landing.png"
 import dot from '../../assets/img/dot.svg'
 import Target from "./Target"
 import { switchView } from "../../redux/actions/slideActions";
@@ -12,8 +11,8 @@ const FirstView = () => {
     }
     return (
         <div class="relative" >
-            <div class="bg-landing-pastel w-full h-full bg-cover ">
-                <div class="w-full inrow px-10 py-8 justify-between">
+            <div class="bg-landing-pastel h-4/5 bg-cover ">
+                {/* <div class="w-full inrow px-10 py-8 justify-between">
                     <div class="inrow flex space-x-8">
                         <div class="header-text">
                             Mobile Case
@@ -34,10 +33,13 @@ const FirstView = () => {
                         <img src="img/burger-menu.png" class="h-5 w-9" />
 
                     </div>
-                </div>
+                </div> */}
 
-                <div class="grid place-items-center h-screen w-screen pr-11 justify-end">
-                    <img onClick={e => window.location.href = '/items'} src="img/brand.png" class="w-5/12 ml-11 mb-36 absolute" />
+                
+
+
+                <div class="flex grid place-items-center w-full h-screen pr-11 justify-end ">
+                    <img onClick={e => window.location.href = '/items'} src="img/brand.png" class="w-5/12 ml-11 mt-32 absolute" />
                     <ul class="">
                         <li class="">
                             <span

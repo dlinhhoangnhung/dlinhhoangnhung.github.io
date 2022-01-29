@@ -48,6 +48,7 @@ export default class EditProduct extends Component {
 
             imageInfos: [],
 
+            imagesPre: [],
             images: [],
             thumbnail: '',
 
@@ -350,17 +351,17 @@ export default class EditProduct extends Component {
 
 
     selectFiles(e) {
-        let images = [];
+        let imgs = [];
 
-        for (let i = 0; i < e.target.files.length; i++) {
-            images.push(URL.createObjectURL(e.target.files[i]))
+        for (let i = 0; i < e.length; i++) {
+            imgs.push(URL.createObjectURL(e[i]))
         }
 
         this.setState({
             progressInfos: [],
             message: [],
-            selectedFiles: e.target.files,
-            previewImages: images
+            selectedFiles: e,
+            previewImages: imgs
         });
     }
 
@@ -387,8 +388,9 @@ export default class EditProduct extends Component {
     }
 
     onFileChange(e) {
+        this.selectFiles(e.target.files)
         this.setState({
-            images: e.target.files,
+            imagesPre: e.target.files,
         });
     }
 
@@ -481,8 +483,8 @@ export default class EditProduct extends Component {
         p.preventDefault();
         const formData = new FormData()
 
-        for (const key of Object.keys(this.state.images)) {
-            formData.append('images', this.state.images[key])
+        for (const key of Object.keys(this.state.imagesPre)) {
+            formData.append('images', this.state.imagesPre[key])
         }
         console.log("colorslist:  " + this.state.colorslist.length)
         for (const key of Object.keys(this.state.colorslist)) {
@@ -610,302 +612,314 @@ export default class EditProduct extends Component {
         let options2 = this.state.sizes.map(function (c) {
             return { value: c._id, label: c.name };
         })
+        console.log('render');
+
+        console.log(this.state.images);
+
+        console.log(this.state.previewImages);
+
         const { index, selectedFiles, previewImages, progressInfos, message, imageInfos, images } = this.state
         return (
             <form onSubmit={this.onSubmit}>
-                <div className="pt6">
-                    <nav aria-label="Breadcrumb">
-                        <ol role="list" class="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
-                            <li>
-                                <div class="flex items-center">
-                                    <a href="/admin" class="mr-2 text-sm font-medium text-gray-900">
-                                        Dashboard
+                <div className="h-screen">
+                    <div className="pt6">
+                        <nav aria-label="Breadcrumb">
+                            <ol role="list" class="max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8">
+                                <li>
+                                    <div class="flex items-center">
+                                        <a href="/admin" class="mr-2 text-sm font-medium text-gray-900">
+                                            Dashboard
+                                        </a>
+                                        <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
+                                            <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                                        </svg>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <div class="flex items-center">
+                                        <a href="/admin-products" class="mr-2 text-sm font-medium text-gray-900">
+                                            Products List
+                                        </a>
+                                        <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
+                                            <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
+                                        </svg>
+                                    </div>
+                                </li>
+
+                                <li class="text-sm">
+                                    <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600">
+                                        Edit Product
                                     </a>
-                                    <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
-                                        <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                                    </svg>
-                                </div>
-                            </li>
+                                </li>
+                            </ol>
+                        </nav>
+                    </div>
 
-                            <li>
-                                <div class="flex items-center">
-                                    <a href="/admin-products" class="mr-2 text-sm font-medium text-gray-900">
-                                        Products List
-                                    </a>
-                                    <svg width="16" height="20" viewBox="0 0 16 20" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="w-4 h-5 text-gray-300">
-                                        <path d="M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z" />
-                                    </svg>
-                                </div>
-                            </li>
+                    <div class="antialiased pt-10">
+                        <div class="py-6">
+                            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
+                                <div class="flex flex-col md:flex-row -mx-4">
+                                    <div class="md:flex-1 px-4">
+                                        <div x-data="{ image: 1 }" x-cloak>
+                                            <div class="h-48 md:h-80 rounded-lg bg-gray-100 mb-4">
+                                                <div x-show="image === 1" class="h-48 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
+                                                    {/* <span class="text-5xl">1</span> */}
+                                                    <img src={`http://localhost:3000/assets/imgs/products/${images[index]}`} />
 
-                            <li class="text-sm">
-                                <a href="#" aria-current="page" class="font-medium text-gray-500 hover:text-gray-600">
-                                    Edit Product
-                                </a>
-                            </li>
-                        </ol>
-                    </nav>
-                </div>
+                                                    {/* <img src={this.state.previewImages[index]} /> */}
+                                                </div>
 
-                <div class="antialiased">
-                    <div class="py-6">
-                        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6">
-                            <div class="flex flex-col md:flex-row -mx-4">
-                                <div class="md:flex-1 px-4">
-                                    <div x-data="{ image: 1 }" x-cloak>
-                                        <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
-                                            <div x-show="image === 1" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                                {/* <span class="text-5xl">1</span> */}
-                                                <img src={`http://localhost:3000/assets/imgs/products/${images[index]}`} />
+                                                <div className="images-gall">
+                                                    {
+                                                        images.length > 0 ? (images.map((i, index) =>
+                                                            <img
+                                                                key={index}
+                                                                class="small-image-gallery"
+                                                                src={`http://localhost:3000/assets/imgs/products/${i}`}
+                                                                onClick={() => this.handleTab(index)}
+                                                            />
+                                                        )) : 'null'
+                                                    }
+                                                </div>
+                                                <div className="inrow">
+                                                    <div className="incol">
+                                                        <label class="leading-loose">Choose Images: </label>
+                                                        <label
+                                                            class=" flex flex-col w-2/3 h-18 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                                                            <div class="flex flex-col items-center  justify-center ">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 group-hover:text-gray-600"
+                                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                                                </svg>
+                                                                <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                                                                    Choose Images here</p>
+                                                            </div>
+                                                            <input type="file" name="images" onChange={this.onFileChange} multiple />
+                                                        </label>
+                                                    </div>
 
-                                                {/* <img src={this.state.previewImages[index]} /> */}
-                                            </div>
+                                                    <div className="incol">
+                                                        <label class="leading-loose">Choose Thumbnail: </label>
+                                                        <label
+                                                            class=" flex flex-col w-2/3 h-18 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
+                                                            <div class="flex flex-col items-center  justify-center ">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 group-hover:text-gray-600"
+                                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                                                </svg>
+                                                                <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                                                                    Choose Thumbnail here</p>
+                                                            </div>
+                                                            <input type="file" name="thumbnail" onChange={this.onFileChange1} />
+                                                        </label>
+                                                    </div>
+                                                </div>
 
-                                            <div className="images-gall">
                                                 {
-                                                    images.map((i, index) =>
-                                                        <img
-                                                            key={index}
-                                                            class="small-image-gallery"
-                                                            src={`http://localhost:3000/assets/imgs/products/${i}`}
-                                                            onClick={() => this.handleTab(index)}
-                                                        />
-                                                    )
+                                                    previewImages.length > 0 && <p class="mb-3 text-orange-300 pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
+                                                        Preview Images</p>
                                                 }
-                                            </div>
-                                            <div className="inrow">
-                                                <div className="incol">
-                                                    <label class="leading-loose">Choose Images: </label>
-                                                    <label
-                                                        class=" flex flex-col w-2/3 h-18 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                                                        <div class="flex flex-col items-center  justify-center ">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 group-hover:text-gray-600"
-                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                                            </svg>
-                                                            <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                                                                Choose Images here</p>
-                                                        </div>
-                                                        <input type="file" name="images" onChange={this.onFileChange} multiple />
-                                                    </label>
+                                                <div className="images-gall">
+                                                    {previewImages && previewImages.map((img, i) => {
+                                                        return <img
+                                                            className="small-image-gallery"
+                                                            src={img}
+                                                            alt={"image-" + i}
+                                                            key={i}
+                                                            onClick={() => this.handleTab(i)} />
+                                                    })}
                                                 </div>
-
-                                                <div className="incol">
-                                                    <label class="leading-loose">Choose Thumbnail: </label>
-                                                    <label
-                                                        class=" flex flex-col w-2/3 h-18 border-4 border-blue-200 border-dashed hover:bg-gray-100 hover:border-gray-300">
-                                                        <div class="flex flex-col items-center  justify-center ">
-                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8 text-gray-400 group-hover:text-gray-600"
-                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                                            </svg>
-                                                            <p class="pt-1 text-sm tracking-wider text-gray-400 group-hover:text-gray-600">
-                                                                Choose Thumbnail here</p>
-                                                        </div>
-                                                        <input type="file" name="thumbnail" onChange={this.onFileChange1} />
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div className="images-gall">
-                                                {previewImages && previewImages.map((img, i) => {
-                                                    return <img
-                                                        className="small-image-gallery"
-                                                        src={img}
-                                                        alt={"image-" + i}
-                                                        key={i}
-                                                        onClick={() => this.handleTab(i)} />
-                                                })}
-                                            </div>
-                                            {progressInfos &&
-                                                progressInfos.map((progressInfo, index) => (
-                                                    <div className="mb-2" key={index}>
-                                                        <span>{progressInfo.fileName}</span>
-                                                        <div className="progress">
-                                                            <div
-                                                                className="progress-bar progress-bar-info"
-                                                                role="progressbar"
-                                                                aria-valuenow={progressInfo.percentage}
-                                                                aria-valuemin="0"
-                                                                aria-valuemax="100"
-                                                                style={{ width: progressInfo.percentage + "%" }}
-                                                            >
-                                                                {progressInfo.percentage}%
+                                                {progressInfos &&
+                                                    progressInfos.map((progressInfo, index) => (
+                                                        <div className="mb-2" key={index}>
+                                                            <span>{progressInfo.fileName}</span>
+                                                            <div className="progress">
+                                                                <div
+                                                                    className="progress-bar progress-bar-info"
+                                                                    role="progressbar"
+                                                                    aria-valuenow={progressInfo.percentage}
+                                                                    aria-valuemin="0"
+                                                                    aria-valuemax="100"
+                                                                    style={{ width: progressInfo.percentage + "%" }}
+                                                                >
+                                                                    {progressInfo.percentage}%
+                                                                </div>
                                                             </div>
                                                         </div>
+                                                    ))}
+
+
+                                                {message.length > 0 && (
+                                                    <div className="alert alert-secondary" role="alert">
+                                                        <ul>
+                                                            {message.map((item, i) => {
+                                                                return <li key={i}>{item}</li>;
+                                                            })}
+                                                        </ul>
                                                     </div>
-                                                ))}
+                                                )}
 
 
-                                            {message.length > 0 && (
-                                                <div className="alert alert-secondary" role="alert">
-                                                    <ul>
-                                                        {message.map((item, i) => {
-                                                            return <li key={i}>{item}</li>;
-                                                        })}
-                                                    </ul>
-                                                </div>
-                                            )}
-
-
-                                        </div>
-
-                                        <div class="flex -mx-2 mb-4">
-                                            <template x-for="i in 4">
-                                                <div class="flex-1 px-2">
-                                                    <button>
-                                                        {/* x-on: click="image = i" : class ="{ 'ring-2 ring-indigo-300 ring-inset': image === i }" class ="focus:outline-none w-full rounded-lg h-24 md:h-32 bg-gray-100 flex items-center justify-center"> */}
-                                                        <span x-text="i" class="text-2xl"></span>
-                                                    </button>
-                                                </div>
-                                            </template>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="mb-32 md:flex-1 px-4">
-                                    <h2 class="flex flex-col ">
-                                        <label class="leading-loose">Product's Name: </label>
-                                        <input
-                                            type="text"
-                                            required
-                                            onChange={this.onChangeName}
-                                            value={this.state.name}
-                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                            placeholder="Input here..." />
-                                    </h2>
-
-                                    <div className="inrow space-x-32">
-                                        <div class="flex items-center space-x-4 my-4">
-                                            <div>
-                                                <div class="flex flex-col">
-                                                    <label class="leading-loose">Choose Category: </label>
-                                                    <select
-                                                        required
-                                                        className="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                                        value={this.state.cateid}
-                                                        onChange={this.onChangeCateId}>
-                                                        {
-                                                            this.state.categories.map(function (category) {
-                                                                return <option className="" key={category._id} value={category._id}>
-                                                                    {category.name}
-                                                                </option>
-                                                            })
-                                                        }
-                                                    </select>
-                                                </div>
                                             </div>
-                                        </div>
 
-                                        <div class="flex items-center space-x-4 my-4">
-                                            <div>
-                                                <div class="flex flex-col">
-                                                    <label class="leading-loose">Price: </label>
-                                                    <input
-                                                        type="text"
-                                                        required
-                                                        value={this.state.price}
-                                                        onChange={this.onChangePrice}
-                                                        class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                                        placeholder="Ex: 100000" />
-                                                </div>
+                                            <div class="flex -mx-2 mb-4">
+                                                <template x-for="i in 4">
+                                                    <div class="flex-1 px-2">
+                                                        <button>
+                                                            {/* x-on: click="image = i" : class ="{ 'ring-2 ring-indigo-300 ring-inset': image === i }" class ="focus:outline-none w-full rounded-lg h-24 md:h-32 bg-gray-100 flex items-center justify-center"> */}
+                                                            <span x-text="i" class="text-2xl"></span>
+                                                        </button>
+                                                    </div>
+                                                </template>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="flex flex-col">
-                                        <label class="leading-loose">Color: </label>
-                                        <div className="incol space-y-3">
-                                            <Select
-                                                // styles={styles}
-                                                name="form-field-name"
-                                                value={this.state.colorslist}
-                                                onChange={this.handleMultiChangeColor}
-                                                labelKey='name'
-                                                valueKey='_id'
-                                                // closeMenuOnSelect={false}
-                                                // components={animatedComponents}
-                                                options={options}
-                                            />
+                                    <div class="mb-32 md:flex-1 px-4">
+                                        <h2 class="flex flex-col ">
+                                            <label class="leading-loose">Product's Name: </label>
+                                            <input
+                                                type="text"
+                                                required
+                                                onChange={this.onChangeName}
+                                                value={this.state.name}
+                                                class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                                placeholder="Input here..." />
+                                        </h2>
+
+                                        <div className="inrow space-x-32">
+                                            <div class="flex items-center space-x-4 my-4">
+                                                <div>
+                                                    <div class="flex flex-col">
+                                                        <label class="leading-loose">Choose Category: </label>
+                                                        <select
+                                                            required
+                                                            className="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                                            value={this.state.cateid}
+                                                            onChange={this.onChangeCateId}>
+                                                            {
+                                                                this.state.categories.map(function (category) {
+                                                                    return <option className="" key={category._id} value={category._id}>
+                                                                        {category.name}
+                                                                    </option>
+                                                                })
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="flex items-center space-x-4 my-4">
+                                                <div>
+                                                    <div class="flex flex-col">
+                                                        <label class="leading-loose">Price: </label>
+                                                        <input
+                                                            type="text"
+                                                            required
+                                                            value={this.state.price}
+                                                            onChange={this.onChangePrice}
+                                                            class="px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                                            placeholder="Ex: 100000" />
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div
-                                            className="pt-2 inrow space-x-2 ">
-                                            {
-                                                this.state.showColor.map((c, i) =>
-                                                    <div key={i}
-                                                        onClick={() => this.removeColor(c._id)}
-                                                        className={`transform 
+                                        <div class="flex flex-col">
+                                            <label class="leading-loose">Color: </label>
+                                            <div className="incol space-y-3">
+                                                <Select
+                                                    // styles={styles}
+                                                    name="form-field-name"
+                                                    value={this.state.colorslist}
+                                                    onChange={this.handleMultiChangeColor}
+                                                    labelKey='name'
+                                                    valueKey='_id'
+                                                    // closeMenuOnSelect={false}
+                                                    // components={animatedComponents}
+                                                    options={options}
+                                                />
+                                            </div>
+                                            <div
+                                                className="pt-2 inrow space-x-2 ">
+                                                {
+                                                    this.state.showColor.map((c, i) =>
+                                                        <div key={i}
+                                                            onClick={() => this.removeColor(c._id)}
+                                                            className={`transform 
                                                                 hover:-translate-y-1 
                                                                 active:bg-gray-400
                                                                 shadow-inner shadow-2xl h-10 w-10 rounded-md ${c.colorcode}`}>
-                                                    </div>
-                                                )
-                                            }
-                                        </div>
-                                        <div class="flex flex-col ">
-                                            <label class="leading-loose">Size: </label>
-                                            <Select
-                                                // styles={styles}
-                                                name="form-field-name"
-                                                value={this.state.sizeslist}
-                                                onChange={this.handleMultiChangeSize}
-                                                labelKey='name'
-                                                valueKey='_id'
-                                                // closeMenuOnSelect={false}
-                                                // components={animatedComponents}
-                                                options={options2}
-                                            />
-
-                                            <div className="pt-2 space-x-2 incol">
-                                                {
-                                                    this.state.showSize.map((c, i) =>
-                                                        <label
-                                                            onClick={() => this.removeSize(c._id)}
-                                                            key={i}
-                                                            class="w-1/2 group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase 
-                                                                    sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer ring-1 ring-black">
-                                                            {/* <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label" /> */}
-                                                            <p id="size-choice-1-label">
-                                                                {c.sizecode}
-                                                            </p>
-                                                            <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
-                                                        </label>
+                                                        </div>
                                                     )
                                                 }
                                             </div>
+                                            <div class="flex flex-col ">
+                                                <label class="leading-loose">Size: </label>
+                                                <Select
+                                                    // styles={styles}
+                                                    name="form-field-name"
+                                                    value={this.state.sizeslist}
+                                                    onChange={this.handleMultiChangeSize}
+                                                    labelKey='name'
+                                                    valueKey='_id'
+                                                    // closeMenuOnSelect={false}
+                                                    // components={animatedComponents}
+                                                    options={options2}
+                                                />
+
+                                                <div className="pt-2 space-x-2 incol">
+                                                    {
+                                                        this.state.showSize.map((c, i) =>
+                                                            <label
+                                                                onClick={() => this.removeSize(c._id)}
+                                                                key={i}
+                                                                class="w-1/2 group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase 
+                                                                    sm:flex-1 sm:py-6 bg-white shadow-sm text-gray-900 cursor-pointer ring-1 ring-black">
+                                                                {/* <input type="radio" name="size-choice" value="XS" class="sr-only" aria-labelledby="size-choice-1-label" /> */}
+                                                                <p id="size-choice-1-label">
+                                                                    {c.sizecode}
+                                                                </p>
+                                                                <div class="absolute -inset-px rounded-md pointer-events-none" aria-hidden="true"></div>
+                                                            </label>
+                                                        )
+                                                    }
+                                                </div>
+
+                                            </div>
+
 
                                         </div>
 
 
-                                    </div>
+                                        <div class="flex flex-col">
+                                            <label class="leading-loose">Description: </label>
+                                            <input
+                                                required
+                                                value={this.state.desc}
+                                                onChange={this.onChangeDesc}
+                                                type="text"
+                                                class="h-22 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
+                                                placeholder="Optional" />
+                                        </div>
+                                        <div>
 
+                                            <input
+                                                type="submit"
+                                                value="Edit"
+                                                class=" w-3/5 px-6 py-2 mt-10 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
+                                            />
+                                        </div>
 
-                                    <div class="flex flex-col">
-                                        <label class="leading-loose">Description: </label>
-                                        <input
-                                            required
-                                            value={this.state.desc}
-                                            onChange={this.onChangeDesc}
-                                            type="text"
-                                            class="h-22 px-4 py-2 border focus:ring-gray-500 focus:border-gray-900 w-full sm:text-sm border-gray-300 rounded-md focus:outline-none text-gray-600"
-                                            placeholder="Optional" />
-                                    </div>
-                                    <div>
-
-                                        <input
-                                            type="submit"
-                                            value="Edit"
-                                            class=" w-3/5 px-6 py-2 mt-10 font-semibold rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white"
-                                        />
                                     </div>
 
                                 </div>
 
                             </div>
-
-                        </div>
+                        </div >
                     </div >
-                </div >
+                </div>
             </form >
 
 

@@ -12,7 +12,7 @@ export default class OrderDetail extends Component {
         this.state = {
             order: {},
             orderid: '',
-            process: {},
+            status: '',
             shippingInfo: {},
             paymentMethod: '',
             isPaid: undefined,
@@ -30,7 +30,7 @@ export default class OrderDetail extends Component {
                 this.setState({
                     order: response.data,
                     orderid: response.data._id,
-                    process: response.data.process,
+                    status: response.data.status,
                     shippingInfo: response.data.shippingInfo,
                     paymentMethod: response.data.paymentMethod,
                     isPaid: response.data.isPaid,
@@ -148,7 +148,7 @@ export default class OrderDetail extends Component {
                                 <div className="relative mb-2">
                                     <div className="absolute flex align-center items-center align-middle content-center" style={{ width: 'calc(100% - 2.5rem - 1rem)', top: '50%', transform: 'translate(-50%, -50%)' }}>
                                         <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                                            <div className={`w-0 bg-green-300 py-1 rounded ${this.state.process.init && 'w-full'}`} />
+                                            <div className={`w-0 bg-green-300 py-1 rounded ${this.state.status === "Tạo thành công" && 'w-full'}`} />
                                         </div>
                                     </div>
                                     <div className="w-10 h-10 mx-auto bg-green-500 rounded-full text-lg text-white flex items-center">
@@ -162,10 +162,27 @@ export default class OrderDetail extends Component {
                                 <div className="text-xs text-center md:text-base">Processing</div>
                             </div>
                             <div className="w-1/4">
+                                    <div className="relative mb-2">
+                                        <div className="absolute flex align-center items-center align-middle content-center" style={{ width: 'calc(100% - 2.5rem - 1rem)', top: '50%', transform: 'translate(-50%, -50%)' }}>
+                                            <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
+                                                <div className={`w-0 bg-green-300 py-1 rounded ${this.state.status === "Đã duyệt" && 'w-full'}`} />
+                                            </div>
+                                        </div>
+                                        <div className="w-10 h-10 mx-auto bg-white border-2 border-gray-200 rounded-full text-lg text-white flex items-center">
+                                            <span className="text-center text-gray-600 w-full">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div className="text-xs text-center md:text-base">Ordering</div>
+                                </div>
+                            <div className="w-1/4">
                                 <div className="relative mb-2">
                                     <div className="absolute flex align-center items-center align-middle content-center" style={{ width: 'calc(100% - 2.5rem - 1rem)', top: '50%', transform: 'translate(-50%, -50%)' }}>
                                         <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                                            <div className={`w-0 bg-green-300 py-1 rounded ${this.state.process.processing && 'w-full'}`} />
+                                            <div className={`w-0 bg-green-300 py-1 rounded ${this.state.status === "Đang lấy hàng" && 'w-full'}`} />
                                         </div>
                                     </div>
                                     <div className="w-10 h-10 mx-auto bg-white border-2 border-gray-200 rounded-full text-lg text-white flex items-center">
@@ -182,7 +199,7 @@ export default class OrderDetail extends Component {
                                 <div className="relative mb-2">
                                     <div className="absolute flex align-center items-center align-middle content-center" style={{ width: 'calc(100% - 2.5rem - 1rem)', top: '50%', transform: 'translate(-50%, -50%)' }}>
                                         <div className="w-full bg-gray-200 rounded items-center align-middle align-center flex-1">
-                                        <div className={`w-0 bg-green-300 py-1 rounded ${this.state.process.shipped && 'w-full'}`} />
+                                        <div className={`w-0 bg-green-300 py-1 rounded ${this.state.status === "Đang vận chuyển" && 'w-full'}`} />
                                         </div>
                                     </div>
                                     <div className="w-10 h-10 mx-auto bg-white border-2 border-gray-200 rounded-full text-lg text-white flex items-center">

@@ -19,13 +19,13 @@ import { getUserSigninReducer } from './redux/reducers/userReducers'
 ReactDOM.render(
   <Provider store={store}>
     {/* <PersistGate loading={null} persistor={PersistGate}> */}
-    <BrowserRouter>
+    {/* <BrowserRouter> */}
       <Router history={history}>
 
         <Client />
 
       </Router>
-    </BrowserRouter>
+    {/* </BrowserRouter> */}
     {/* </PersistGate> */}
 
 

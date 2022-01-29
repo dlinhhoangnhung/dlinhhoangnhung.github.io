@@ -45,11 +45,39 @@ const upload = multer({
   fileFilter: multerFilter
 })
 
-
 exports.uploadAvatar = upload.single('avatar')
 
 exports.resizeAvatar = catchAsync(async (req, res, next) => {
-  console.log(req.file)
+
+  //tim user by req id
+  // console.log('req.userId');
+  // console.log(req.params.userId);
+  // const user = await User.findById(req.params.userId);
+
+
+  // const currentAvatar = req.user.avatar
+  // console.log('currentAvatar');
+  // console.log(req.user.avatar);
+  // // // neu avatar co
+  // if (user) {
+
+  //   if (currentAvatar != '') { //neu co avatar
+  //   console.log('got avatar');
+  //   console.log('user');
+  //   console.log(user.avatar);
+
+  //     if (user.avatar == currentAvatar) {
+  //       console.log('1');
+  //       req.body.avatar = currentAvatar
+  //       next()
+  //     }
+
+  //     // if (user.avatar != currentAvatar) {
+  //       console.log('2');
+  console.log('alo')
+
+  console.log('req.file')
+  // console.log(req.user)
   req.body.avatar = `user-${Date.now()}-avatar.jpeg`
   await sharp(req.file.buffer)
     .resize(2000, 1300)
@@ -57,6 +85,23 @@ exports.resizeAvatar = catchAsync(async (req, res, next) => {
     .jpeg({ quality: 90 })
     .toFile(`../public/assets/imgs/users/${req.body.avatar}`)
   next()
+  // }
+  // }
+
+  //   if(currentAvatar == ''){
+  //     console.log('3');
+  //     req.body.avatar = currentAvatar
+  //   }
+
+  // //   else {
+  // //     next();
+  // //   }
+
+  // }
+  // //kt avatar da ton tai trong data user chua
+  // //neu co thi next
+
+  // chua co thi chay tiep
 })
 
 async function hashPassword(password) {
@@ -221,9 +266,9 @@ exports.getUser = async (req, res, next) => {
       if (!user) return next(new Error('User does not exist'));
       res.json(user)
 
-     
+
     }
-   
+
     // if (tokenId !== paramsId) {
     //   console.log('ko')
     //   if (getUserFromIdToken.role === "admin") {
@@ -249,7 +294,7 @@ exports.getUser = async (req, res, next) => {
   }
 }
 
-//user order
+//user order - find user and update user's order to field orderlist
 exports.updateUserOrder = (req, res) => {
   console.log("update user run")
   console.log(req.user._id)
@@ -268,18 +313,37 @@ exports.updateUserOrder = (req, res) => {
   );
 }
 
+//update avtar
+exports.updateUserAvatar = async (req, res) => {
+  console.log(req.body.avatar);
+  console.log(req.params.userId);
+  await User.updateOne(
+    User.findById(req.params.userId),
+    {
+      $set: {
+        avatar: req.body.avatar,
+      },
+    })
+    .then(() => res.json("Avatar be updated."))
+    .catch(new AppError(err => res.status(400).json('Error: ' + err)))
+
+}
+
+
 // update information
 exports.updateUser = async (req, res) => {
+  console.log(req.body.firstName);
+  console.log(req.body.lastName);
+  console.log(req.body.username);
+
   await User.updateOne(
     User.findById(req.params.userId),
     {
       $set: {
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        username: req.body.username,
         address: req.body.address,
         phone: req.body.phone,
-        avatar: req.body.avatar,
       },
     })
     .then(() => res.json("User be updated."))
@@ -309,21 +373,32 @@ exports.changeEmail = async (req, res) => {
   const newEmail = req.body.newEmail
 
   console.log('emailInput  ' + current)
-  if (current && newEmail) {
-    const user = await User.findById(req.params.userId)
-    const email = user.email
-    console.log('object ' + email)
-    if (user.email === current) {
-      user.updateOne({ $set: { email: newEmail } })
-        .then(() => res.json("Email has been changed. " + user))
-        .catch(new AppError(err => res.status(400).json('Error: ' + err)))
+  try {
+    if (current && newEmail) {
+      const isExist = await User.findOne({ email: newEmail })
+
+      const user = await User.findById(req.params.userId)
+      const email = user.email
+      console.log('object ' + email)
+      if (user.email === current) {
+        user.updateOne({ $set: { email: newEmail } })
+          .then(() => res.json("Email has been changed. " + user))
+          .catch(new AppError(err => res.status(400).json('Error: ' + err)))
+      }
+      else if (isExist) {
+        console.log('exist')
+        res.status(403).json("Edit Failed: Email did exist")
+      }
+      else {
+        res.json("Failed: Email do not match. Try again.")
+      }
     }
+
     else {
-      res.json("Failed: Email do not match. Try again.")
+      res.json("Email undefined. Send request again.")
     }
-  }
-  else {
-    res.json("Email undefined. Send request again.")
+  } catch (err) {
+    res.status(400).json('Error: ' + err)
   }
 
 }

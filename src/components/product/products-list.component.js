@@ -205,7 +205,7 @@ export default class ProductsList extends Component {
                                 <div className="bg-table h-full w-full mt-7 rounded-2xl">
                                     <div className="text-xl flex flex-row; justify-between ring-2 ring-btncreate">
                                         <div className=" mx-8 my-8">Product Management</div>
-                                        <div className="h9 w-24 ring-1 ring-btncreate p-2 flex flex-row; rounded-md  mx-8 my-8">
+                                        <div className="h-9 w-24 ring-1 ring-btncreate p-2 flex flex-row; rounded-md  mx-8 my-8">
                                             <div><img src="img/Create.png" className="h-5 w-5 stroke-current text-icon" /></div>
                                             <a href="/create-product">
                                                 <div to="/create-product" className="text-sm">Add New</div>

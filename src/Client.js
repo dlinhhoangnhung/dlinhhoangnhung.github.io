@@ -2,7 +2,7 @@ import React, { Component, useState, createContext, useReducer, useEffect, useCo
 import { useDispatch, useSelector } from 'react-redux'
 import ReactDOM from 'react-dom'
 import axios from "axios"
-import { Switch, Route, Link, useHistory } from "react-router-dom";
+import { Switch, Route, Link, useHistory, BrowserRouter } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import AuthService from "./components/services/auth.service";
@@ -27,7 +27,7 @@ import UserDetail from './components/admin/users/user-detail.component';
 import OrderDetail from './components/order/order-detail.component';
 
 import EditProduct from "./components/product/edit-product.component"
-import EditOrder from "./components/order/edit-order.component"
+import UpdateOrder from './components/order/edit-order.component';
 import EditCategory from "./components/category/edit-category.component"
 import EditCustomer from "./components/customer/edit-customer.component"
 import EditUser from './components/admin/users/edit-user.component';
@@ -65,8 +65,9 @@ import UserOrdersList from './components/screens/orderlistScreen';
 import AdminNotify from './components/admin/admin-notify.component';
 import ChangePassword from './components/admin/users/change-password.component';
 import CartScreen from './components/screens/cartScreen';
-export const UserContext = createContext()
+import Footer from './components/Footer';
 
+export const UserContext = createContext()
 // const StyledButton = styled(IconButton)`
 //  position: fixed;
 //  z-index: 100;
@@ -74,7 +75,6 @@ export const UserContext = createContext()
 //  top: 20px;
 // `
 const Routing = () => {
-    const history = useHistory()
 
     return (
         <div>
@@ -85,6 +85,7 @@ const Routing = () => {
                 <Route path="/items" component={Catalog} />
 
                 <Route exact path="/" component={HomeScreen} />
+                <Route exact path="/" component={Footer} />
                 {/* <Route exact path="/items" component={ItemScreen} />\ */}
                 {/* <Route exact path={["/items", "/"]} component={HomeScreen} /> */}
                 <Route exact path="/items/:name-:id" component={ProductScreen} />
@@ -116,7 +117,7 @@ const Routing = () => {
                 <Route path="/admin-view/order/:id" component={OrderDetail} />
 
                 <Route path="/edit/product/:id" component={EditProduct} />
-                <Route path="/edit/order/:id" component={EditOrder} />
+                <Route path="/admin-view/edit/order/:id" component={UpdateOrder} />
                 <Route path="/edit/category/:id" component={EditCategory} />
                 <Route path="/edit/customer/:id" component={EditCustomer} />
                 <Route path="/edit/user/:id" component={EditUser} />
@@ -126,7 +127,7 @@ const Routing = () => {
                 <Route path="/create-customer" component={CreateCustomer} />
                 <Route path="/user-view/forgot-password" component={Forgot} />
                 <Route path="/reset-password/:token" component={Reset} />
-                {/* <Route path="/user-view/change-password/:id" component={ChangePassword} />  loi server*/} 
+                {/* <Route path="/user-view/change-password/:id" component={ChangePassword} />  loi server*/}
                 <Route path="/user-view/change-email/:id" component={ChangeEmail} />
                 {/* <Route extract path="/cart-test">
                 <CartS />
@@ -141,6 +142,8 @@ const Routing = () => {
 }
 
 function Client() {
+    const history = useHistory()
+
     // const [cartOpen, setCartOpen ] = useState(false)
     // const cart = useSelector(state => state.cart)
     // const { cartItems, setCartItems } = cart
@@ -149,9 +152,18 @@ function Client() {
     const [sideToggle, setSideToggle] = useState(false);
     // const [state, dispatch] = useReducer(reducer, initialState)
     return (
-        <Route>
-            <Routing />
-        </Route>
+        <BrowserRouter>
+            {/* <Route> */}
+            <div className='incol space-y-96 bg-catalog'>
+                {/* Nvabar */}
+                <main>
+                    <Routing />
+                </main>
+                <Footer/>
+            </div>
+            {/* </Route> */}
+        </BrowserRouter>
+
     );
 }
 

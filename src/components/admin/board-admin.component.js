@@ -16,7 +16,7 @@ import CategoriesList from "../category/categories-list.component"
 import CustomersList from "../customer/customers-list.component"
 
 import EditProduct from "../product/edit-product.component"
-import EditOrder from "../order/edit-order.component"
+import UpdateOrder from '../order/edit-order.component';
 import EditCategory from "../category/edit-category.component"
 import EditCustomer from "../customer/edit-customer.component"
 

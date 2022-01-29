@@ -53,9 +53,11 @@ const PrivateSidebar = () => {
         isError ? <Error /> :
             (
                 <div className="sidebar">
-                    <div className="text-2xl">
-                        Guccdesis
-                    </div>
+                    <a href="/items">
+                        <div className="text-2xl">
+                            Guccdesis
+                        </div>
+                    </a>
                     <div className="mt-11 h-26">
                         <ul>
                             {products && products.filter(filterNames).map((user) => {

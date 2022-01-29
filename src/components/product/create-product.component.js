@@ -47,7 +47,7 @@ export default class CreateProduct extends Component {
 
         this.state = {
             name: '',
-            desc: '',
+            desc: 'update..',
             cateid: '',
             price: '',
             images: [],
@@ -228,8 +228,12 @@ export default class CreateProduct extends Component {
     }
 
     onChangePrice(p) {
+            var x = p.target.value;
+            x =  x.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            console.log(x);
+
         this.setState({
-            price: p.target.value
+            price: x
         })
     }
 
@@ -307,16 +311,16 @@ export default class CreateProduct extends Component {
                 <div>
                     <div
                         class="
-    my-3
-    block
-    text-sm text-left text-white
-    bg-green-500
-    h-12
-    flex
-    items-center
-    p-4
-    rounded-md
-  "
+                                my-3
+                                block
+                                text-sm text-left text-white
+                                bg-green-500
+                                h-12
+                                flex
+                                items-center
+                                p-4
+                                rounded-md
+                            "
                         role="alert"
                     >
                         <svg
