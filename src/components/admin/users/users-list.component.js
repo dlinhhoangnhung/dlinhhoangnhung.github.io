@@ -69,7 +69,7 @@ export default class UsersList extends Component {
     }
 
     deleteUser(id) {
-        axios.delete('http://localhost:5001/users/' + id)
+        axios.delete(process.env.REACT_APP_SERVER_HOST + '/users/' + id)
             .then(res => console.log(res.data))
         this.setState({
             users: this.state.users.filter(u => u._id !== id)

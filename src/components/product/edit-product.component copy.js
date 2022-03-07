@@ -46,7 +46,7 @@ export default class EditProduct extends Component {
 
 
     componentDidMount() {
-        axios.get('http://localhost:5001/users/api/products/' + this.props.match.params.id)
+        axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     products: response.data,
@@ -63,7 +63,7 @@ export default class EditProduct extends Component {
                 console.log(err);
             })
 
-        axios.get('http://localhost:5001/users/api/categories')
+        axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/categories')
             .then(response => {
                 if (response.data.length > 0) {
                     this.setState({
@@ -156,7 +156,7 @@ export default class EditProduct extends Component {
 
         formData.append("file", file);
 
-        return axios.post(`http://localhost:5001/users/api/products/` + this.props.match.params.id, formData, {
+        return axios.post(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -177,7 +177,7 @@ export default class EditProduct extends Component {
 
         formData.append("images", file);
 
-        return axios.post(`http://localhost:5001/users/api/products/` + this.props.match.params.id, formData, {
+        return axios.post(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -236,7 +236,7 @@ export default class EditProduct extends Component {
     //         images: this.state.images,
     //     }
 
-    //     await axios.patch(`http://localhost:5001/users/api/products/` + this.props.match.params.id, product,
+    //     await axios.patch(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id, product,
     //         { headers: { "Content-type": "multipart/form-data" } })
     //         .then(res => {
     //             console.log("res.data: " + res.data)

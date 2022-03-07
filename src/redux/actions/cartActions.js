@@ -15,7 +15,7 @@ export const adjustQty = (id, qty) => async (dispatch, getState) => {
 }
 
 export const addToCart = (id, qty, textSize, textColor) => async (dispatch, getState) => {
-    const { data } = await axios.get(`http://localhost:5001/users/api/products/${id}`);
+    const { data } = await axios.get(process.env.REACT_APP_SERVER_HOST + `/users/api/products/${id}`);
     // khi user co action:them vao gio, get id cua san pham do
     console.log(' color ' + data)
     console.log('  ' + qty,)

@@ -530,7 +530,7 @@ products && products.map((i) =>
             <div>
                 <section class="pt-20 lg:pt-[120px]  lg:pb-20 bg-[#F3F4F6]">
                     <div class="container">
-                        <div class="flex flex-wrap -mx-4">
+                        {/* <div class="flex flex-wrap -mx-4">
                             <div class="w-full md:w-1/2 xl:w-1/3 px-4">
                                 <div class="bg-white rounded-lg overflow-hidden mb-10">
                                     <img src="https://cdn.tailgrids.com/1.0/assets/images/cards/card-01/image-01.jpg" alt="image" class="w-full" />
@@ -585,7 +585,7 @@ products && products.map((i) =>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
                 </section>
             </div>

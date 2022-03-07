@@ -9,7 +9,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
 
     dispatch({ type: actionTypes.ORDER_CREATE_REQUEST, payload: order })
     try {
-        const { data } = await axios.post('http://localhost:5001/users/api/orders', order,
+        const { data } = await axios.post(process.env.REACT_APP_SERVER_HOST + '/users/api/orders', order,
             { headers: authHeader() }
         ) //cart nó ở đâu cưng 
         console.log(' sxz ' + data._id)
@@ -34,7 +34,7 @@ export const getOrderByUser = (id) => async (dispatch, getState) => {
     try {
         console.log('object')
         dispatch({ type: actionTypes.GET_ORDERS_REQUEST })
-        const { data } = await axios.get('http://localhost:5001/users/api/orders/user/' + id, { headers: authHeader() })
+        const { data } = await axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/orders/user/' + id, { headers: authHeader() })
         console.log('data ' + data)
 
         dispatch({
@@ -55,7 +55,7 @@ export const getOrder = (id) => async (dispatch, getState) => {
     try {
         console.log('id ' + id)
         dispatch({ type: actionTypes.GET_ORDER_REQUEST })
-        const { data } = await axios.get('http://localhost:5001/users/api/orders/' + id, { headers: authHeader() })
+        const { data } = await axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/orders/' + id, { headers: authHeader() })
         console.log('data ' + data)
 
         dispatch({

@@ -25,7 +25,7 @@ export default class EditCustomer extends Component {
     }
     
     componentDidMount() {
-        axios.get('http://localhost:5001/customers/' + this.props.match.params.id)
+        axios.get(process.env.REACT_APP_SERVER_HOST + '/customers/' + this.props.match.params.id)
             .then(response => {
                 console.log("aloalo:" + response.data.id )
                  this.setState({
@@ -76,7 +76,7 @@ export default class EditCustomer extends Component {
 
         console.log(customer)
 
-        axios.post('http://localhost:5001/customers/update/' + this.props.match.params.id, customer)
+        axios.post(process.env.REACT_APP_SERVER_HOST + '/customers/update/' + this.props.match.params.id, customer)
             .then(res => {
                 console.log(res.data)
                 toast("Update successfully :)", {

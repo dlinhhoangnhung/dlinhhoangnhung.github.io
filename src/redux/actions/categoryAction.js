@@ -8,7 +8,7 @@ export const getCategories = () => async (dispatch) => {
         console.log('get cat: ')
         dispatch({ type: actionsType.GET_CATEGORIES_REQUEST })
 
-        const { data } = await axios.get(`http://localhost:5001/users/api/categories`)
+        const { data } = await axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/categories')
 
         dispatch({
             type: actionsType.GET_CATEGORIES_SUCCESS,

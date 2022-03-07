@@ -211,7 +211,7 @@ export default class ProductDetail extends Component {
                 address: this.state.address,
             }
             console.log(user);
-            axios.patch('http://localhost:5001/users/user/update-info/' + this.props.match.params.id, user, { headers: authHeader() })
+            axios.patch(process.env.REACT_APP_SERVER_HOST + '/users/user/update-info/' + this.props.match.params.id, user, { headers: authHeader() })
                 .then(res => {
                     console.log("res.data: " + res.data)
                     toast("Profile be edited!", {
@@ -236,7 +236,7 @@ export default class ProductDetail extends Component {
         const formData = new FormData()
 
         formData.append('avatar', this.state.avatar)
-        axios.patch('http://localhost:5001/users/user/update-info/avatar/' + this.props.match.params.id, formData, { headers: authHeader() })
+        axios.patch(process.env.REACT_APP_SERVER_HOST + '/users/user/update-info/avatar/' + this.props.match.params.id, formData, { headers: authHeader() })
             .then(res => {
                 console.log("res.data: " + res.data)
                 toast("Avatar be updated!", {

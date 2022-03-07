@@ -9,7 +9,7 @@ class FileUploadService {
 
     formData.append("file", file);
 
-    return axios.post(`http://localhost:5001/users/api/products/` + this.props.match.params.id, formData, {
+    return axios.post(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id, formData, {
       headers: {
         "Content-Type": "multipart/form-data",
       },
@@ -18,7 +18,7 @@ class FileUploadService {
   }
 
   getFiles() {
-    return axios.get(`http://localhost:5001/users/api/products/` + this.props.match.params.id);
+    return axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id);
   }
 }
 

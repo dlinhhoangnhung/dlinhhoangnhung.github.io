@@ -7,7 +7,7 @@ export const signin = (username, password) => async (dispatch) => {
     dispatch({ type: actionsType.USER_SIGNIN_REQUEST, payload: { username, password } })
     try {
         console.log('alo')
-        const { data } = await Axios.post('http://localhost:5001/users/sign-in', { username, password })
+        const { data } = await Axios.post(process.env.REACT_APP_SERVER_HOST + '/users/sign-in', { username, password })
         dispatch({
             type: actionsType.USER_SIGNIN_SUCCESS,
             payload: data
@@ -41,7 +41,7 @@ export const signout = () => (dispatch, getState) => {
 export const updateOrder = (order) => async (dispatch, getState) => {
     dispatch({ type: actionsType.UPDATE_ORDERITEM_REQUEST, payload: order })
     try {
-        const { data } = await Axios.post('http://localhost:5001/users/', order,
+        const { data } = await Axios.post(process.env.REACT_APP_SERVER_HOST + '/users/', order,
             { headers: authHeader() }
         ) //cart nó ở đâu cưng 
         dispatch({ type: actionsType.UPDATE_ORDERITEM_REQUEST_SUCCESS, payload: data.order })

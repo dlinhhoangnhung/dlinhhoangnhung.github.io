@@ -1,7 +1,7 @@
 import CartItem from '../../cart/CartItem';
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 
 import { removeFromCart, adjustQty, increaseItem, decreaseItem, decreaseQty, increaseQty } from "../../../redux/actions/cartActions"
 import { browserHistory } from 'react-router'

@@ -417,7 +417,7 @@ export default class EditProduct extends Component {
 
         formData.append("images", file);
 
-        return axios.patch(`http://localhost:5001/users/api/products/` + this.props.match.params.id, formData, {
+        return axios.patch(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
             },
@@ -462,7 +462,7 @@ export default class EditProduct extends Component {
             formData.append("images", this.state.images[key])
         }
 
-        await axios.patch(`http://localhost:5001/users/api/products/` + this.props.match.params.id,
+        await axios.patch(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id,
             { headers: { "Content-type": "multipart/form-data" } })
             .then(res => {
                 console.log("res.data: " + res.data)
@@ -506,13 +506,13 @@ export default class EditProduct extends Component {
 
         console.log(formData + "  formData in: ")
 
-        // await axios.patch(`http://localhost:5001/users/api/products/` + this.props.match.params.id, formData, authHeader(),
+        // await axios.patch(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id, formData, authHeader(),
         // await UserService.updateProduct(formData, this.props.match.params.id)
         // { headers: { "Content-type": "multipart/form-data" } })
 
 
 
-        await axios.patch('http://localhost:5001/users/api/products/' + this.props.match.params.id, formData, {
+        await axios.patch(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + this.props.match.params.id, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
                 'Authorization': user.token

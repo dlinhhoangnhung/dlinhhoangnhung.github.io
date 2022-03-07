@@ -41,7 +41,7 @@ export default class CreateCategory extends Component {
         }
 
         console.log(category)
-        await axios.post('http://localhost:5001/users/api/categories/', category, {
+        await axios.post(process.env.REACT_APP_SERVER_HOST + '/users/api/categories/', category, {
             headers: authHeader()
         })
             .then(res => {

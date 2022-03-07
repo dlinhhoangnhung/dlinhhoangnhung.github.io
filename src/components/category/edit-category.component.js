@@ -22,7 +22,7 @@ export default class EditCategory extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5001/users/api/categories/' + this.props.match.params.id)
+        axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/categories/' + this.props.match.params.id)
             .then(response => {
                 this.setState({
                     name: response.data.name,
@@ -62,7 +62,7 @@ export default class EditCategory extends Component {
 
         console.log(category)
 
-        await axios.patch('http://localhost:5001/users/api/categories/' + this.props.match.params.id, category, { headers: authHeader() })
+        await axios.patch(process.env.REACT_APP_SERVER_HOST + '/users/api/categories/' + this.props.match.params.id, category, { headers: authHeader() })
             .then(res => {
                 console.log(res.data)
                 toast("Update successfully :)", {

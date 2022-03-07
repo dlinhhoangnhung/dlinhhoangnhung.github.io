@@ -6,7 +6,7 @@ export const getColors = () => async (dispatch) => {
     try {
         dispatch({ type: actionsType.GET_COLORS_REQUEST })
 
-        const { data } = await axios.get(`http://localhost:5001/users/api/products-colors`)
+        const { data } = await axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/products-colors')
         console.log(data)
 
         dispatch({

@@ -3,7 +3,9 @@ import { Redirect } from 'react-router';
 import { toast } from "react-toastify";
 import history from '../../history';
 
-const API_URL = "http://localhost:5001/users/";
+const API_URL = process.env.REACT_APP_SERVER_HOST + "/users/";
+
+console.log("API_URL ", API_URL)
 
 class AuthService {
   login(username, password) {

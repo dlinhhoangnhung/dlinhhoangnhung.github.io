@@ -59,7 +59,7 @@ export default class CreateCustomer extends Component {
 
         console.log(customer)
 
-        axios.post('http://localhost:5001/customers/add', customer)
+        axios.post(process.env.REACT_APP_SERVER_HOST + '/customers/add', customer)
             .then(res => {
                 console.log(res.data)
                 toast("Add successfully!", {

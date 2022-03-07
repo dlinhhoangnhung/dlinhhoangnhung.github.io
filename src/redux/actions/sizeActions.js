@@ -6,7 +6,7 @@ export const getSizes = () => async (dispatch) => {
     try {
         dispatch({ type: actionsType.GET_SIZES_REQUEST })
 
-        const { data } = await axios.get(`http://localhost:5001/users/api/products-sizes`)
+        const { data } = await axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/products-sizes')
         console.log(data)
 
         dispatch({

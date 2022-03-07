@@ -35,7 +35,7 @@ export default class OrdersList extends Component {
     }
 
     deleteOrder(id) { // chua lam
-        axios.delete('http://localhost:5001/orders/' + id)
+        axios.delete(process.env.REACT_APP_SERVER_HOST + '/orders/' + id)
             .then(res => console.log(res.data))
         this.setState({
             orders: this.state.orders.filter(o => o._id !== id)

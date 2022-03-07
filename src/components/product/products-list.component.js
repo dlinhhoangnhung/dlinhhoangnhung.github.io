@@ -77,7 +77,7 @@ export default class ProductsList extends Component {
     // deleteProduct(id) {
     //     console.log(id)
     //     userService.deleteProduct(id)
-    //     // axios.delete('http://localhost:5001/users/api/products/' + id,
+    //     // axios.delete(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + id,
     //     //     { "Authorization": "***" })
     //     //     .then(res => {
     //     //         console.log("res.data: " + res.data)
@@ -96,7 +96,7 @@ export default class ProductsList extends Component {
         const user = JSON.parse(localStorage.getItem('userInfo'));
         console.log(id)
 
-        await axios.delete('http://localhost:5001/users/api/products/' + id, {
+        await axios.delete(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + id, {
             headers: {
                 'Authorization': user.token
             }
@@ -114,7 +114,7 @@ export default class ProductsList extends Component {
                     console.log(error);
                 })
 
-        // axios.delete('http://localhost:5001/users/api/products/' + id, { headers: { Authorization: user.token } })
+        // axios.delete(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + id, { headers: { Authorization: user.token } })
         //     .then(res => {
         //         console.log("res.data: " + res.data)
         //         toast("Deleted", {
@@ -143,7 +143,7 @@ export default class ProductsList extends Component {
 
     // deleteMultiProduct(id) {
     //     // api delete multi rout
-    //     axios.delete('http://localhost:5001/users/api/products/' + id)
+    //     axios.delete(process.env.REACT_APP_SERVER_HOST + '/users/api/products/' + id)
     //         .then(res => console.log(res.data))
     //     this.setState({
     //         products: this.state.products.filter(p => p._id !== id)

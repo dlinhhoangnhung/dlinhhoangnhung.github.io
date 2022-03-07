@@ -74,7 +74,7 @@ export default class OrderScreen extends Component {
     async cancelOrder() {
         const user = JSON.parse(localStorage.getItem('userInfo'));
 
-        await axios.delete('http://localhost:5001/users/api/orders/user/delete-order-' + this.props.match.params.id, {
+        await axios.delete(process.env.REACT_APP_SERVER_HOST + '/users/api/orders/user/delete-order-' + this.props.match.params.id, {
             headers: {
                 'Authorization': user.token
             }

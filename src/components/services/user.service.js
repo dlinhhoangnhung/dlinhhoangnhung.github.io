@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import authHeader from './auth-header';
 
-const API_URL = 'http://localhost:5001/users/api';
+const API_URL = process.env.REACT_APP_SERVER_HOST + '/api/users'
 const user = JSON.parse(localStorage.getItem('userInfo'));
 
 class UserService {
@@ -77,30 +77,30 @@ class UserService {
   }
 
   getUser(id) {
-    return axios.get('http://localhost:5001/users/user/' + id, { headers: authHeader() })
+    return axios.get(process.env.REACT_APP_SERVER_HOST + '/users/user/' + id, { headers: authHeader() })
   }
 
   updateUser(id, data) {
-    return axios.patch('http://localhost:5001/users/user/update-info/' + id, data, { headers: authHeader() })
+    return axios.patch(process.env.REACT_APP_SERVER_HOST + '/users/user/update-info/' + id, data, { headers: authHeader() })
   }
 
   changeEmail(id, data) {
-    return axios.post('http://localhost:5001/users/user/change-email/' + id, data, { headers: authHeader() })
+    return axios.post(process.env.REACT_APP_SERVER_HOST + '/users/user/change-email/' + id, data, { headers: authHeader() })
   }
   getUsers() {
-    return axios.get('http://localhost:5001/users/users', { headers: authHeader() });
+    return axios.get(process.env.REACT_APP_SERVER_HOST + '/users/users', { headers: authHeader() });
   }
 
   getOneUserAdmin(id) {
-    return axios.get('http://localhost:5001/users/user/admin/' + id, { headers: authHeader() })
+    return axios.get(process.env.REACT_APP_SERVER_HOST + '/users/user/admin/' + id, { headers: authHeader() })
   }
   getNewOrder(adminId) {
-    return axios.get('http://localhost:5001/users/api/orders/new-orders/' + adminId, { headers: authHeader() })
+    return axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/orders/new-orders/' + adminId, { headers: authHeader() })
   }
 
 
   getOrders() {
-    return axios.get('http://localhost:5001/users/api/orders/', { headers: authHeader() })
+    return axios.get(process.env.REACT_APP_SERVER_HOST + '/users/api/orders/', { headers: authHeader() })
   }
   getOrder(id) {
     return axios.get(API_URL + '/orders/' + id, { headers: authHeader() })

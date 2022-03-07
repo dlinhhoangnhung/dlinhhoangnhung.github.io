@@ -14,7 +14,7 @@ export default class CustomersList extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:5001/customers')
+        axios.get(process.env.REACT_APP_SERVER_HOST + '/customers')
             .then(response => {
                 this.setState({
                     isLoading: 0
@@ -34,7 +34,7 @@ export default class CustomersList extends Component {
     }
 
     deleteCustomer(id) {
-        axios.delete('http://localhost:5001/customers/' + id)
+        axios.delete(process.env.REACT_APP_SERVER_HOST + '/customers/' + id)
             .then(res => console.log(res.data))
         this.setState({
             customers: this.state.customers.filter(c => c._id !== id)
