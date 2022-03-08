@@ -9,6 +9,8 @@ import Navbar from "../navbar.component";
 import Forgot from "./forgotScreen";
 import authService from "../services/auth.service";
 import G from '../../assets/G.png'
+import sha256 from 'crypto-js/sha256';
+var crypto = require('crypto');
 
 export default class LoginScreen extends Component {
     constructor(props) {
@@ -25,7 +27,7 @@ export default class LoginScreen extends Component {
 
         };
     }
-  
+
     onChangeUsername(u) {
         this.setState({
             username: u.target.value,
@@ -37,22 +39,20 @@ export default class LoginScreen extends Component {
             password: u.target.value,
         });
     }
- 
-    onSubmit(u) {
+
+    async onSubmit(u) {
         u.preventDefault();
-        const user = {
-            username: this.state.username,
-            password: this.state.password
-        };
-        console.log(user);
+        const hash = crypto.createHash('sha256').update(this.state.password).digest('base64');
+
 
         this.setState({
             message: "",
             loading: true
         });
 
+        console.log('login')
 
-        AuthService.login(this.state.username, this.state.password).then(
+        AuthService.login(this.state.username, hash).then(
             () => {
                 // this.props.history.push();
                 // window.location.reload();
@@ -86,11 +86,11 @@ export default class LoginScreen extends Component {
         const { location } = this.props;
         const { state } = location;
         if (user) {
-            // if (user.role === 'admin') {
-            //     return (
-            //         <Redirect to='/admin' />
-            //     )
-            // }
+            if (user.role === 'admin') {
+                return (
+                    <Redirect to='/admin' />
+                )
+            }
             // if (user.role === 'user') {
             //     if (state && state.from) {
 
@@ -98,9 +98,9 @@ export default class LoginScreen extends Component {
             //         console.log('alo')
 
             //     }
-                return (
-                    <Redirect to={from} />
-                )
+            return (
+                <Redirect to={from} />
+            )
             // }
         }
 
@@ -189,71 +189,6 @@ export default class LoginScreen extends Component {
                     </form>
                 </div>
             </div>
-
-            // <form onSubmit={this.onSubmit}>
-            //     <div classNameName="main">
-            //         <section classNameName="signup">
-            //             <div classNameName="container">
-            //                 <div classNameName="signup-content">
-            //                     <div classNameName="signup-form">
-            //                         <h2 classNameName="form-title">Sign In</h2>
-            //                         <div classNameName="form-group">
-            //                             <label htmlFor="name">
-            //                                 <i classNameName="zmdi zmdi-account material-icons-name"></i>
-            //                             </label>
-            //                             <input
-            //                                 type="text"
-            //                                 name="firstname"
-            //                                 id="firstname"
-            //                                 placeholder="Your First Name"
-            //                                 required
-            //                                 value={this.state.username}
-            //                                 onChange={this.onChangeUsername}
-            //                             />
-            //                         </div>
-            //                         <div classNameName="form-group">
-            //                             <label htmlFor="email">
-            //                                 <i classNameName="zmdi zmdi-email"></i>
-            //                             </label>
-            //                             <input
-            //                                 type="lastname"
-            //                                 name="lastname"
-            //                                 id="lastname"
-            //                                 required
-            //                                 value={this.state.password}
-            //                                 onChange={this.onChangePassword}
-            //                                 placeholder="Your Last Name"
-            //                             />
-            //                         </div>
-
-            //                         <div classNameName="form-group form-button">
-            //                             <input
-            //                                 type="submit"
-            //                                 name="signup"
-            //                                 id="signup"
-            //                                 classNameName="form-submit"
-            //                                 value="Sign In"
-            //                             />
-            //                         </div>
-
-
-            //                     </div>
-            //                     <div classNameName="signup-image">
-            //                         <figure>
-            //                             <img src="assets/imgs/n6.jpg" alt="sing up image" />
-            //                         </figure>
-            //                         <a href="/login" classNameName="signup-image-link">
-            //                             I am already member
-            //                         </a>
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //         </section>
-
-            //     </div>
-            // </form >
-
-
         )
     }
 }

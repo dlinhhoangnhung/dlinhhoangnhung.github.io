@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Redirect } from "react-router";
+import authService from "../services/auth.service";
+var crypto = require('crypto');
 
 export default class RegisterScreen extends Component {
     constructor(props) {
@@ -56,17 +58,19 @@ export default class RegisterScreen extends Component {
         });
     }
 
-    onSubmit(u) {
+    async onSubmit(u) {
         u.preventDefault();
-        const user = {
-            email: this.state.email,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            username: this.state.username,
-            password: this.state.password,
-        };
-        console.log(user);
-        axios.post("http://localhost:5001/users/sign-up", user)
+        const hash = await crypto.createHash('sha256').update(this.state.password).digest('base64');
+
+        // const user = {
+        //     email: this.state.email,
+        //     firstName: this.state.firstName,
+        //     lastName: this.state.lastName,
+        //     username: this.state.username,
+        //     password: hash,
+        // };
+
+        authService.register(this.state.username, this.state.email, hash, this.state.firstName, this.state.lastName)
             .then((res) => {
                 console.log(res.data);
                 toast("Successfully Registed !", {
@@ -91,137 +95,6 @@ export default class RegisterScreen extends Component {
 
         if (this.state.isRedirect) return <Redirect to="/items" />;
         return (
-            // <form onSubmit={this.onSubmit}>
-            //     <div className="main" style={{ paddingTop: 10 }}>
-            //         <section className="signup">
-            //             <div className="container">
-            //                 <div className="signup-content">
-            //                     <div className="signup-form">
-            //                         <h2 className="form-title">Sign up</h2>
-            //                         <div className="form-group">
-            //                             <label htmlFor="name">
-            //                                 <i className="zmdi zmdi-account material-icons-name"></i>
-            //                             </label>
-            //                             <input
-            //                                 type="text"
-            //                                 name="firstname"
-            //                                 id="firstname"
-            //                                 placeholder="Your First Name"
-            //                                 required
-            //                                 value={this.state.firstName}
-            //                                 onChange={this.onChangeFirstName}
-
-            //                             />
-            //                         </div>
-            //                         <div className="form-group">
-            //                             <label htmlFor="lastname">
-            //                                 <i className="zmdi zmdi-lastname"></i>
-            //                             </label>
-            //                             <input
-            //                                 type="lastname"
-            //                                 name="lastname"
-            //                                 id="lastname"
-            //                                 required
-            //                                 value={this.state.lastName}
-            //                                 onChange={this.onChangeLastName}
-            //                                 placeholder="Your Last Name"
-            //                             />
-            //                         </div>
-            //                         <div className="form-group">
-            //                             <label htmlFor="email">
-            //                                 <i className="zmdi zmdi-email"></i>
-            //                             </label>
-            //                             <input
-            //                                 type="email"
-            //                                 name="email"
-            //                                 id="email"
-            //                                 required
-            //                                 value={this.state.email}
-            //                                 onChange={this.onChangeEmail}
-            //                                 placeholder="Your Email"
-            //                             />
-            //                         </div>
-            //                         <div className="form-group">
-            //                             <label htmlFor="pass">
-            //                                 <i className="zmdi zmdi-lock"></i>
-            //                             </label>
-            //                             <input
-            //                                 type="username"
-            //                                 name="username"
-            //                                 id="username"
-            //                                 required
-            //                                 value={this.state.username}
-            //                                 onChange={this.onChangeUsername}
-            //                                 placeholder="Username"
-            //                             />
-            //                         </div>
-            //                         <div className="form-group">
-            //                             <label htmlFor="pass">
-            //                                 <i className="zmdi zmdi-lock"></i>
-            //                             </label>
-            //                             <input
-            //                                 type="password"
-            //                                 name="pass"
-            //                                 id="pass"
-            //                                 required
-            //                                 value={this.state.password}
-            //                                 onChange={this.onChangePassword}
-            //                                 placeholder="Password"
-            //                             />
-            //                         </div>
-            //                         {/* <div class="form-group">
-            //                                 <label for="re-pass">
-            //                                     <i class="zmdi zmdi-lock-outline"></i>
-            //                                 </label>
-            //                                 <input
-            //                                     type="password"
-            //                                     name="re_pass"
-            //                                     id="re_pass"
-            //                                     placeholder="Repeat your password"
-            //                                 />
-            //                             </div> */}
-            //                         {/* <div className="form-group"> 
-            //                                 <input
-            //                                     type="checkbox"
-            //                                     name="agree-term"
-            //                                     id="agree-term"
-            //                                     className="agree-term"
-            //                                     required
-            //                                 />
-            //                                 <label for="agree-term" className="label-agree-term">
-            //                                     <span>
-            //                                         <span></span>
-            //                                     </span>
-            //                                     I agree all statements in{" "}
-            //                                     <a href="#" className="term-service">
-            //                                         Terms of service
-            //                                     </a>
-            //                                 </label>
-            //                             </div> */}
-            //                         <div className="form-group form-button">
-            //                             <input
-            //                                 type="submit"
-            //                                 name="signup"
-            //                                 id="signup"
-            //                                 className="form-submit"
-            //                                 value="Create"
-            //                             />
-            //                         </div>
-            //                     </div>
-            //                     <div className="signup-image">
-            //                         <figure>
-            //                             <img src="assets/imgs/n6.jpg" alt="sing up image" />
-            //                         </figure>
-            //                         <a href="/login" className="signup-image-link">
-            //                             I am already member
-            //                         </a>
-            //                     </div>
-            //                 </div>
-            //             </div>
-            //         </section>
-
-            //     </div>
-            // </form>
             <div className="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 <div className="max-w-md w-full space-y-8">
                     <div>
