@@ -62,14 +62,6 @@ export default class RegisterScreen extends Component {
         u.preventDefault();
         const hash = await crypto.createHash('sha256').update(this.state.password).digest('base64');
 
-        // const user = {
-        //     email: this.state.email,
-        //     firstName: this.state.firstName,
-        //     lastName: this.state.lastName,
-        //     username: this.state.username,
-        //     password: hash,
-        // };
-
         authService.register(this.state.username, this.state.email, hash, this.state.firstName, this.state.lastName)
             .then((res) => {
                 console.log(res.data);
