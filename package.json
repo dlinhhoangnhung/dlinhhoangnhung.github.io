@@ -123,7 +123,7 @@
   "devDependencies": {
     "autoprefixer": "^9.8.8",
     "file-loader": "^6.2.0",
-    "postcss": "^7.0.39",
+    "postcss": "^8.4.8",
     "postcss-cli": "^9.0.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import UserService from "../services/user.service";
 import AuthService from "../services/auth.service";
-import UserOrdersList from "../users/OrdersList";
+// import UserOrdersList from "../users/OrdersList";
 
 import UserPrivateSidebar from "../admin/users/sidebar-user-private.component";
 
