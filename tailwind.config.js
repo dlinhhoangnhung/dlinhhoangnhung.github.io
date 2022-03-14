@@ -1,19 +1,19 @@
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      borderColor: ['focus'],
-      backgroundColor: ['hover', 'focus', 'active'],
+      borderColor: ["focus"],
+      backgroundColor: ["hover", "focus", "active"],
       backgroundImage: {
-        'landing-pastel': "url('/src/assets/img/landing.png')",
-        'next-2': "url('/src/assets/img/next-2.png')",
-        'next-3': "url('/src/assets/img/next-three.png')",
+        "landing-pastel": "url('/src/assets/img/landing.png')",
+        "next-2": "url('/src/assets/img/next-2.png')",
+        "next-3": "url('/src/assets/img/next-three.png')",
         // 'brand': "url('/src/assets/img/brand.png')",
         // (./assets/img/white.jpg)
       },
       directs: {
-        inrow: 'flex flex-row'
+        inrow: "flex flex-row",
       },
       colors: {
         catalog: "#f2f2f2",
@@ -31,20 +31,18 @@ module.exports = {
         thirdstroke: "##f6bbb6",
         shopnow: "#f09276",
         searchlast: "#e9c1cd",
-
       },
       boxShadow: {
-        'hotblue': '0 15px 30px 0px rgb(17, 79, 240)',
-        'coldblue': '0 20px 40px 0px rgb(194, 210, 247)'
-      }
+        hotblue: "0 15px 30px 0px rgb(17, 79, 240)",
+        coldblue: "0 20px 40px 0px rgb(194, 210, 247)",
+      },
     },
   },
   variants: {
     extend: {
-      backgroundColor: ['active'],
-      display: ['group-hover']
+      backgroundColor: ["active"],
+      display: ["group-hover"],
     },
   },
-  plugins: [
-  ],
-}
+  plugins: [],
+};
