@@ -63,7 +63,7 @@
 //         //                     className={slideIndex === index + 1 ? "carousel-item active" : "carousel-item"}>
 //         //                     <Navbar />
 
-//         //                     <img src={`http://localhost:3000/Imgs/img${index + 1}.png`} className="w-768 d-block w-100" alt="..." />
+//         //                     <img src={`http://localhost:3000/imgs/img${index + 1}.png`} className="w-768 d-block w-100" alt="..." />
 
 
 //         //                     {/* <img src={sl1} className="d-block w-100" alt="..." /> */}
