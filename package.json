@@ -2,7 +2,21 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3000/",
+  "description": "",
+  "main": "tailwind.config.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": ".",
+  "scripts": {
+    "start": "craco start",
+    "build:css": "postcss src/css/tailwind.css -o ./src/index.css",
+    "watch:css": "postcss src/css/tailwind.css -o ./src/css/index.css",
+    "build": "npm run build:css && craco build",
+    "build_commit": "cp -rf .env.dev .env && npm run build && git add . && git commit -m \"Update build\" && git push",
+    "build_staging": "cp -rf .env.staging .env && npm run build && git add . && git commit -m \"Update build\" && git push",
+    "build_production": "cp -rf .env.production .env && npm run build && git add . && git commit -m \"Update build\" && git push"
+  },
   "dependencies": {
     "@chec/commerce.js": "^2.7.2",
     "@craco/craco": "^5.9.0",
@@ -87,17 +101,6 @@
     "vanilla-lazyload": "^17.5.0",
     "web-vitals": "^1.1.1"
   },
-  "scripts": {
-    "start": "craco start",
-    "build": "npm run build:css && craco build",
-    "test": "craco test",
-    "eject": "react-scripts eject",
-    "build:css": "postcss src/css/tailwind.css -o ./src/index.css",
-    "watch:css": "postcss src/css/tailwind.css -o ./src/css/index.css",
-    "client": "craco start",
-    "server": "cd server && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
-  },
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -128,10 +131,5 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.2.17",
     "url-loader": "^4.1.1"
-  },
-  "description": "Mac : 1440 x 609 Screen : 1920 x 640",
-  "main": "tailwind.config.js",
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  }
 }
