@@ -20,7 +20,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthService from "./components/services/auth.service";
 
-import "./Client.css";
+//import "./Client.css";
 
 import Loading from "./components/loading.component";
 // import Navbar from "./components/navbar.component"
@@ -175,7 +175,7 @@ function Client() {
   return (
     <BrowserRouter>
       {/* <Route> */}
-      <div className='incol space-y-96 bg-catalog bg-client'>
+      <div className='incol space-y-96 bg-catalog'>
         {/* Nvabar */}
         <main>
           <Routing />
