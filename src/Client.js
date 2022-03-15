@@ -19,9 +19,6 @@ import {
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthService from "./components/services/auth.service";
-
-//import "./Client.css";
-
 import Loading from "./components/loading.component";
 // import Navbar from "./components/navbar.component"
 // import ItemScreen from './components/screens/itemScreen'
