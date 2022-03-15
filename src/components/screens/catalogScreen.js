@@ -321,7 +321,7 @@ const Catalog = ({ match, history }, props) => {
                                                                 // onClick={e => window.location.href = '/user-view/item-' + i._id}
                                                                 onMouseEnter={e => { setStyle(i._id); }}
                                                                 onMouseLeave={e => { setStyle(0) }}
-                                                                src={`${process.env.CLIENT_HOST}/assets/imgs/products/${i.thumbnail}`} alt=""
+                                                                src={`${process.env.REACT_APP_SERVER_HOST}/assets/imgs/products/${i.thumbnail}`} alt=""
                                                                 class={` w-72 h-72 rounded-sm bg-gray-500 scale-100`} />
                                                             {/* ${style === i._id && 'shadow-xl transition  filter  backdrop-filter backdrop-blur-sm'} */}
                                                             {/* {
