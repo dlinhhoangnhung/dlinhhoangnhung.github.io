@@ -4,7 +4,6 @@ import Target from "./Target";
 import { switchView } from "../../redux/actions/slideActions";
 import { useDispatch, useSelector } from "react-redux";
 
-import "./FirstView.css";
 
 const FirstView = () => {
   const dispatch = useDispatch();

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import authHeader from './auth-header';
 
-const API_URL = process.env.REACT_APP_SERVER_HOST + '/api/users'
+const API_URL = process.env.REACT_APP_SERVER_HOST + '/users/api'
 const user = JSON.parse(localStorage.getItem('userInfo'));
 
 class UserService {

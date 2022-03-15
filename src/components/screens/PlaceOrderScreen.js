@@ -153,7 +153,7 @@ export default function PlaceOrderScreen({ item }, props) {
                                     <li class="grid grid-cols-6 gap-2 border-b-1">
                                         <div class="col-span-1 self-center">
                                             <a href={`/items/${item.name}-${item.product}`}>
-                                                <img alt="Product" className="rounded w-full" src={`./assets/imgs/products/${item.thumbnail}`} />
+                                                <img alt="Product" className="rounded w-full" src={`../assets/imgs/products/${item.thumbnail}`} />
                                             </a>
                                         </div>
                                         <div class="flex flex-col col-span-3 pt-2">
