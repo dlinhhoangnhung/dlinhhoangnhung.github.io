@@ -83,7 +83,7 @@ const CartScreen = () => {
 
                                             <div class="flex w-2/5">
                                                 <div class="w-20">
-                                                    <img class="h-12 w-14" src={`http://localhost:3000/assets/imgs/products/${item.thumbnail}`} alt="" />
+                                                    <img class="h-12 w-14" src={`./assets/imgs/products/${item.thumbnail}`} alt="" />
                                                 </div>
                                                 <div class="flex flex-col justify-between ml-4 flex-grow">
                                                     <span onClick={() => { compare() }} class="font-bold text-sm">{item.name}</span>

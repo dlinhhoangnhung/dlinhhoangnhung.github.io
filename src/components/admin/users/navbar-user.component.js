@@ -63,7 +63,7 @@ const NavbarUser = () => {
                             {/* {
                                 userInfo.avatar && (userInfo.avatar ?
                                     (
-                                        <img src={`http://localhost:3000/assets/imgs/users/${userInfo.avatar}`} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
+                                        <img src={`./assets/imgs/users/${userInfo.avatar}`} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
                                     ) : <img src={sample} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />)
                             } */}
                         </div>

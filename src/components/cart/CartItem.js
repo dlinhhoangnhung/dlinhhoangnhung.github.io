@@ -34,7 +34,7 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, increament2, decreame
     return (
         <li class="py-6 flex">
             <div class="flex-shrink-0 w-24 h-24 border border-gray-200 rounded-md overflow-hidden">
-                <img src={`http://localhost:3000/assets/imgs/products/${item.thumbnail}`} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="w-full h-full object-center object-cover" />
+                <img src={`./assets/imgs/products/${item.thumbnail}`} alt="Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt." class="w-full h-full object-center object-cover" />
             </div>
             <div class="ml-4 flex-1 flex flex-col">
                 <div>
@@ -83,7 +83,7 @@ const CartItem = ({ item, qtyChangeHandler, removeHandler, increament2, decreame
         </li >
         // <div className='cartitem'>
         //     <div className="cartitem-img">
-        //         <img src={`http://localhost:3000/assets/imgs/products/${item.thumbnail}`} />
+        //         <img src={`./assets/imgs/products/${item.thumbnail}`} />
         //     </div>
 
         //     <Link to={`/items/${item.name}-${item.product}`}>
@@ -124,7 +124,7 @@ export default CartItem
 
 // {/* <div className='cartitem'>
 //                 <div className="cartitem-img">
-//                     <img src="{`http://localhost:3000/assets/imgs/products/${item.thumbnail}`}" />
+//                     <img src="{`./assets/imgs/products/${item.thumbnail}`}" />
 //                 </div>
 
 //                 <Link to={`/items/${item.product}`}>

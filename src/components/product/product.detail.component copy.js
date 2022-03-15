@@ -96,7 +96,7 @@ export default class ProductDetail extends Component {
                             <div class="md:flex-1 px-4">
                                 <div x-data="{ image: 1 }" x-cloak>
                                     <div x-show="image === 1" class="h-screen md:h-2/3 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
-                                        <img src={`http://localhost:3000/assets/imgs/products/${images[index]}`} className="pt-10 mb-4" />
+                                        <img src={`./assets/imgs/products/${images[index]}`} className="pt-10 mb-4" />
                                     </div>
 
                                     <div class="flex -mx-2 mb-4">

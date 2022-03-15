@@ -271,7 +271,7 @@ export default class ProductDetail extends Component {
                                     </svg>
                                 </div>
                                 <canvas onClick={this.showOpenFileDlg} class="bg-gray-400 rounded-full" width="120" height="120">
-                                    <img src={`http://localhost:3000/assets/imgs/users/${avatar[0]}`} className="w-30 h-30 rounded-full"/>
+                                    <img src={`./assets/imgs/users/${avatar[0]}`} className="w-30 h-30 rounded-full"/>
                                     <input ref={this.inputOpenFileRef} va style={{ display: "none" }} type="file" name="avatar" className="h-full w-full" onChange={this.onFileChange} />
                                 </canvas>
                             </div>
@@ -323,7 +323,7 @@ export default class ProductDetail extends Component {
                                                     !this.state.avatar ? (
                                                         <img src={sample} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
                                                     ) : (
-                                                        <img src={`http://localhost:3000/assets/imgs/users/${avatar}`} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
+                                                        <img src={`./assets/imgs/users/${avatar}`} className="inline-block h-10 w-10 rounded-full ring-2 ring-white" />
                                                     )
                                                 }
                                                 <input ref={this.inputOpenFileRef} style={{ display: "none" }} type="file" name="avatar" className="" onChange={this.onFileChange} />

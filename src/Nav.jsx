@@ -106,7 +106,7 @@ const Nav = ({ history, user, amountNoti, notify, amountCart }) => {
                     >
                       <img
                         class="h-8 w-8 rounded-full object-cover mx-1"
-                        src={`http://localhost:3000/assets/imgs/products/${val.thumbnail}`}
+                        src={`./assets/imgs/products/${val.thumbnail}`}
                         alt="avatar"
                       />
                       <span className="font-[Poppins] ">{val.name}</span>
@@ -299,7 +299,7 @@ const Nav = ({ history, user, amountNoti, notify, amountCart }) => {
                 >
                   <img
                     class="h-8 w-8 rounded-full object-cover mx-1"
-                    src={`http://localhost:3000/assets/imgs/products/${o.order.orderItems[0].thumbnail}`}
+                    src={`./assets/imgs/products/${o.order.orderItems[0].thumbnail}`}
                     alt="avatar"
                   />
                   <p class="text-gray-600 text-sm mx-2 incol">

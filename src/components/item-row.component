@@ -32,8 +32,8 @@ const useStyles = makeStyles((theme) => ({
 
 const classes = useStyles
 
-// img src="{`http://localhost:3000/assets/imgs/products/${this.props.product.thumbnail}`}"
-// image={"http://localhost:3000/assets/imgs/products/"+this.props.product.thumbnail}
+// img src="{`./assets/imgs/products/${this.props.product.thumbnail}`}"
+// image={"./assets/imgs/products/"+this.props.product.thumbnail}
 
 
 export default class Item extends Component {
@@ -42,7 +42,7 @@ export default class Item extends Component {
             <Card className={classes.root} variant="outlined" >
                 <CardMedia style={{ height: "250px", paddingTop: "2%" }}
                     className={classes.media}
-                    image={"http://localhost:3000/assets/imgs/products/" + this.props.product.thumbnail}
+                    image={"./assets/imgs/products/" + this.props.product.thumbnail}
                     title="Contemplative Reptile"
                 />
 

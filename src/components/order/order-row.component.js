@@ -19,7 +19,7 @@ export default class OrderRow extends Component {
                             <div onClick={e => window.location.href = '/admin-view/order/' + this.props.order._id} className="inrow space-x-52">
                                 <div className="inrow">
                                     <div className="">
-                                        <img src={`http://localhost:3000/assets/imgs/products/${this.props.order.orderItems[0].thumbnail}`} alt="Model wearing plain white basic tee." class="bg-gray-200 w-40 h-28 rounded-lg " />
+                                        <img src={`./assets/imgs/products/${this.props.order.orderItems[0].thumbnail}`} alt="Model wearing plain white basic tee." class="bg-gray-200 w-40 h-28 rounded-lg " />
                                     </div>
                                     <div className="ml-5 incol">
 

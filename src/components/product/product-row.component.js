@@ -46,7 +46,7 @@ export default class ProductRow extends Component {
 
                         <div onClick={e => window.location.href = '/admin-view/product/' + this.props.product._id} className="flex-shrink-0 h-10 w-3/5 flex ">
                             <img className="h-10 w-10 ml-6 mb-2 rounded-md"
-                                src={`http://localhost:3000/assets/imgs/products/${this.props.product.thumbnail}`}
+                                src={`./assets/imgs/products/${this.props.product.thumbnail}`}
                                 alt="" />
                             <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">

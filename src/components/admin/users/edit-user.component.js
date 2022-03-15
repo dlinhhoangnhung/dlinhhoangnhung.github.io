@@ -455,7 +455,7 @@ export default class EditUser extends Component {
                                         <div class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4">
                                             <div x-show="image === 1" class="h-64 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
                                                 {/* <span class="text-5xl">1</span> */}
-                                                <img src={`http://localhost:3000/assets/imgs/products/${images[index]}`} />
+                                                <img src={`./assets/imgs/products/${images[index]}`} />
 
                                                 {/* <img src={this.state.previewImages[index]} /> */}
                                             </div>
@@ -466,7 +466,7 @@ export default class EditUser extends Component {
                                                         <img
                                                             key={index}
                                                             class="small-image-gallery"
-                                                            src={`http://localhost:3000/assets/imgs/products/${i}`}
+                                                            src={`./assets/imgs/products/${i}`}
                                                             onClick={() => this.handleTab(index)}
                                                         />
                                                     )

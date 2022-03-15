@@ -43,7 +43,7 @@
                     notis.length > 0 ? notis.map((o) =>
                         <div className={`incol ${!o.isRead && !read.includes(o._id) ? 'bg-gray-200' : 'bg-white'}`}>
                             <a onClick={() => { checkedStatus(o._id) }} class={` w-full flex items-center px-4 py-3 border-b hover:bg-gray-100 -mx-2`}>
-                                <img class="h-8 w-8 rounded-full object-cover mx-1" src={`http://localhost:3000/assets/imgs/products/${o.order.orderItems[0].thumbnail}`} alt="avatar" />
+                                <img class="h-8 w-8 rounded-full object-cover mx-1" src={`./assets/imgs/products/${o.order.orderItems[0].thumbnail}`} alt="avatar" />
                                 <p class="text-gray-600 text-sm mx-2 incol">
                                     {
                                         o.type === 1 ? <span class="font-bold" href="#">Đơn hàng #<span className="text-indigo-500">{o.orderid}</span> {o.content}</span> : <span class="font-bold" href="#">{o.content}</span>
@@ -70,7 +70,7 @@
 orderUpdate && orderUpdate.map((o, i) =>
 <div onClick={(o.process)}>
     <div className="inrow">
-        <img className="h-8 w-10" src={`http://localhost:3000/assets/imgs/products/${o.orderItems[0].thumbnail}`} />
+        <img className="h-8 w-10" src={`./assets/imgs/products/${o.orderItems[0].thumbnail}`} />
         <span className="text-sm">Trạng thái đơn hàng thay đổi
             <span className="ml-1 text-orange-300"> Xem</span>
         </span>

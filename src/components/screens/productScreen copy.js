@@ -68,7 +68,7 @@
 //                 <>
 //                     <div className="screen_left">
 //                         <div className="left_image">
-//                             <img src={`http://localhost:3000/assets/imgs/products/${product.thumbnail}`} />
+//                             <img src={`./assets/imgs/products/${product.thumbnail}`} />
 //                         </div>
 //                         <div className="left_info">
 //                             <p className="left_name">{product.name}</p>
@@ -127,7 +127,7 @@
   
 // export default connect(mapStateToProps)(ProductScreen)
 
-// {/* //         <img src={`http://localhost:3000/assets/imgs/products/${product.thumbnail}`} />
+// {/* //         <img src={`./assets/imgs/products/${product.thumbnail}`} />
 //         // <Card className={classes.root}>
 //         //     <h3>Items</h3>
 //         //     <di container spacing={2} direction="row" justify="flex-start" alignItems="flex-start" >
@@ -136,7 +136,7 @@
 //         //                 <Card className={classes.root} variant="outlined" >
 //         //                     <CardMedia style={{ height: "250px", paddingTop: "2%" }}
 //         //                         className={classes.media}
-//         //                         image={`http://localhost:3000/assets/imgs/products/${product.thumbnail}`}
+//         //                         image={`./assets/imgs/products/${product.thumbnail}`}
 //         //                         title="Contemplative Reptile"
 //         //                     />
 //         //                     <CardContent>

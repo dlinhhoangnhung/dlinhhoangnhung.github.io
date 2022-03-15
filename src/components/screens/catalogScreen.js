@@ -482,7 +482,7 @@ const Catalog = ({ match, history }, props) => {
                                                         onClick={e => window.location.href = '/user-view/item-' + value._id}
                                                         onMouseEnter={e => { setStyle(value._id); }}
                                                         onMouseLeave={e => { setStyle(0) }}
-                                                        src={`http://localhost:3000/assets/imgs/products/${value.thumbnail}`} alt=""
+                                                        src={`./assets/imgs/products/${value.thumbnail}`} alt=""
                                                         class={` w-72 h-64 rounded-sm bg-gray-500`} />
                                                     {/* ${style === i._id && 'shadow-xl transition  filter  backdrop-filter backdrop-blur-sm'} */}
                                                     {

@@ -33,7 +33,7 @@ const Product = ({ thumbnail, name, desc, images, price, productId }) => {
                         <Card className={classes.root} variant="outlined" >
                             <CardMedia style={{ height: "250px", paddingTop: "2%" }}
                                 className={classes.media}
-                                image={"http://localhost:3000/assets/imgs/products/" + thumbnail}
+                                image={"./assets/imgs/products/" + thumbnail}
                                 title="Contemplative Reptile"
                             />
                             <CardContent>
@@ -79,7 +79,7 @@ export default Product
 
 
     // <div  className = "product" >
-    //             <img src={`http://localhost:3000/assets/imgs/products/${thumbnail}`} />
+    //             <img src={`./assets/imgs/products/${thumbnail}`} />
 
     //             <div className="product-info">
     //                 <p className="info-name">{name}</p>

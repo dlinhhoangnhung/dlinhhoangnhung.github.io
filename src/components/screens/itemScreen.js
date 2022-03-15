@@ -219,20 +219,20 @@ const ItemScreen = ({ match, history }) => {
                                 <img
                                     // onClick={() => this.handleTab(index)}
                                     // key={index}
-                                    src={`http://localhost:3000/assets/imgs/products/${isProduct[0]}`}
+                                    src={`./assets/imgs/products/${isProduct[0]}`}
                                     alt="Two each of gray, white, and black shirts laying flat."
                                     class="w-full h-full object-center object-cover" />
                             </div>
                             <div class="hidden lg:grid lg:grid-cols-1 lg:gap-y-8">
                                 <div class="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
-                                    <img src={`http://localhost:3000/assets/imgs/products/${isProduct[1]}`} alt="Model wearing plain black basic tee." class="w-full h-full object-center object-cover" />
+                                    <img src={`./assets/imgs/products/${isProduct[1]}`} alt="Model wearing plain black basic tee." class="w-full h-full object-center object-cover" />
                                 </div>
                                 <div class="aspect-w-3 aspect-h-2 rounded-lg overflow-hidden">
-                                    <img src={`http://localhost:3000/assets/imgs/products/${isProduct[2]}`} alt="Model wearing plain gray basic tee." class="w-full h-full object-center object-cover" />
+                                    <img src={`./assets/imgs/products/${isProduct[2]}`} alt="Model wearing plain gray basic tee." class="w-full h-full object-center object-cover" />
                                 </div>
                             </div>
                             <div class="aspect-w-4 aspect-h-5 sm:rounded-lg sm:overflow-hidden lg:aspect-w-3 lg:aspect-h-4">
-                                <img src={`http://localhost:3000/assets/imgs/products/${isProduct[3]}`} alt="Model wearing plain white basic tee." class="w-full h-full object-center object-cover" />
+                                <img src={`./assets/imgs/products/${isProduct[3]}`} alt="Model wearing plain white basic tee." class="w-full h-full object-center object-cover" />
                             </div>                            
 
                     </div>

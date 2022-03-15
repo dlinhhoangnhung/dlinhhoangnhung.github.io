@@ -117,7 +117,7 @@ export default function PlaceOrderScreen({ item }, props) {
                                                             (cartItems.map((item) => (
                                                                 <tr className="font-weight-boldest">
                                                                     <a href={`/items/${item.name}-${item.product}`}>
-                                                                        <img className="img" src={`http://localhost:3000/assets/imgs/products/${item.thumbnail}`} />
+                                                                        <img className="img" src={`./assets/imgs/products/${item.thumbnail}`} />
                                                                     </a>
                                                                     <td className="pl-0 pt-7">{item.name}</td>
                                                                     <td className="text-right pt-7">{item.price}</td>

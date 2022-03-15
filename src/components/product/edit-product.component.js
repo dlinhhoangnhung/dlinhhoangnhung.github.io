@@ -536,7 +536,7 @@ export default class EditProduct extends Component {
     //     return this.state.images && this.state.images.map((img, index) => {
     //         return
     //         <div class="small-image-gallery" key={index}>
-    //             <img src={`http://localhost:3000/assets/imgs/products/${this.state.images}`} />
+    //             <img src={`./assets/imgs/products/${this.state.images}`} />
     //         </div>
     //     })
     // }
@@ -665,7 +665,7 @@ export default class EditProduct extends Component {
                                             <div class="h-48 md:h-80 rounded-lg bg-gray-100 mb-4">
                                                 <div x-show="image === 1" class="h-48 md:h-80 rounded-lg bg-gray-100 mb-4 flex items-center justify-center">
                                                     {/* <span class="text-5xl">1</span> */}
-                                                    <img src={`http://localhost:3000/assets/imgs/products/${images[index]}`} />
+                                                    <img src={`./assets/imgs/products/${images[index]}`} />
 
                                                     {/* <img src={this.state.previewImages[index]} /> */}
                                                 </div>
@@ -676,7 +676,7 @@ export default class EditProduct extends Component {
                                                             <img
                                                                 key={index}
                                                                 class="small-image-gallery"
-                                                                src={`http://localhost:3000/assets/imgs/products/${i}`}
+                                                                src={`./assets/imgs/products/${i}`}
                                                                 onClick={() => this.handleTab(index)}
                                                             />
                                                         )) : 'null'
