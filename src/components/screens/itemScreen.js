@@ -200,7 +200,7 @@ const ItemScreen = ({ match, history }) => {
         await userService.getSingleProduct(match.params.id)
             .then(response => {
                 setIsProduct(response.data.images)
-                console.log(isProduct)
+                console.log("isProduct", isProduct)
             })
             .catch(err => {
                 console.log(err);

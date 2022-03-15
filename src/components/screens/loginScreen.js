@@ -9,7 +9,6 @@ import Navbar from "../navbar.component";
 import Forgot from "./forgotScreen";
 import authService from "../services/auth.service";
 import G from '../../assets/G.png'
-import sha256 from 'crypto-js/sha256';
 var crypto = require('crypto');
 
 export default class LoginScreen extends Component {
