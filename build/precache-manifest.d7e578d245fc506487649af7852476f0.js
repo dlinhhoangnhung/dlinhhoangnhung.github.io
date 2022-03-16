@@ -104,7 +104,7 @@ self.__precacheManifest = [
     "url": "/static/media/basket.95abf109.svg"
   },
   {
-    "revision": "5094bfe23adf9d7324878a123206155f",
+    "revision": "60f0c163e64d1fbf9a52bc0bb474878a",
     "url": "/index.html"
   }
 ];
