@@ -1,6 +1,6 @@
 import React, { Component, useEffect } from "react";
 import SideBar from '../../SideBar'
-import CarouseBar from '../CarouseBar'
+//import CarouseBar from '../CarouseBar'
 import Navbar from '../navbar.component'
 import { getProducts as listProducts } from "../../redux/actions/productAction";
 import { useDispatch, useSelector } from 'react-redux'
