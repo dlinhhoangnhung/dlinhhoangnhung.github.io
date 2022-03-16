@@ -197,7 +197,7 @@ export default class OrderScreen extends Component {
                                                     <div className="inrow space-x-52 mb-4">
                                                         <div className="inrow">
                                                             <div onClick={() => console.log(item.thumbnail)} className="">
-                                                                <img src={`./assets/imgs/products/${item.thumbnail}`} alt="Model wearing plain white basic tee." class="bg-gray-200 w-40 h-38 rounded-lg " />
+                                                                <img src={`../assets/imgs/products/${item.thumbnail}`} alt="Model wearing plain white basic tee." class="bg-gray-200 w-40 h-38 rounded-lg " />
                                                             </div>
                                                             <div className="ml-5 incol w-3/10">
 
