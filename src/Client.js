@@ -86,12 +86,13 @@ export const UserContext = createContext();
 //  right: 20px;
 //  top: 20px;
 // `
-const Routing = () => {
+const Routing = (props) => {
+  console.log(props)
   return (
     <div>
       {/* <PrivateSidebar/> */}
       {/* sai css nen k acan */}
-      <Switch>
+      <Switch >
         <Route path='/admin/searchbar' component={SearchBar} />
         <Route path='/items' component={Catalog} />
 
@@ -170,7 +171,7 @@ function Client() {
   const [sideToggle, setSideToggle] = useState(false);
   // const [state, dispatch] = useReducer(reducer, initialState)
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={'/guccdesis-client/build/'}>
       {/* <Route> */}
       <div className='incol space-y-96 bg-catalog'>
         {/* Nvabar */}
