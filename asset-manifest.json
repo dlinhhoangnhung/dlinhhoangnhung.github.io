@@ -1,7 +1,7 @@
 {
   "main.css": "/guccdesis-client/build/static/css/main.ec48ae9d.chunk.css",
-  "main.js": "/guccdesis-client/build/static/js/main.3361b88c.chunk.js",
-  "main.js.map": "/guccdesis-client/build/static/js/main.3361b88c.chunk.js.map",
+  "main.js": "/guccdesis-client/build/static/js/main.ab93a44f.chunk.js",
+  "main.js.map": "/guccdesis-client/build/static/js/main.ab93a44f.chunk.js.map",
   "runtime~main.js": "/guccdesis-client/build/static/js/runtime~main.4f6432eb.js",
   "runtime~main.js.map": "/guccdesis-client/build/static/js/runtime~main.4f6432eb.js.map",
   "static/css/2.9d3a378b.chunk.css": "/guccdesis-client/build/static/css/2.9d3a378b.chunk.css",
@@ -10,7 +10,7 @@
   "static/js/3.20927385.chunk.js": "/guccdesis-client/build/static/js/3.20927385.chunk.js",
   "static/js/3.20927385.chunk.js.map": "/guccdesis-client/build/static/js/3.20927385.chunk.js.map",
   "index.html": "/guccdesis-client/build/index.html",
-  "precache-manifest.37a831a70b8871f49c7fbe4b5aaa8176.js": "/guccdesis-client/build/precache-manifest.37a831a70b8871f49c7fbe4b5aaa8176.js",
+  "precache-manifest.f16b7451ecab7a2025a59c9a0dd1524a.js": "/guccdesis-client/build/precache-manifest.f16b7451ecab7a2025a59c9a0dd1524a.js",
   "service-worker.js": "/guccdesis-client/build/service-worker.js",
   "static/css/2.9d3a378b.chunk.css.map": "/guccdesis-client/build/static/css/2.9d3a378b.chunk.css.map",
   "static/css/main.ec48ae9d.chunk.css.map": "/guccdesis-client/build/static/css/main.ec48ae9d.chunk.css.map",
