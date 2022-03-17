@@ -1,11 +1,11 @@
 self.__precacheManifest = [
   {
-    "revision": "e2c2e0d7c89cf55d257c",
+    "revision": "abfa5d5479742b8aeca6",
     "url": "/guccdesis-client/static/css/main.ec48ae9d.chunk.css"
   },
   {
-    "revision": "e2c2e0d7c89cf55d257c",
-    "url": "/guccdesis-client/static/js/main.38186bc2.chunk.js"
+    "revision": "abfa5d5479742b8aeca6",
+    "url": "/guccdesis-client/static/js/main.724fc126.chunk.js"
   },
   {
     "revision": "b3c0d04f4553276413e3",
@@ -104,7 +104,7 @@ self.__precacheManifest = [
     "url": "/guccdesis-client/static/media/basket.95abf109.svg"
   },
   {
-    "revision": "95fb64855ce57e242f899ff846aecc8b",
+    "revision": "85ce1cfce1a77a11ad0e903aebe9682d",
     "url": "/guccdesis-client/index.html"
   }
 ];
