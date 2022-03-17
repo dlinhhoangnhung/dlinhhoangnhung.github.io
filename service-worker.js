@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/guccdesis-client/build/precache-manifest.f16b7451ecab7a2025a59c9a0dd1524a.js"
+  "/guccdesis-client/build/precache-manifest.099223b355f1a77c23df3a9419af0dfc.js"
 );
 
 workbox.clientsClaim();

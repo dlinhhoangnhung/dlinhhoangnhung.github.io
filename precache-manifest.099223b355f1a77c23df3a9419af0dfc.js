@@ -104,7 +104,7 @@ self.__precacheManifest = [
     "url": "/guccdesis-client/build/static/media/basket.95abf109.svg"
   },
   {
-    "revision": "fffaef9e5616e79527a87b171012c34c",
+    "revision": "01402bb8206bf9cb60742ef4bc184c05",
     "url": "/guccdesis-client/build/index.html"
   }
 ];
