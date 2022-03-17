@@ -4,13 +4,6 @@ import Target from "./Target";
 import { switchView } from "../../redux/actions/slideActions";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  Switch,
-  Route,
-  Link,
-  useHistory,
-  BrowserRouter,
-} from "react-router-dom";
 
 const FirstView = () => {
   const dispatch = useDispatch();
@@ -48,19 +41,11 @@ const FirstView = () => {
         </div> */}
 
         <div class='flex grid place-items-center w-full h-screen pr-11 justify-end '>
-          {/* <img
-            onClick={(e) => (window.location.href = "/items")}
-            src='/img/brand.png'
-            class='w-5/12 ml-11 mt-32 absolute'
-          /> */}
-          <Link  class='w-5/12 ml-11 mt-32 absolute' to="/items">
           <img
-            // onClick={(e) => (window.location.href = "/items")}
-            src='./img/brand.png'
-            // class='w-5/12 ml-11 mt-32 absolute'
+            onClick={(e) => (window.location.href = "/items")}
+            src='img/brand.png'
+            class='w-5/12 ml-11 mt-32 absolute'
           />
-            </Link>
-
           <ul class=''>
             <li class=''>
               <span
