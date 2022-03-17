@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/guccdesis-client/build/precache-manifest.099223b355f1a77c23df3a9419af0dfc.js"
+  "/precache-manifest.ccdcc6e45c14d820294a0f315508facf.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/guccdesis-client/build/index.html", {
+workbox.routing.registerNavigationRoute("/index.html", {
   
   blacklist: [/^\/_/,/\/[^/]+\.[^/]+$/],
 });
